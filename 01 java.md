@@ -255,9 +255,177 @@ f.method()
 
 ## Collection 泛型
 
+### Collection集合
+
+1. 集合概述
+   
+   * 集合与数组的区别
+     
+     * 数组长度固定。集合长度可变。
+     
+     * 数组中存储的是同一类型的元素，可以存储基本数据类型值。集合存储的都是对象。而且对象的类型可以不一致。在开发中一般当对象多的时候，使用集合进行存储。
+
+2. 集合框架
+
+集合按照其存储结构可以分为两大类，分别是单列集合 `java.util.Collection` 和双列集合`java.util.Map`
+
+**Collection**:单列集合类的根接口，用于存储一系列符合某种规则的元素，它有两个重要的子接口，分别是 `java.util.List` 和` java.util.Set` 。其中， `List` 的特点是元素有序、元素可重复。 Set 的特点是元素无序，而且不可重复。 
+
+* List 接口的主要实现类有 `java.util.ArrayList`和 `java.util.LinkedList` ，
+
+* ` Set` 接口的主要实现类有 `java.util.HashSet` 和`java.util.TreeSet`
+3. Collection常用功能
+   
+   * `public boolean add(E e)`
+   
+   * `public void clear()`
+   
+   * `public boolean remove(E e)`
+   
+   * `public boolean contains(E e)`
+   
+   * `public boolean isEmpty()`
+   
+   * `public int size()`
+   
+   * `public object[] toArray()`
+
+### Iterator迭代器
+
+#### Iterator接口
+
+* `public Iterator iterator()`获取集合对应的迭代器，用来遍历集合中的元素的
+
+* `public E next()`  返回迭代的下一个元素
+
+* `public boolean hasNext()`如果仍有元素可以迭代，则返回 true。
+
+```java
+Collection<String> coll = new ArrayList<>();
+coll.add();
+
+
+
+Iterator it = coll.iterator();
+while(it.hasNext()){
+    String s = it.next();
+    System.out.println(s)
+}
+```
+
+#### 迭代器的实现原理
+
+#### 增强for
+
+```java
+for (元素的数据类型 变量 ：Collection集合或数组){
+    doSomething();
+}
+```
+
+### 泛型
+
+* 定义和使用含有泛型的类
+
+`修饰符 class 类名<代表泛型的变量> { }`
+
+* 含有泛型的方法
+
+`修饰符 <代表泛型的变量> 返回值类型 方法名(参数){ }`
+
+* 含有泛型的接口
+
+`修饰符 interface接口名<代表泛型的变量> { }`
+
 ## List Set
 
+* List接口中常用方法，List作为Collection集合的子接口，不但继承了Collection接口中的全部方法，而且还增加了一些根据元素索引来操作集合的特有方法
+  
+  * `public void add(int index,E element)`
+  
+  * `public E get(index)`
+  
+  * `public E remove(index)`
+  
+  * `public E set(int index ,E element)`
+
+* List
+  
+  * ArrayList
+  
+  * LinkedList
+    
+    * `public void addFirst(E e)`
+    
+    * `public void addLast(E e)`
+    
+    * `public E getFirst()`
+    
+    * `public E getLast()`
+    
+    * `public E removeFirst()`
+    
+    * `public E removeLast()`
+    
+    * `public E pop`
+    
+    * `public void push`
+    
+    * `public boolean isEmpty()`
+
+* Set
+  
+  同样继承自`Collection`接口
+  
+  * `HashSet`
+    
+    * `HashSet`是根据对象的哈希值来确定元素在集合中存在位置，因此具有良好的存取和查找性能。保证元素唯一性的方式依赖于：`hashCode`与`equals`方法
+    
+    * 如果我们往集合中存放自定义的对象，那么保证其唯一，就必须复写`hashCode`和`equals`方法建立属于当前对象的比较方式。
+  
+  * `LinkedSet`
+
+### 可变参数
+
+`修饰符 返回值类型 方法名(参数类型... 形参名){ }`
+
+`修饰符 返回值类型 方法名(参数类型[] 形参名){ }`
+
+后面这种定义，在调用时必须传递**数组**，而前者可以**直接传递数据**即可
+
+### Collections
+
+* Collections是集合工具类，用来对集合进行操作。
+
+* `puclic static <T> bollean addAll(Collection<T> c,T...elements)`
+
+* `public static void shuffle(List<?> list) `
+
+* `public static <T> void sort(List<T> list)`
+
+* `public static <T> void sort(List<T> list ,Comparator<? super <T>)`
+
 ## Map
+
+### Map集合
+
+Map常用子类
+
+* HashMap
+
+* LinkedHashMap
+
+Map中常用的方法
+
+* `public V put(K key, V value)`
+
+* `public V remove(object key)`
+
+* `public V get(object key)`
+
+* `public Set<k> keySet()`
+
+* `public Set<Map.Entry<K,V>> entrySet()`
 
 # 异常与多线程
 
@@ -334,6 +502,12 @@ socket类
 
 # MySQL
 
+索引
+
+事务
+
 # JDBC
+
+[JDBC笔记_清风徐来ya的博客-CSDN博客](https://blog.csdn.net/weixin_45775746/article/details/108890862)
 
 Java DataBase Connectivity 
