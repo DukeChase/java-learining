@@ -2,6 +2,31 @@
 
 # 基础语法
 
+常量 变量
+
+数据类型
+
+* 基本数据类型 整数浮点数 字符 布尔
+
+* 引用数据类型 类 数组 接口
+
+基本数据类型
+
+| 数据类型 | 关键字     | 内存占用 | 取值范围             |
+| ---- | ------- | ---- | ---------------- |
+| 字节型  | int     | 1    |                  |
+| 短整型  | short   | 2    |                  |
+| 整型   | int     | 4    | -2的31次方~2的31次方-1 |
+| 长整型  | long    | 8    | -2的63次方~2的63次方-1 |
+| 单精度  | float   | 4    |                  |
+| 双精度  | double  | 8    |                  |
+| 字符型  | char    | 2    |                  |
+| 布尔型  | boolean | 1    |                  |
+
+> long类型：建议数据后加L表示
+> 
+> float类型：建议数据后加F表示。
+
 # 数组
 
 ```java
@@ -22,27 +47,33 @@ int[] c = {1,3,5};
 
 ## 数组作为方法参数和返回值
 
+java都是值传递，引用类型是对象的地址
+
+> 方法的参数为基本类型时,传递的是数据值. 方法的参数为引用类型时,传递的是地址值.
+
 # 类与对象 封装 构造方法
 
-对象内存图
+## 对象内存图
 
 两个对象，调用同一方法内存图
 
-构造方法
+## 构造方法
 
 方法名与它所在的类名相同。它没有返回值，所以不需要返回值类型，甚至不需要void。
 
 ```java
 public ConstructorName(){
-
+    // 空构造器
 }
 ```
 
-JavaBean
+### JavaBean
+
+`JavaBean` 是 `Java`语言编写类的一种标准规范。符合 `JavaBean` 的类，要求类必须是具体的和公共的，并且具有无参数的构造方法，提供用来操作成员变量的 set 和 get 方法。
 
 # 常用API第一部分
 
-## Scanner Random ArrayList
+## 1. Scanner Random ArrayList
 
 day07【Scanner类、Random类、ArrayList类】.pdf
 
@@ -65,7 +96,7 @@ r.nextInt();
 ### ArrayList
 
 ```java
-ArrayList<String> list = new ArrayList<>();
+ArrayList<String> list = new ArrayList<>(); // 泛型
 ```
 
 `public ArrayList()`
@@ -80,7 +111,7 @@ ArrayList<String> list = new ArrayList<>();
 
 * `public int size()`
 
-## String static Arrayas Math类
+## 2. String static Arrayas Math类
 
 day08【String类、static、Arrays类、Math类】.pdf
 
@@ -88,17 +119,15 @@ day08【String类、static、Arrays类、Math类】.pdf
 
 [String性能提升10倍的几个方法](https://mp.weixin.qq.com/s/KRRLt0EaIwDEPCTGvqnWJA)
 
-官方为我们提供了两种字符串拼加的方案：`StringBuffer` 和 `StringBuilder`，其中 `StringBuilder` 为非线程安全的，而 `StringBuffer` 则是线程安全的
+官方为我们提供了两种字符串拼加的方案：`StringBuffer` 和 `StringBuilder`，其中 `StringBuilder` 为非线程安全的，而 `StringBuffer` 则是线程安全的。
 
-#### 概述
-
+1. 概述
 * 字符串不变
 
 * 因为String对象是不可变的，所以它们可以被共享。
 
 * `"abc"`等效于`char[] data = {'a','b','c'}`
-
-#### 使用步骤
+2. 使用步骤
 
 ```java
 // 无参构造 
@@ -111,54 +140,52 @@ byte bytes[] = { 97, 98, 99 };
 String str3 = new String(bytes);
 ```
 
-#### 常用方法
+1. 常用方法
+* 判断功能的方法
+  
+  * equals
+  
+  * equalsIgnoreCase
 
-1. 判断功能的方法
-   
-   * equals
-   
-   * equalsIgnoreCase
+* 获取功能的方法
+  
+  * `public int length()`
+  
+  * `public String concat(String str)`
+  
+  * `public char charAt(int index)`
+  
+  * `public int indexOf(String str)`返回指定子字符串第一次出现在该字符串内的索引。
+  
+  * `public String substring(int beginIndex)`返回一个子字符串，从beginIndex开始截取字符串到字符
+    
+    串结尾。
+  
+  * `public String substring(int beginIndex, int endIndex)`返回一个子字符串，从beginIndex到
+    
+    endIndex截取字符串。含beginIndex，不含endIndex。
 
-2. 获取功能的方法
-   
-   * `public int length()`
-   
-   * `public String concat(String str)`
-   
-   * `public char charAt(int index)`
-   
-   * `public int indexOf(String str)`返回指定子字符串第一次出现在该字符串内的索引。
-   
-   * `public String substring(int beginIndex)`返回一个子字符串，从beginIndex开始截取字符串到字符
-     
-     串结尾。
-   
-   * `public String substring(int beginIndex, int endIndex)`返回一个子字符串，从beginIndex到
-     
-     endIndex截取字符串。含beginIndex，不含endIndex。
+* 转换功能的方法
+  
+  * `public char[] toCharrArray()`
+  
+  * `public byte[] getBytes()`使用平台的默认字符集将该 String编码转换为新的字节数组。
+  
+  * `public String replace(CharSequence target, CharSequence replacement)`将与target匹配的字符串使
+    
+    用replacement字符串替换。
 
-3. 转换功能的方法
-   
-   * `public char[] toCharrArray()`
-   
-   * `public byte[] getBytes()`使用平台的默认字符集将该 String编码转换为新的字节数组。
-   
-   * `public String replace(CharSequence target, CharSequence replacement)`将与target匹配的字符串使
-     
-     用replacement字符串替换。
-
-4. 分割功能的方法
-   
-   * `public String[] split(String regex)`将此字符串按照给定的regex（规则）拆分为字符串数组。
+* 分割功能的方法
+  
+  * `public String[] split(String regex)`将此字符串按照给定的regex（规则）拆分为字符串数组。
 
 ### static
 
-#### 概述
+* 概述
 
 修饰成员变量和成员方法，被修饰的成员是属于类的，而不是单单是属于某个对象的。
 
-#### 定义和使用方法
-
+* 定义和使用方法
 1. 类变量
 
 2. 静态方法
@@ -247,9 +274,70 @@ f.method()
 
 # 常用API第二部分
 
-## Object类
+## Object类 常用API
 
-## 常用API
+### Object类
+
+1. `public String toString`
+
+2. `public boolean equals(Object obj)`
+
+默认地址比较
+
+如果没有覆盖重写equals方法，那么Object类中默认进行`==`运算符的对象地址比较，只要不是同一个对象，结果必然为false。
+
+对象内容比较
+如果希望进行对象的内容比较，即所有或指定的部分成员变量相同就判定两个对象相同，则可以覆盖重写equals方法。例如：
+
+```java
+public class Person {    
+    private String name;
+    private int age;
+
+    @Override
+    public boolean equals(Object o) {
+        // 如果对象地址一样，则认为相同
+        if (this == o)
+            return true;
+        // 如果参数为空，或者类型信息不一样，则认为不同
+        if (o == null || getClass() != o.getClass())
+            return false;
+        // 转换为当前类型
+        Person person = (Person) o;
+        // 要求基本类型相等，并且将引用类型交给java.util.Objects类的equals静态方法取用结果
+        return age == person.age && Objects.equals(name, person.name);
+    }
+}
+```
+
+### 日期时间类
+
+### System类
+
+- `public static long currentTimeMillis()`：返回以毫秒为单位的当前时间。
+
+- `public static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length)`：将数组中指定的数据拷贝到另一个数组中。
+
+### StringBuilder类
+
+StringBuilder常用的方法有2个：
+
+- `public StringBuilder append(...)`：添加任意类型数据的字符串形式，并***返回当前对象自身***。
+
+- `public String toString()`：将当前StringBuilder对象转换为**String对象**。
+
+### 包装类
+
+| 基本类型    | 对应的包装类（位于java.lang包中） |
+| ------- | --------------------- |
+| byte    | Byte                  |
+| short   | Short                 |
+| int     | **Integer**           |
+| long    | Long                  |
+| float   | Float                 |
+| double  | Double                |
+| char    | **Character**         |
+| boolean | Boolean               |
 
 # 集合
 
@@ -269,9 +357,9 @@ f.method()
 
 集合按照其存储结构可以分为两大类，分别是单列集合 `java.util.Collection` 和双列集合`java.util.Map`
 
-**Collection**:单列集合类的根接口，用于存储一系列符合某种规则的元素，它有两个重要的子接口，分别是 `java.util.List` 和` java.util.Set` 。其中， `List` 的特点是元素有序、元素可重复。 Set 的特点是元素无序，而且不可重复。 
+**Collection**:单列集合类的根接口，用于存储一系列符合某种规则的元素，它有两个重要的子接口，分别是 `java.util.List` 和` java.util.Set` 。其中，`List` 的特点是元素有序、元素可重复。 Set 的特点是元素无序，而且不可重复。 
 
-* List 接口的主要实现类有 `java.util.ArrayList`和 `java.util.LinkedList` ，
+* `List` 接口的主要实现类有 `java.util.ArrayList`和 `java.util.LinkedList` ，
 
 * ` Set` 接口的主要实现类有 `java.util.HashSet` 和`java.util.TreeSet`
 3. Collection常用功能
@@ -303,8 +391,6 @@ f.method()
 ```java
 Collection<String> coll = new ArrayList<>();
 coll.add();
-
-
 
 Iterator it = coll.iterator();
 while(it.hasNext()){
@@ -349,7 +435,7 @@ for (元素的数据类型 变量 ：Collection集合或数组){
   
   * `public E set(int index ,E element)`
 
-* List
+* `List`
   
   * ArrayList
   
@@ -373,7 +459,7 @@ for (元素的数据类型 变量 ：Collection集合或数组){
     
     * `public boolean isEmpty()`
 
-* Set
+* `Set`
   
   同样继承自`Collection`接口
   
@@ -382,6 +468,10 @@ for (元素的数据类型 变量 ：Collection集合或数组){
     * `HashSet`是根据对象的哈希值来确定元素在集合中存在位置，因此具有良好的存取和查找性能。保证元素唯一性的方式依赖于：`hashCode`与`equals`方法
     
     * 如果我们往集合中存放自定义的对象，那么保证其唯一，就必须复写`hashCode`和`equals`方法建立属于当前对象的比较方式。
+    
+    * hashCode相等，不一定equals
+    
+    * equals则hashCode一定相等；
   
   * `LinkedSet`
 
@@ -409,6 +499,8 @@ for (元素的数据类型 变量 ：Collection集合或数组){
 
 ### Map集合
 
+ [面试官：为什么要重写hashcode和equals方法？](https://mp.weixin.qq.com/s/QZPezSruj0qvBUJEM4jB0g)
+
 Map常用子类
 
 * HashMap
@@ -433,16 +525,48 @@ Map中常用的方法
 
 ### 异常
 
+* 概念
+
+* 体系
+
+异常的根类是 `java.lang.Throwable` ，其下有两个子类：   `java.lang.Error` 与 `java.lang.Exception` ，平常所说的异常指 `java.lang.Exception`。
+
+分类`Throwable`中的常用方法
+
+* `public void printStackTrace()`
+
+* `public String getMessage()`
+
+* `public String toString()`
+
+### 异常的处理
+
+`throw`
+
+`throws`
+
+`try catch`
+
+`finally`
+
+### 自定义异常
+
+### 线程
+
+* 并发：指两个或多个事件在同一个时间段内发生。
+
+* 并行：指两个或多个事件在同一时刻发生（同时发生）。
+
 ## 线程 同步
 
 多线程的两种方式
 
-- extends Thread
-- implement Runnable
+- `extends Thread`
+- `implement Runnable`
 
 实现Runnable接口比继承Thread类所具有的优势：
 
-1. 适合多个相同的程序代码的线程去共享一个资源。
+1. 适合多个相同的程序代码的线程去**共享一个资源**。
 
 2. 可以避免java中的单继承的局限性。
 
@@ -452,7 +576,7 @@ Map中常用的方法
 
 ### 线程安全
 
-- 同步代码块 synchronize
+- 同步代码块 `synchronize`
 - 同步方法
 - 锁机制
 
@@ -469,42 +593,391 @@ Map中常用的方法
 
 ## 线程池、Lambda表达式
 
+### 等待唤醒机制
+
+### 线程池
+
+线程池概念：其实就是一个容纳多个线程的容器，其中的线程可以反复使用，省去了频繁创建线程对象的操作，
+
+无需反复创建线程而消耗过多资源
+
+线程池的使用
+
+`public static ExecutorService newFixedThreadPool(int nThreads)`返回线程池对象。(创建的是有界线程池,也就是池中的线程个数可以指定最大数量)
+
+获取到了一个线程池ExecutorService 对象，那么怎么使用呢，在这里定义了一个使用线程池对象的方法如下：
+
+`public Future<?> submit(Runnable task)`获取线程池中的某一个线程对象，并执行
+
+### Lambda表达式
+
 # File类与 IO流
 
 ## File类 递归
 
+### File类
+
+1. 构造方法
+
+ `public File(String pathname)` ：通过将给定的路径名字符串转换为抽象路径名来创建新的 File实例。
+
+`public File(String parent, String child)` ：从父路径名字符串和子路径名字符串创建新的 File实例。
+
+`public File(File parent, String child)` ：从父抽象路径名和子路径名字符串创建新的 File实例
+
+2. 常用方法
+
+获取功能的方法
+
+* `public String getAbsolutePath()`：返回此File的绝对路径名字符串
+
+* `public String getPath() `：将此File转换为路径名字符串。
+
+* `public String getName()` ：返回由此File表示的文件或目录的名称。
+
+* `public long length()`：返回由此File表示的文件的长度。
+
+绝对路径和相对路径
+
+判断功能的方法
+
+* `public boolean exists() `：此File表示的文件或目录是否实际存在。
+
+* `public boolean isDirectory() `：此File表示的是否为目录。
+
+* `public boolean isFile()`：此File表示的是否为文件。
+
+创建删除功能的方法
+
+* `public boolean createNewFile()` ：当且仅当具有该名称的文件尚不存在时，创建一个新的空文件。
+
+* `public boolean delete()` ：删除由此File表示的文件或目录。
+
+* `public boolean mkdir() `：创建由此File表示的目录。
+
+* `public boolean mkdirs()`：创建由此File表示的目录，包括任何必需但不存在的父目录。
+3. 目录的遍历
+* `public String[] list()`返回一个String数组，表示该File目录中的所有子文件或目录。
+
+* `public File listFiles()`返回一个File数组，表示该File目录中的所有的子文件或目录。
+
+### 递归
+
 ## 字节流 字符流
 
-#### 字节流
+### IO概述
 
-1. InputStream
+|     | 输入流         | 输出流          |
+| --- | ----------- | ------------ |
+| 字节流 | InputStream | OutputStream |
+| 字符流 | Reader      | Writer       |
 
-2. OutputStream
+### 字节流
 
-#### 字符流
+字节输出流
+
+java.io.OutputStream 抽象类是表示字节输出流的所有类的超类，将指定的字节信息写出到目的地。它定义了字节输出流的基本共性功能方法。
+
+* `public void close()`
+
+* `public void flush()`刷新此输出流并强制任何缓冲的输出字节被写出。
+
+* `public void write(byte[] b)`
+
+* `public void write(byte[] b, int off,int len)`
+
+* FileOutputStream
+
+java.io.InputStream 抽象类是表示字节输入流的所有类的超类，可以读取字节信息到内存中。它定义了字节输入流的基本共性功能方法。
+
+* `public void close()`
+
+* `public abstract int read()`
+
+* `public int read(byte[] b) `：从输入流中读取一些字节数，并将它们存储到字节数组 b中 。
+
+* FileInputStream
+
+### 字符流
 
 1. Reader
+   
+   * public void close() ：关闭此流并释放与此流相关联的任何系统资源。
+   
+   * public int read() ：从输入流读取一个字符。
+   
+   * public int read(char[] cbuf) ：从输入流中读取一些字符，并将它们存储到字符数组 cbuf中 。
+   
+   * FileReader
+
 2. Writer
+   
+   * void write(int c) 写入单个字符。
+   
+   * void write(char[] cbuf) 写入字符数组。
+   
+   * abstract void write(char[] cbuf, int off, int len) 写入字符数组的某一部分,offff数组的开始索引,len写的字符个数。
+   
+   * void write(String str) 写入字符串。
+   
+   * void write(String str, int off, int len) 写入字符串的某一部分,off字符串的开始索引,len写的字符个数。
+   
+   * void flush() 刷新该流的缓冲。
+   
+   * void close() 关闭此流，但要先刷新它。
+   
+   * FileWriter
 
-## 缓冲流 转换流 序列化流 打印流
-
-# 属性表
+### 属性集
 
 `public Properties()`
 
-# 缓存流 转化流 序列化流 打印流
+`public Object setProperty(String key, String value) `：保存一对属性。
+
+`public String getProperty(String key) `：使用此属性列表中指定的键搜索属性值。
+
+`public Set<String> stringPropertyNames() `：所有键的名称的集合。
+
+`public void load(InputStream inStream) `：从字节输入流中读取键值对
+
+```java
+public class ProDemo2 { 
+    public static void main(String[] args) throws FileNotFoundException { 
+        // 创建属性集对象 
+        Properties pro = new Properties(); 
+        // 加载文本中信息到属性集 
+        pro.load(new FileInputStream("read.txt")); 
+        // 遍历集合并打印 
+        Set<String> strings = pro.stringPropertyNames(); 
+        for (String key : strings ) { 
+            System.out.println(key+" ‐‐ "+pro.getProperty(key)); 
+        } 
+    } 
+}
+输出结果： 
+filename ‐‐ a.txt 
+length ‐‐ 209385038 
+location ‐‐ D:\a.txt
+```
+
+## 缓冲流 转换流 序列化流 打印流
+
+### 缓冲流
+
+字节缓冲流： `BufferedInputStream` ， `BufferedOutputStream`
+
+字符缓冲流： `BufferedReader` ，`BufferedWriter`
+
+### 转换流
+
+`InputStreamReader`
+
+`InputStreamReader(InputStream in, String charsetName) `: 创建一个指定字符集的字符流
+
+`OutPutStreamWriter`
+
+`OutputStreamWriter(OutputStream in, String charsetName)` : 创建一个指定字符集的字符流。
+
+### 序列化
+
+`public ObjectOutputStream(OutputStream out) `：创建一个指定OutputStream的ObjectOutputStream。
+
+`public final void writeObject (Object obj) `: 将指定的对象写出。
+
+`public ObjectInputStream(InputStream in) `：创建一个指定InputStream的ObjectInputStream
+
+`public final Object readObject () `: 读取一个对象
+
+### 打印流
+
+`public PrintStream(String fileName) `：使用指定的文件名创建一个新的打印流
 
 # 网络编程
 
-socket类
+## 入门
 
-# 反射 注解
+软件结构
+
+c/s b/s
+
+协议分类
+
+tcp    面向连接的通信协议  
+
+三次握手
+
+第一次握手，客户端向服务器端发出连接请求，等待服务器确认。
+
+第二次握手，服务器端向客户端回送一个响应，通知客户端收到了连接请求。
+
+第三次握手，客户端再次向服务器端发送确认信息，确认连接。整个交互过程如下图所示。
+
+udp 无连接
+
+网络编程三要素
+
+协议 地址 端口号
+
+## TCP通信程序
+
+`public Socket(String host,int port)`创建套接字对象并将其连接到指定主机上的指定端口号。如果指定的host是null ，则相当于指定地址为回送地址。
+
+method
+
+public InputStream getInputStream()返回此套接字的输入流
+
+public OutputStream getOutputStream() ：返回此套接字的输出流。
+
+public void close() ：关闭此套接字
+
+public void shutdownOutput() ：禁用此套接字的输出流。
+
+`ServerSocket`
+
+`public ServerSocket(int port) `：使用该构造方法在创建ServerSocket对象时，就可以将其绑定到一个指定的端口号上，参数port就是端口号。
+
+method
+
+public Socket accept() ：侦听并接受连接，返回一个新的Socket对象，用于和客户端实现通信。该方法会一直阻塞直到建立连接。
+
+TCP通信图解
+
+1. 【服务端】启动,创建ServerSocket对象，等待连接。
+
+2. 
+
+3. 【客户端】启动,创建Socket对象，请求连接。
+
+4. 【服务端】接收连接,调用accept方法，并返回一个Socket对象。
+
+5. 【客户端】Socket对象，获取OutputStream，向服务端写出数据。
+
+6. 【服务端】Scoket对象，获取InputStream，读取客户端发送的数据。
+
+# 基础加强
+
+## Junit单元测试
+
+* 步骤：
+  
+       1. 定义一个测试类(测试用例)
+           * 建议：
+               * 测试类名：被测试的类名Test        CalculatorTest
+               * 包名：xxx.xxx.xx.test        cn.itcast.test
+      
+       2. 定义测试方法：可以独立运行
+           * 建议：
+               * 方法名：test测试的方法名        testAdd()  
+               * 返回值：void
+               * 参数列表：空参
+      
+       3. 给方法加@Test
+       4. 导入junit依赖环境
+      
+       @Before
+       @After
+
+## 反射
+
+* 获取Class对象的方式：
+  
+  1. Class.forName("全类名")：将字节码文件加载进内存，返回Class对象
+     
+     - 多用于配置文件，将类名定义在配置文件中。读取文件，加载类
+  
+  2. 类名.class：通过类名的属性class获取
+     
+     - 多用于参数的传递
+  
+  3. 对象.getClass()：getClass()方法在Object类中定义着。
+     
+     - 多用于对象的获取字节码的方式
+
+* 结论： 同一个字节码文件(*.class)在一次程序运行过程中，只会被加载一次，不论通过哪一种方式获取的Class对象都是同一个
+
+* **Class对象**功能：
+  
+  * 获取功能：
+    
+    1. 获取成员变量们
+       
+       * `Field[] getFields()` ：获取所有public修饰的成员变量
+       
+       * `Field getField(String name)`   获取指定名称的 public修饰的成员变量
+       
+       * `Field[] getDeclaredFields()`  获取所有的成员变量，不考虑修饰符
+       
+       * `Field getDeclaredField(String name)  `
+    
+    2. 获取构造方法们
+       
+       * `Constructor<?>[] getConstructors()  `
+       
+       * `Constructor<T> getConstructor(类<?>... parameterTypes)  `
+       
+       * `Constructor<T> getDeclaredConstructor(类<?>... parameterTypes)  `
+       
+       * `Constructor<?>[] getDeclaredConstructors()  `
+    
+    3. 获取成员方法们：
+       
+       * `Method[] getMethods()  `
+       
+       * `Method getMethod(String name, 类<?>... parameterTypes)  `
+       
+       * `Method[] getDeclaredMethods()  `
+       
+       * `Method getDeclaredMethod(String name, 类<?>... parameterTypes)  `
+    
+    4. 获取全类名    
+       
+       * `String getName()`
+
+* Field：成员变量
+  
+  * 操作：
+    
+    1. 设置值
+       
+       * `void set(Object obj, Object value)  `
+    
+    2. 获取值
+       
+       * `get(Object obj)`
+    
+    3. 忽略访问权限修饰符的安全检查
+       
+       * `setAccessible(true)`:暴力反射
+
+* Constructor:构造方法
+  
+  * 创建对象：
+    
+    * T newInstance(Object... initargs)  
+    
+    * 如果使用空参数构造方法创建对象，操作可以简化：Class对象的newInstance方法
+
+* Method：方法对象
+  
+  * 执行方法：
+    
+    * Object invoke(Object obj, Object... args)  
+  
+  * 获取方法名称：
+    
+    * String getName:获取方法名
+
+## 注解
+
+
 
 # MySQL
 
 索引
 
 事务
+
+**ACID**，是指数据库管理系统（DBMS）在写入或更新资料的过程中，为保证**事务**（transaction）是正确可靠的，所必须具备的四个特性：原子性（atomicity，或称不可分割性）、一致性（consistency）、隔离性（isolation，又称独立性）、持久性（durability）。
 
 # JDBC
 

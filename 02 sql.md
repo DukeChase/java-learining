@@ -10,11 +10,11 @@ installation
 SQL分类
 
 1. DDL(Data Definition Language)数据定义语言
-   * 用来定义数据库对象：数据库，表，列等。关键字：create, drop,alter 等
+   * 用来定义数据库对象：数据库，表，列等。关键字：`CREATE`, `DROP`,`ALTER` 等
 2. DML(Data Manipulation Language)数据操作语言
-   * 用来对数据库中表的数据进行增删改。关键字：insert, delete, update 等
+   * 用来对数据库中表的数据进行增删改。关键字：`INSERT`, `DELETE`, `UPDATE` 等
 3. DQL(Data Query Language)数据查询语言
-   * 用来查询数据库中表的记录(数据)。关键字：select, where 等
+   * 用来查询数据库中表的记录(数据)。关键字：`SELECT`, `WHERE` 等
 4. DCL(Data Control Language)数据控制语言(了解)
    * 用来定义数据库的访问权限和安全级别，及创建用户。关键字：GRANT， REVOKE 等
 
@@ -60,11 +60,11 @@ and or in not
 
 ## chapter8 用通配符进行过滤
 
-like   操作符 
+`like`  操作符 
 
-%  匹配任何字符 任何出现次数
+`% ` 匹配任何字符 任何出现次数
 
-_ 匹配单个字符
+`_` 匹配单个字符
 
 ```sql
 select * from table_name where columns  like '% love china';
@@ -128,20 +128,6 @@ select * from table_name where regexp BINARY 'regexp_string';
 | ^   | 文本的开始 |
 | $   | 文本的结束 |
 
-ddls 数据定义语言
-
-create drop alter
-
-dml  数据操作语言
-
-insert delete update
-
-dql  数据查询语言
-
-select where
-
-dcl 数据控制语言
-
 ## chapter10 创建计算字段
 
 ### 拼接
@@ -200,6 +186,27 @@ ORDER BY vend_name;
 
 ## chapter15 联结表
 
+```sql
+SELECT * 
+FROM vendors 
+INNER JOIN products 
+ON vendors.`vend_id` = products.`vend_id`;## chapter16 创建高级联结
+```
+
+## chapter16 创建高级联结
+
+```sql
+SELECT customers.`cust_id`, orders.`order_num` 
+FROM customers RIGHT OUTER JOIN orders
+ON orders.`cust_id` = customers.`cust_id`;
+```
+
+## chapter17 组合查询
+
+union
+
+## chapter18 全文本搜索
+
 ## chapter19 插入数据
 
 ### 插入完整的行
@@ -229,7 +236,7 @@ SET cust_email = 'elmer@fudd.com'
 WHERE cust_id = 1005;
 
 -- 更新多个列
-UPDATE TABLE customes
+UPDATE customes
 SET cust_email = 'elmer@fudd.com',
     cust_name = 'The Fudds'
 WHERE cust_id = 1005;
