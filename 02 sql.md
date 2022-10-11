@@ -92,11 +92,11 @@ select * from table_name where regexp BINARY 'regexp_string';
 
 ### 匹配几个字符之一
 
-[] 是另一种形式的OR语句      '[123] Ton'    等价于 ‘1|2|3 Ton’
+`[]` 是另一种形式的OR语句      `'[123] Ton'`    等价于 `‘1|2|3 Ton’`
 
 ### 匹配范围
 
-[0123456]      [0-9]      [a-z]
+    `[0123456]      [0-9]      [a-z]    `
 
 ### 匹配特殊字符
 
@@ -219,7 +219,7 @@ VALUES(10001, 'Coyote Inc.', '200 Maple Lane', 'Detroit', 'MI', '44444', 'USA', 
 ### 插入多个行
 
 ```sql
-INSERT INTO customers()
+INSERT INTO customers(字段列表)
 VALUES(),
 VALUES();
 ```

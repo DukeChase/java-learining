@@ -56,6 +56,7 @@ SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(is);
 //SqlSession sqlSession = sqlSessionFactory.openSession(); 
 //创建SqlSession对象，此时通过SqlSession对象所操作的sql都会自动提交 
 SqlSession sqlSession = sqlSessionFactory.openSession(true); 
+
 //通过代理模式创建UserMapper接口的代理实现类对象 UserMapper 
 userMapper = sqlSession.getMapper(UserMapper.class); 
 //调用UserMapper接口中的方法，就可以根据UserMapper的全类名匹配元素文件，
@@ -73,7 +74,62 @@ System.out.println("结果："+result);
 
 增删改查
 
-获取参数值的方式
+```xml
+<!--int insertUser();--> 
+<insert id="insertUser"> 
+    insert into t_user values(null,'admin','123456',23,'男') 
+</insert>
+
+
+<!--int deleteUser();--> 
+<delete id="deleteUser"> 
+    delete from t_user where id = 7 
+</delete>
+
+
+<!--int updateUser();--> 
+<update id="updateUser"> 
+    update t_user set username='ybc',password='123' where id = 6 
+</update>
+
+
+
+<!--User getUserById();--> 
+<select id="getUserById" resultType="com.atguigu.mybatis.bean.User"> 
+    select * from t_user where id = 2 
+</select>
+
+
+
+<!--List<User> getUserList();--> 
+<select id="getUserList" resultType="com.atguigu.mybatis.bean.User"> 
+    select * from t_user 
+</select>
+```
+
+获取参数值的两种方式
+
+各种查询功能
+
+特殊SQL的执行
+
+动态SQL
+
+if
+
+where
+
+trim
+
+choose
+
+when
+
+otherwise
+
+foreach
+
+缓存
 
 ## Spring
 
@@ -190,3 +246,9 @@ FactoryBean
 ## AOP
 
 # SpringMVC
+
+配置文件
+
+```xml
+
+```
