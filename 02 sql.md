@@ -18,6 +18,8 @@ SQL分类
 4. DCL(Data Control Language)数据控制语言(了解)
    * 用来定义数据库的访问权限和安全级别，及创建用户。关键字：GRANT， REVOKE 等
 
+
+[MySQL 数据类型](https://www.runoob.com/mysql/mysql-data-types.html)
 ## chapter4 检索数据
 
 ```sql
@@ -144,9 +146,53 @@ ORDER BY vend_name;
 
 ### 文本处理函数
 
+|函数|说明|
+|----|----| 
+| Left()|返回串左边的字符 |
+|Length|返回串的长度|
+|Locate|找出串的子串|
+|Lower| 将串转换为小写|
+|LTrim|去掉串左边的空格|
+|Right|返回串右边的字符|
+|Rtrim|去掉右边的空哥|
+|Soundex()|返回串的SOUNDEX值|
+|SubString|返回子串的字符|
+|Upper()|将串转换为大写|
+
 ### 日期和时间处理函数
+|函数   |说明  |
+|----|---|
+|AddDate|  |
+|AddTime|  |
+|CurTime|  |
+|Date()|  |
+|DateDiff||
+|Date_Add()||
+|Date_Formate()||
+|Day()||
+|DayOfWeek()||
+|Hour()||
+|Minute()||
+|Month()||
+|Now()||
+|Second()||
+|Time()||
+|Year()||
+
+MySQL  使用yyyy-mm-dd
 
 ### 数值处理函数
+|函数|说明 |
+|--|--|
+|Abs()||
+|Cos()||
+|Exp()||
+|Mod()||
+|Pi()||
+|Rand()||
+|Sin()||
+|Sqrt()||
+|Tan()||
 
 ## chapter12 汇总数据
 
@@ -190,7 +236,7 @@ ORDER BY vend_name;
 SELECT * 
 FROM vendors 
 INNER JOIN products 
-ON vendors.`vend_id` = products.`vend_id`;## chapter16 创建高级联结
+ON vendors.`vend_id` = products.`vend_id`;  -- chapter16 创建高级联结
 ```
 
 ## chapter16 创建高级联结

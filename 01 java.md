@@ -23,7 +23,7 @@
 | 字符型  | char    | 2    |                  |
 | 布尔型  | boolean | 1    |                  |
 
-> long类型：建议数据后加L表示
+ >long类型：建议数据后加L表示
 > 
 > float类型：建议数据后加F表示。
 
@@ -411,15 +411,15 @@ for (元素的数据类型 变量 ：Collection集合或数组){
 
 ### 泛型
 
-* 定义和使用含有泛型的类
+1 定义和使用含有泛型的类
 
 `修饰符 class 类名<代表泛型的变量> { }`
 
-* 含有泛型的方法
+2 含有泛型的方法
 
 `修饰符 <代表泛型的变量> 返回值类型 方法名(参数){ }`
 
-* 含有泛型的接口
+3 含有泛型的接口
 
 `修饰符 interface接口名<代表泛型的变量> { }`
 
@@ -477,9 +477,9 @@ for (元素的数据类型 变量 ：Collection集合或数组){
 
 ### 可变参数
 
-`修饰符 返回值类型 方法名(参数类型... 形参名){ }`
+`修饰符 返回值类型 methodName(参数类型... 形参名){ }`
 
-`修饰符 返回值类型 方法名(参数类型[] 形参名){ }`
+`修饰符 返回值类型 methodName(参数类型[] 形参名){ }`
 
 后面这种定义，在调用时必须传递**数组**，而前者可以**直接传递数据**即可
 
@@ -529,7 +529,8 @@ Map中常用的方法
 
 * 体系
 
-异常的根类是 `java.lang.Throwable` ，其下有两个子类：   `java.lang.Error` 与 `java.lang.Exception` ，平常所说的异常指 `java.lang.Exception`。
+异常的根类是 `java.lang.Throwable` ，其下有两个子类：  
+`java.lang.Error` 与 `java.lang.Exception` ，平常所说的异常指 `java.lang.Exception`。
 
 分类`Throwable`中的常用方法
 
@@ -561,10 +562,61 @@ Map中常用的方法
 
 多线程的两种方式
 
-- `extends Thread`
-- `implement Runnable`
+1. `extends Thread`
+2. `implement Runnable`
+```java
+public class MyThread extends Thread{
 
-实现Runnable接口比继承Thread类所具有的优势：
+	public MyThread(String name){
+		super(name);
+	}
+	@Override
+	public void run(){
+		for(int i=0;i<10;i++){
+		System.out.println("")
+		}
+	}
+}
+```
+
+```java
+public static void MultiThreadTest(){  
+    //   创建自定义线程对象  
+    test.MyThread mt = new test.MyThread("新的线程！");  
+    //开启新线程  
+    mt.start();  
+    // 在主方法中执行for循环  
+    for (int i = 0; i < 10; i++) {  
+        System.out.println("main线程！"+ i);  
+    }  
+}
+```
+
+```java
+public class MyRunnable implements Runnable{  
+  
+    @Override  
+    public void run() {  
+        for (int i = 0; i < 20; i++) {  
+            System.out.println(Thread.currentThread().getName()+" "+i);  
+        }  
+    }  
+}
+``` 
+
+```java
+public static void MultiThreadRunnableTest(){  
+    test.MyRunnable mr = new test.MyRunnable();  
+    Thread t = new Thread(mr,"小强");  
+    t.start();  
+    for (int i = 0; i < 20; i++) {  
+        System.out.println("旺财"+i);  
+    }  
+  
+}
+```
+
+实现Runnable接口比继承Thread类所具有的**优势**：
 
 1. 适合多个相同的程序代码的线程去**共享一个资源**。
 
@@ -576,8 +628,9 @@ Map中常用的方法
 
 ### 线程安全
 
+线程同步
 - 同步代码块 `synchronize`
-- 同步方法
+- 同步方法 `synchronize`
 - 锁机制
 
 ### 线程状态
@@ -603,9 +656,9 @@ Map中常用的方法
 
 线程池的使用
 
-`public static ExecutorService newFixedThreadPool(int nThreads)`返回线程池对象。(创建的是有界线程池,也就是池中的线程个数可以指定最大数量)
+`public static ExecutorService newFixedThreadPool(int nThreads)` 返回线程池对象。(创建的是有界线程池,也就是池中的线程个数可以指定最大数量)
 
-获取到了一个线程池ExecutorService 对象，那么怎么使用呢，在这里定义了一个使用线程池对象的方法如下：
+获取到了一个线程池`ExecutorService`对象，那么怎么使用呢，在这里定义了一个使用线程池对象的方法如下：
 
 `public Future<?> submit(Runnable task)`获取线程池中的某一个线程对象，并执行
 
@@ -650,15 +703,12 @@ Map中常用的方法
 创建删除功能的方法
 
 * `public boolean createNewFile()` ：当且仅当具有该名称的文件尚不存在时，创建一个新的空文件。
-
 * `public boolean delete()` ：删除由此File表示的文件或目录。
-
 * `public boolean mkdir() `：创建由此File表示的目录。
-
 * `public boolean mkdirs()`：创建由此File表示的目录，包括任何必需但不存在的父目录。
-3. 目录的遍历
-* `public String[] list()`返回一个String数组，表示该File目录中的所有子文件或目录。
 
+3. 目录的遍历
+* `public String[] list()` 返回一个String数组，表示该File目录中的所有子文件或目录。
 * `public File listFiles()`返回一个File数组，表示该File目录中的所有的子文件或目录。
 
 ### 递归
@@ -674,21 +724,35 @@ Map中常用的方法
 
 ### 字节流
 
-字节输出流
+#### 字节输出流
 
 java.io.OutputStream 抽象类是表示字节输出流的所有类的超类，将指定的字节信息写出到目的地。它定义了字节输出流的基本共性功能方法。
 
 * `public void close()`
 
-* `public void flush()`刷新此输出流并强制任何缓冲的输出字节被写出。
+* `public void flush()` 刷新此输出流并强制任何缓冲的输出字节被写出。
 
-* `public void write(byte[] b)`
+* `public void write(byte[] b)` 
 
-* `public void write(byte[] b, int off,int len)`
+* `public void write(byte[] b, int off,int len)` 
 
-* FileOutputStream
 
-java.io.InputStream 抽象类是表示字节输入流的所有类的超类，可以读取字节信息到内存中。它定义了字节输入流的基本共性功能方法。
+`FileOutputStream` OutputStream的子类
+构造方法
+`public FileOutputStream(File file)`
+`public FileOutpotStream(String name)`
+写出字节数
+`write(int b)`
+`write(byte[] b)`
+`write(byte[] b, int off, int len)`
+
+数据追加续写
+`public FileOutputStream(File file, boolean append)`
+`public FileOutputStream(String name,boolean append)`
+
+#### 字节输入流
+
+`java.io.InputStream` 抽象类是表示字节输入流的所有类的超类，可以读取字节信息到内存中。它定义了字节输入流的基本共性功能方法。
 
 * `public void close()`
 
@@ -696,37 +760,48 @@ java.io.InputStream 抽象类是表示字节输入流的所有类的超类，可
 
 * `public int read(byte[] b) `：从输入流中读取一些字节数，并将它们存储到字节数组 b中 。
 
-* FileInputStream
+`FileInputStream`  InputStream子类
+构造方法
+`FileInputStream(File file)`
+`FileInputStream(String name)`
+读入字节数据
+read()   读取一个字节数据，提升为int类型，读到文件末尾，返回-1
+read(byte[] b)  每次读取b的长度个字节到数组中，返回**读取到的有效字节个数**，读取到末尾时，返回 -1
+
+>tips:使用数组读取，每次读取多个字节，减少了系统间的IO操作次数，从而提高了读写的效率，建议开发中使用。
+
+
+
 
 ### 字符流
 
 1. Reader
    
-   * public void close() ：关闭此流并释放与此流相关联的任何系统资源。
+   * `public void close()` ：关闭此流并释放与此流相关联的任何系统资源。
    
-   * public int read() ：从输入流读取一个字符。
+   * `public int read()` ：从输入流读取一个字符。
    
-   * public int read(char[] cbuf) ：从输入流中读取一些字符，并将它们存储到字符数组 cbuf中 。
+   * `public int read(char[] cbuf)` ：从输入流中读取一些字符，并将它们存储到字符数组 cbuf中 。
    
-   * FileReader
+	FileReader
 
 2. Writer
    
-   * void write(int c) 写入单个字符。
+   * `void write(int c)` 写入单个字符。
    
-   * void write(char[] cbuf) 写入字符数组。
+   * `void write(char[] cbuf)` 写入字符数组。
    
-   * abstract void write(char[] cbuf, int off, int len) 写入字符数组的某一部分,offff数组的开始索引,len写的字符个数。
+   * `abstract void write(char[] cbuf, int off, int len)` 写入字符数组的某一部分,offff数组的开始索引,len写的字符个数。
    
-   * void write(String str) 写入字符串。
+   * `void write(String str)` 写入字符串。
    
-   * void write(String str, int off, int len) 写入字符串的某一部分,off字符串的开始索引,len写的字符个数。
+   * `void write(String str, int off, int len)` 写入字符串的某一部分,off字符串的开始索引,len写的字符个数。
    
-   * void flush() 刷新该流的缓冲。
+   * `void flush()` 刷新该流的缓冲。
    
-   * void close() 关闭此流，但要先刷新它。
+   * `void close() `关闭此流，但要先刷新它。
    
-   * FileWriter
+   FileWriter
 
 ### 属性集
 
@@ -764,17 +839,31 @@ location ‐‐ D:\a.txt
 
 ### 缓冲流
 
-字节缓冲流： `BufferedInputStream` ， `BufferedOutputStream`
+字节缓冲流： `BufferedInputStream` ，`BufferedOutputStream`
 
 字符缓冲流： `BufferedReader` ，`BufferedWriter`
 
+字节缓冲流
+`public BufferedInputStream(InputStream in)`
+`public BufferedOutputStream(OutputStream out)`
+
+字符缓冲流
+`public BufferedReader(Reader in)`
+`public BufferedWriter(Writer out)`
+特有方法
+BufferedReader  `public String readLint()`
+BufferedWriter `public void newLine()`
+
 ### 转换流
 
-`InputStreamReader`
+Character Encoding
+Charset
+
+`InputStreamReader`   Reader的子类
 
 `InputStreamReader(InputStream in, String charsetName) `: 创建一个指定字符集的字符流
 
-`OutPutStreamWriter`
+`OutPutStreamWriter`  Writer的子类
 
 `OutputStreamWriter(OutputStream in, String charsetName)` : 创建一个指定字符集的字符流。
 
@@ -802,7 +891,7 @@ c/s b/s
 
 协议分类
 
-tcp    面向连接的通信协议  
+tcp  面向连接的通信协议  
 
 三次握手
 
@@ -819,63 +908,62 @@ udp 无连接
 协议 地址 端口号
 
 ## TCP通信程序
+* Socket
 
 `public Socket(String host,int port)`创建套接字对象并将其连接到指定主机上的指定端口号。如果指定的host是null ，则相当于指定地址为回送地址。
 
 method
 
-public InputStream getInputStream()返回此套接字的输入流
+`public InputStream getInputStream()` 返回此套接字的输入流`
 
-public OutputStream getOutputStream() ：返回此套接字的输出流。
+`public OutputStream getOutputStream()` ：返回此套接字的输出流。
 
-public void close() ：关闭此套接字
+`public void close()` ：关闭此套接字
 
-public void shutdownOutput() ：禁用此套接字的输出流。
+`public void shutdownOutput()` ：禁用此套接字的输出流。
 
-`ServerSocket`
+* ServerSocket
 
 `public ServerSocket(int port) `：使用该构造方法在创建ServerSocket对象时，就可以将其绑定到一个指定的端口号上，参数port就是端口号。
 
 method
 
-public Socket accept() ：侦听并接受连接，返回一个新的Socket对象，用于和客户端实现通信。该方法会一直阻塞直到建立连接。
+`public Socket accept()` ：侦听并接受连接，返回一个新的Socket对象，用于和客户端实现通信。该方法会一直阻塞直到建立连接。
 
 TCP通信图解
 
 1. 【服务端】启动,创建ServerSocket对象，等待连接。
 
-2. 
+2. 【客户端】启动,创建Socket对象，请求连接。
 
-3. 【客户端】启动,创建Socket对象，请求连接。
+3. 【服务端】接收连接,调用accept方法，并返回一个Socket对象。
 
-4. 【服务端】接收连接,调用accept方法，并返回一个Socket对象。
+4. 【客户端】Socket对象，获取OutputStream，向服务端写出数据。
 
-5. 【客户端】Socket对象，获取OutputStream，向服务端写出数据。
-
-6. 【服务端】Scoket对象，获取InputStream，读取客户端发送的数据。
+5. 【服务端】Scoket对象，获取InputStream，读取客户端发送的数据。
 
 # 基础加强
 
 ## Junit单元测试
 
-* 步骤：
+步骤：
   
-       1. 定义一个测试类(测试用例)
-           * 建议：
-               * 测试类名：被测试的类名Test        CalculatorTest
-               * 包名：xxx.xxx.xx.test        cn.itcast.test
-      
-       2. 定义测试方法：可以独立运行
-           * 建议：
-               * 方法名：test测试的方法名        testAdd()  
-               * 返回值：void
-               * 参数列表：空参
-      
-       3. 给方法加@Test
-       4. 导入junit依赖环境
-      
-       @Before
-       @After
+1. 定义一个测试类(测试用例)
+   * 建议：
+	   * 测试类名：被测试的类名Test        CalculatorTest
+	   * 包名：xxx.xxx.xx.test        cn.itcast.test
+
+2. 定义测试方法：可以独立运行
+   * 建议：
+	   * 方法名：test测试的方法名        testAdd()  
+	   * 返回值：void
+	   * 参数列表：空参
+
+3. 给方法加@Test
+4. 导入junit依赖环境
+
+@Before
+@After
 
 ## 反射
 
@@ -971,11 +1059,171 @@ TCP通信图解
 
 # MySQL
 
-索引
+## 基础
+
+SQL分类
+- DDL(Data Definition Language)数据定义语言
+	用来定义数据库对象：数据库，表，列等。关键字：`create`, `drop`,`alter` 等
+- DML(Data Manipulation Language)数据操作语言
+	用来对数据库中表的数据进行增删改。关键字：`insert`, `delete`, `update` 等
+- DQL(Data Query Language)数据查询语言
+	用来查询数据库中表的记录(数据)。关键字：`select`, `where` 等
+- DCL(Data Control Language)数据控制语言(了解)
+## 查询 约束 设计
+### 查询
+
+### 约束
+- 概念： 对表中的数据进行限定，保证数据的正确性、有效性和完整性。
+- 分类： 
+	1. 主键约束：primary key
+	2. 非空约束：not null
+	3. 唯一约束：unique,值不能重复
+	4. 外键约束：foreign key
+	5. 非空约束：not null，值不能为null
+
+- 非空约束：not null，值不能为null
+1.  创建表时添加约束 
+```sql
+CREATE TABLE stu(
+	 id INT,
+	 NAME VARCHAR(20) NOT NULL -- name为非空
+	);
+```
+
+2.  创建表完后，添加非空约束 
+```sql
+ALTER TABLE stu MODIFY NAME VARCHAR(20) NOT NULL;
+```
+
+3.  删除name的非空约束 
+```sql
+ALTER TABLE stu MODIFY NAME VARCHAR(20);
+```
+
+- 唯一约束：unique，值不能重复     
+1. 创建表时，添加唯一约束 
+ ```sql
+CREATE TABLE stu(  id INT,  phone_number VARCHAR(20) UNIQUE -- 添加了唯一约束  );
+    * 注意mysql中，**唯一约束限定的列的值可以有多个null**
+    ```
+2.  删除唯一约束     
+```sql
+ALTER TABLE stu DROP INDEX phone_number; 
+```
+3. 在创建表后，添加唯一约束     
+```sql
+ALTER TABLE stu MODIFY phone_number VARCHAR(20) UNIQUE;
+```
+
+- 主键约束：primary key 
+1. 注意
+	1. 含义：非空且唯一 
+	2. 一张表只能有一个字段为主键 
+	3. 主键就是表中记录的唯一标识 
+2. 在创建表时，添加主键约束 
+```sql
+create table stu( id int primary key, name varchar(20)  );-- 给id添加主键约束
+```
+3. 删除主键  
+```sql
+-- 错误 alter table stu modify id int ;  
+ALTER TABLE stu DROP PRIMARY KEY;   
+```
+4. 创建完表后，添加主键  
+```sql
+ALTER TABLE stu MODIFY id INT PRIMARY KEY;
+```
+
+* 自动增长：  
+1.  概念：如果某一列是数值类型的，使用 `auto_increment` 可以来完成值得自动增长
+2. 在创建表时，添加主键约束，并且完成主键自增长
+```sql
+create table stu(
+ id int primary key auto_increment,-- 给id添加主键约束
+ name varchar(20)
+);
+```   
+3. 删除自动增长          
+```sql
+ALTER TABLE stu MODIFY id INT;         
+```
+5. 添加自动增长          
+```sql
+ALTER TABLE stu MODIFY id INT AUTO_INCREMENT;
+```
+
+* 外键约束 `foreign key` 让表于表产生关系，从而保证数据的正确性。
+1. 在创建表时，可以添加外键
+```sql
+create table 表名( .... 外键列 constraint 外键名称 foreign key (外键列名称) references 主表名称(主表列名称) );
+```
+2. 删除外键
+```sql
+ALTER TABLE 表名 DROP FOREIGN KEY 外键名称;
+```
+4. 创建表之后，添加外键
+```sql
+ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) REFERENCES 主表名称(主表列名称);
+```
+
+- 级联操作
+1. 添加级联操作  
+	语法：
+	ALTER TABLE 表名 ADD CONSTRAINT 外键名称  
+	FOREIGN KEY (外键字段名称) REFERENCES 主表名称(主表列名称) ON UPDATE CASCADE ON DELETE CASCADE ;
+2. 分类：  
+	1. 级联更新：ON UPDATE CASCADE  
+	2. 级联删除：ON DELETE CASCADE
+### 数据库设计
+多表之间的关系
+	1. 分类
+		1. 一对一   人和身份证，一个人只有一个身份证，一个身份证只能对应一个人
+		2. 一对多（多对一） 部门和员工 一个部门有多个员工，一个员工只能对应一个部门
+		3. 多对多  一个学生可以选择很多门课程，一个课程也可以被很多学生选择
+
+实现关系
+- 一对多(多对一)：
+    - 如：部门和员工
+    - 实现方式：在多的一方建立外键，指向一的一方的主键。
+- 多对多：
+    - 如：学生和课程
+    - 实现方式：多对多关系实现需要借助第三张中间表。中间表至少包含两个字段，这两个字段作为第三张表的外键，分别指向两张表的主键 使用联合主键
+- 一对一(了解)：
+    - 如：人和身份证
+        - 实现方式：一对一关系实现，可以在任意一方添加唯一外键指向另一方的主键。
+
+
+### 数据库设计的范式
+  -   概念：设计数据库时，需要遵循的一些规范。要遵循后边的范式要求，必须先遵循前边的所有范式要求   
+	设计关系数据库时，遵从不同的规范要求，设计出合理的关系型数据库，这些不同的规范要求被称为不同的范式，各种范式呈递次规范，越高的范式数据库冗余越小。  
+	目前关系数据库有六种范式：第一范式（1NF）、第二范式（2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式(4NF）和第五范式（5NF，又称完美范式）。
+    * 分类： 
+    1. 第一范式（1NF）：每一列都是不可分割的原子数据项  
+    2. 第二范式（2NF）：在1NF的基础上，非码属性必须完全依赖于码（在1NF基础上消除非主属性对主码的部分函数依赖）  
+	    - 几个概念：  
+	    1. 函数依赖：A-->B,如果通过A属性(属性组)的值，可以确定唯一B属性的值。则称B依赖于A  
+			    例如：学号-->姓名。 （学号，课程名称） --> 分数 
+	    2. 完全函数依赖：A-->B， 如果A是一个属性组，则B属性值得确定需要依赖于A属性组中所有的属性值。  
+			    例如：（学号，课程名称） --> 分数 
+	    3. 部分函数依赖：A-->B， 如果A是一个属性组，则B属性值得确定只需要依赖于A属性组中某一些值即可。  
+			    例如：（学号，课程名称） -- > 姓名 
+	    4. 传递函数依赖：A-->B, B -- >C . 如果通过A属性(属性组)的值，可以确定唯一B属性的值，在通过B属性（属性组）的值可以确定唯一C属性的值，则称 C 传递函数依赖于A  
+			    例如：学号-->系名，系名-->系主任  
+	    5. 码：如果在一张表中，一个属性或属性组，被其他所有属性所完全依赖，则称这个属性(属性组)为该表的码  
+				    例如：该表中码为：（学号，课程名称）  
+				    * 主属性：码属性组中的所有属性  
+				    * 非主属性：除过码属性组的属性   
+    3. 第三范式（3NF）：在2NF基础上，任何非主属性不依赖于其它非主属性（在2NF基础上消除传递依赖）
+
+## 多表 事务
 
 事务
 
 **ACID**，是指数据库管理系统（DBMS）在写入或更新资料的过程中，为保证**事务**（transaction）是正确可靠的，所必须具备的四个特性：原子性（atomicity，或称不可分割性）、一致性（consistency）、隔离性（isolation，又称独立性）、持久性（durability）。
+
+**索引**
+
+
 
 # JDBC
 
