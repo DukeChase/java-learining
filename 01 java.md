@@ -14,16 +14,16 @@
 
 | 数据类型 | 关键字     | 内存占用 | 取值范围             |
 | ---- | ------- | ---- | ---------------- |
-| 字节型  | int     | 1    |                  |
-| 短整型  | short   | 2    |                  |
-| 整型   | int     | 4    | -2的31次方~2的31次方-1 |
-| 长整型  | long    | 8    | -2的63次方~2的63次方-1 |
-| 单精度  | float   | 4    |                  |
-| 双精度  | double  | 8    |                  |
-| 字符型  | char    | 2    |                  |
-| 布尔型  | boolean | 1    |                  |
+| 字节型  | int     | 1byte    |                  |
+| 短整型  | short   | 2byte    |                  |
+| 整型   | int     | 4byte    | -2的31次方~2的31次方-1 |
+| 长整型  | long    | 8byte    | -2的63次方~2的63次方-1 |
+| 单精度  | float   | 4byte    |                  |
+| 双精度  | double  | 8byte    |                  |
+| 字符型  | char    | 2byte    |                  |
+| 布尔型  | boolean | 1byte    |                  |
 
- >long类型：建议数据后加L表示
+ >long类型：建议数据后加L表示 不加L默认为int
 > 
 > float类型：建议数据后加F表示。
 
@@ -47,7 +47,7 @@ int[] c = {1,3,5};
 
 ## 数组作为方法参数和返回值
 
-java都是值传递，引用类型是对象的地址
+java都是值传递，基本类型是传递的是值，引用类型是传递的是对象的地址
 
 > 方法的参数为基本类型时,传递的是数据值. 方法的参数为引用类型时,传递的是地址值.
 
@@ -1217,9 +1217,76 @@ ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) 
 
 ## 多表 事务
 
-事务
+### 多表查询
+笛卡尔积：
 
-**ACID**，是指数据库管理系统（DBMS）在写入或更新资料的过程中，为保证**事务**（transaction）是正确可靠的，所必须具备的四个特性：原子性（atomicity，或称不可分割性）、一致性（consistency）、隔离性（isolation，又称独立性）、持久性（durability）。
+1. 内连接查询
+	1. 隐式内连接
+	2. 显式内连接
+2. 外连接查询
+		1. 左外连接
+		2. 右外连接
+3. 子查询
+
+### 事务
+
+1. 事务基本介绍
+	1. 概念
+		- 如果一个包含多个步骤的业务操作，被事务管理，那么这些操作要么同时成功，要么同时失败。
+	2. 操作：
+        1. 开启事务： start transaction;
+        2. 回滚：rollback;
+        3. 提交：commit;
+    3. 例子：
+		```sql
+        CREATE TABLE account (
+            id INT PRIMARY KEY AUTO_INCREMENT,
+            NAME VARCHAR(10),
+            balance DOUBLE
+        );
+        -- 添加数据
+        INSERT INTO account (NAME, balance) VALUES ('zhangsan', 1000), ('lisi', 1000);
+        SELECT * FROM account;
+        UPDATE account SET balance = 1000;
+        
+        -- 张三给李四转账 500 元
+        
+        -- 0. 开启事务
+        START TRANSACTION;
+        -- 1. 张三账户 -500
+
+        UPDATE account SET balance = balance - 500 WHERE NAME = 'zhangsan';
+        -- 2. 李四账户 +500
+        -- 出错了...
+        UPDATE account SET balance = balance + 500 WHERE NAME = 'lisi';
+
+        -- 发现执行没有问题，提交事务
+        COMMIT;
+
+        -- 发现出问题了，回滚事务
+        ROLLBACK;
+		```
+
+	4. MySQL数据库中事务默认自动提交
+        * 事务提交的两种方式：
+            * 自动提交：
+                * mysql就是自动提交的
+                * 一条DML(增删改)语句会自动提交一次事务。
+            * 手动提交：
+                * Oracle 数据库默认是手动提交事务
+                * 需要先开启事务，再提交
+        * 修改事务的默认提交方式：
+            * 查看事务的默认提交方式：`SELECT @@autocommit; -- 1 代表自动提交  0 代表手动提交`
+            * 修改默认提交方式： `set @@autocommit = 0;`
+
+2. 事务的四大特征
+**ACID**，是指数据库管理系统（DBMS）在写入或更新资料的过程中，为保证**事务**（transaction）是正确可靠的，所必须具备的四个特性：
+- 原子性（atomicity，或称不可分割性）、
+- 一致性（consistency）、
+- 隔离性（isolation，又称独立性）、
+- 持久性（durability）。
+
+3. 事务的隔离级别（了解）
 
 **索引**
 
