@@ -7,7 +7,7 @@ DBMS 数据库管理系统
 
 installation
 
-SQL分类
+## SQL分类
 
 1. DDL(Data Definition Language)数据定义语言
    * 用来定义数据库对象：数据库，表，列等。关键字：`CREATE`, `DROP`,`ALTER` 等
@@ -266,8 +266,13 @@ VALUES(10001, 'Coyote Inc.', '200 Maple Lane', 'Detroit', 'MI', '44444', 'USA', 
 
 ```sql
 INSERT INTO customers(字段列表)
-VALUES(),
-VALUES();
+VALUES(数据列表),
+(数据列表),
+(数据列表);
+
+INSERT INTO customers 
+VALUES(10006,'duke chase','xueyuan street','fuzou','fz','3501','chn','duke','abc@qq.com'),
+(10007,'xiao min','xueyuan street','fuzou','fz','3501','chn','duke','xyz@qq.com');
 ```
 
 ### 插入检索出的数据
@@ -301,7 +306,13 @@ WHERE cust_id = 1005;
 ### 约束
 
 - 概念： 对表中的数据进行限定，保证数据的正确性、有效性和完整性。
+```sql
+CREATE TABLE IF NOT EXISTS test(
+id INT,
+NAME VARCHAR(29));
 
+DROP TABLE IF EXISTS test;
+```
 - 分类：
   
   1. 主键约束：primary key
@@ -359,10 +370,11 @@ CREATE TABLE customers
 ### 更新表
 
 ```sql
+-- 增加列
 ALTER TABLE vendors
 ADD vend_phone CHAR(50);
 
-
+-- 删除列
 ALTER TABLE vendors
 DROP COLUMNS vend_phone;
 ```
@@ -373,6 +385,8 @@ DROP COLUMNS vend_phone;
 
 ```sql
 DROP TABLE customers2;
+
+DROP TABLE IF EXISTS customes2;
 ```
 
 ### 重命名表
