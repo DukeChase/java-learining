@@ -96,7 +96,7 @@ CSS 和 HTML 的结合方式
 		1. 与html结合方式
 			1. 内部JS：
 				- 定义`<script>` 标签体内容就是js代码
-			2. 外部JS：
+			1. 外部JS：
 				* 定义`<script>`，通过src属性引入外部的js文件
 				* 注意：
 				1. `<script>`可以定义在html页面的任何地方。但是定义的位置会影响执行顺序。
@@ -204,27 +204,26 @@ CSS 和 HTML 的结合方式
 	    * window引用可以省略。  方法名();
     2. 方法
          1. 与弹出框有关的方法：
-            `alert()`	显示带有一段消息和一个确认按钮的警告框。
-            `confirm()`	显示带有一段消息以及确认按钮和取消按钮的对话框。
+            - `alert()`	显示带有一段消息和一个确认按钮的警告框。
+            - `confirm()`	显示带有一段消息以及确认按钮和取消按钮的对话框。
                 - 如果用户点击确定按钮，则方法返回true
                 - 如果用户点击取消按钮，则方法返回false
-            `prompt()`	显示可提示用户输入的对话框。
+            - `prompt()`	显示可提示用户输入的对话框。
                 - 返回值：获取用户输入的值
          2. 与打开关闭有关的方法：
-            `close()`	关闭浏览器窗口。
+            - `close()`	关闭浏览器窗口。
                 * 谁调用我 ，我关谁
-            `open()`	打开一个新的浏览器窗口
+            - `open()`	打开一个新的浏览器窗口
                 * 返回新的Window对象
          3. 与定时器有关的方法
-            `setTimeout()`	在指定的毫秒数后调用函数或计算表达式。
+            - `setTimeout()`	在指定的毫秒数后调用函数或计算表达式。
                 * 参数：
                     1. js代码或者方法对象
                     2. 毫秒值
                 * 返回值：唯一标识，用于取消定时器
-            `clearTimeout()`	取消由 setTimeout() 方法设置的 timeout。
-
-            `setInterval()`	按照指定的周期（以毫秒计）来调用函数或计算表达式。
-            `clearInterval()`	取消由 setInterval() 设置的 timeout。
+            - `clearTimeout()`	取消由 setTimeout() 方法设置的 timeout。
+            - `setInterval()`	按照指定的周期（以毫秒计）来调用函数或计算表达式。
+            - `clearInterval()`	取消由 setInterval() 设置的 timeout。
     3. 属性：
         1. 获取其他BOM对象：
             `history`
@@ -392,39 +391,36 @@ GET请求
 
 POST请求
 
-1. 请求行
-   
-   1. 请求方式                     POST
-   
-   2. 请求的资源路径[+?+请求参数]
-   
-   3. 请求的协议的版本号           HTTP/1.1
-
+1. 请求行  
+   1. 请求方式                     POST  
+   2. 请求的资源路径[+?+请求参数]  
+   3. 请求的协议的版本号            HTTP/1.1
 2. 请求头
-   
    1. key:value
-
 3. 空行
-
 4. 请求体
 
 - 响应的HTTP协议
-
 1. 响应行
-   
    1. 响应协议和版本号
-   
    2. 响应状态码
-   
    3. 响应状态描述符
-
 2. 响应头
-   
    1. key:value
-
 3. 空行
-
 4. 响应体
+
+哪些是GET请求，哪些是POST请求
+- GET 请求有哪些：
+	1、form 标签 `method=get`
+	2、a 标签
+	3、link 标签引入 css
+	4、Script 标签引入 js 文件
+	5、img 标签引入图片
+	6、iframe 引入 html 页面
+	7、在浏览器地址栏中输入地址后敲回车
+- POST 请求有哪些：
+	8、form 标签 `method=post`
 
 ## HttpServletRequest & HttpServletResponse
 ### HttpServletRequest
@@ -473,14 +469,14 @@ c) 如何往客户端回传数据
     writer.wrire("response's content");
 ```
 d) 响应的乱码解决
-方案一  不推荐
+- 方案一  不推荐
 ```java
 // 设置服务器字符集为 UTF-8
 resp.setCharacterEncoding("UTF-8");
 // 通过响应头，设置浏览器也使用 UTF-8 字符集
 resp.setHeader("Content-Type", "text/html; charset=UTF-8");
 ```
-方案二  推荐
+- 方案二  推荐
 ```java
 // 它会同时设置服务器和客户端都使用 UTF-8 字符集，还设置了响应头
 // 此方法一定要在获取流对象之前调用才有效
@@ -488,7 +484,7 @@ resp.setContentType("text/html; charset=UTF-8");
 ```
 
 e) 请求重定向
-请求重定向的第一种方案：
+- 第一种方案(不推荐)：
 ```java
 // 设置响应状态码 302 ，表示重定向，（已搬迁）
 
@@ -500,7 +496,7 @@ resp.setHeader("Location", "http://localhost:8080");
 
 ```
 
-请求重定向的第二种方案（推荐使用）：
+- 第二种方案（推荐使用）：
 ```java
 resp.sendRedirect("http://localhost:8080");
 ```
@@ -511,25 +507,16 @@ JSP的三种语法
 jsp文件头部声明介绍
 `<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>`
 这是jsp文件的头声明。表示这是jsp页面。
-language 属性 值只能是 java。 表示翻译的得到的是 java 语言的
-
-contentType 属性  设置响应头 contentType 的内容
-
-pageEncoding 属性 设置当前 jsp 页面的编码
-
-import 属性   给当前 jsp 页面导入需要使用的类包
-
-autoFlush 属性   设置是否自动刷新 out 的缓冲区，默认为 true
-
-buffer 属性   设置 out 的缓冲区大小。默认为 8KB
-
-errorPage 属性   设置当前 jsp 发生错误后，需要跳转到哪个页面去显示错误信息
-
-isErrorPage 属性 设置当前 jsp 页面是否是错误页面。是的话，就可以使用 exception 异常对象
-
-session 属性   设置当前 jsp 页面是否获取 session 对象,默认为 true
-
-extends 属性  给服务器厂商预留的 jsp 默认翻译的 servlet 继承于什么类
+`language` 属性      值只能是 java。 表示翻译的得到的是 java 语言的
+`contentType`属性   设置响应头 contentType 的内容
+`pageEncoding`属性  设置当前 jsp 页面的编码
+`import` 属性       给当前 jsp 页面导入需要使用的类包
+`autoFlush` 属性    设置是否自动刷新 out 的缓冲区，默认为 true
+`buffer` 属性       设置 out 的缓冲区大小。默认为 8KB
+`errorPage` 属性    设置当前 jsp 发生错误后，需要跳转到哪个页面去显示错误信息
+`isErrorPage` 属性  设置当前 jsp 页面是否是错误页面。是的话，就可以使用 exception 异常对象
+`session` 属性    设置当前 jsp 页面是否获取 session 对象,默认为 true
+`extends` 属性    给服务器厂商预留的 jsp 默认翻译的 servlet 继承于什么类
 
 jsp中的三种脚本介绍
 1. 声明脚本
@@ -544,30 +531,19 @@ jsp中的三种脚本介绍
 2. 表达式脚本(重点，常用)
 	`<%= expression here %>`
 	表达式脚本 用于向页面输出内容。
-
 	表达式脚本 翻译到 Servlet 程序的 service 方法中 以 out.print() 打印输出
-
 	out 是 jsp 的一个内置对象，用于生成 html 的源代码
-
 	注意：表达式不要以分号结尾，否则会报错
-
 	表达式脚本可以输出任意类型。
-
 	比如：
-
 	1.输出整型
-
 	2.输出浮点型
-
 	3.输出字符串
-
 	4.输出对象
 3. 代码脚本(重点，常用)
 	`<% java code here %>`
 	代码脚本里可以书写任意的 java 语句。
-
 	代码脚本的内容都会被翻译到 service 方法中。
-
 	所以 service 方法中可以写的 java 代码，都可以书写到代码脚本中
 jsp中有三种注释：
 	1、html注释 
@@ -582,8 +558,8 @@ jsp中有三种注释：
 		jsp注释可以注掉jsp中所有内容，在jsp翻译的时候会被完全忽略掉
 
 jsp九大内置对象
-`request`   请求对象，可以获取请求信息
-`response`  响应对象。可以设置响应信息
+`request`     请求对象，可以获取请求信息
+`response`    响应对象。可以设置响应信息
 `pageContext` 当前页面上下文对象。可以在当前上下文保存属性信息
 `session`  会话对象。可以获取会话信息。
 `exception` 异常对象只有在 jsp 页面的 page 指令中设置 isErrorPage="true" 的时候才会存在
@@ -592,7 +568,55 @@ jsp九大内置对象
 `out`  输出流
 `page`  表示当前 Servlet 对象实例（无用，用它不如使用 this 对象）。
 九大内置对象，都是我们可以在【代码脚本】中或【表达式脚本】中直接使用的对象。
+JSP标签
+jsp 静态包含
+```jsp
+<%--
+<%@ include file=""%> 就是静态包含
+file 属性指定你要包含的 jsp 页面的路径
+地址中第一个斜杠 / 表示为 http://ip:port/工程路径/ 映射到代码的 web 目录
+静态包含的特点：
+1、静态包含不会翻译被包含的 jsp 页面。
+2、静态包含其实是把被包含的 jsp 页面的代码拷贝到包含的位置执行输出
+--%>
 
+<%@ include file="/include/footer.jsp"%>
+
+```
+jsp动态包含
+```jsp
+<%--
+<jsp:include page=""></jsp:include>
+这是动态包含
+page 属性是指定你要包含的 jsp 页面的路径
+动态包含也可以像静态包含一样。把被包含的内容执行输出到包含位置
+动态包含的特点：
+1、动态包含会把包含的 jsp 页面也翻译成为 java 代码
+2、动态包含底层代码使用如下代码去调用被包含的 jsp 页面执行输出。
+JspRuntimeLibrary.include(request, response, "/include/footer.jsp", out, false);
+3、动态包含，还可以传递参数
+--%>
+
+<jsp:include page="/include/footer.jsp">
+
+<jsp:param name="username" value="bbj"/>
+
+<jsp:param name="password" value="root"/>
+
+</jsp:include>
+```
+jsp标签-转发
+
+```jsp
+<%--
+
+<jsp:forward page=""></jsp:forward> 是请求转发标签，它的功能就是请求转发
+
+page 属性设置请求转发的路径
+
+--%>
+<jsp:forward page="/scope2.jsp"></jsp:forward>
+```
 ## Cookie Session
 
 
@@ -603,6 +627,12 @@ $是JQuery的核心函数，能完成JQuery的很多功能。` $()`就是调用`
 	表示页面加载完成之后。相当于window.onload = function(){}
 2. 传入参数为 HTML 字符串时
 	会对我们创建这个HTML标签对象
+3. 传入参数为 选择器字符串时：
+	`$(“#id 属性值”);`    id 选择器，根据 id 查询标签对象
+    `$(“标签名”); `      标签名选择器，根据指定的标签名查询标签对象
+    `$(“.class 属性值”);` 类型选择器，可以根据 class 属性查询标签对象
+4. 传入参数为DOM对象时：
+	会把这个 dom 对象转换为 jQuery 对象
 
 jQuery对象和dom对象区分
 
@@ -610,7 +640,29 @@ jQuery对象和dom对象区分
 基本选择器
 层级选择器
 
+## JSON AJAX
+### JSON
+```javascript
+var jsonObj = {
+"key1":12,
+"key2":"abc",
+"key3":true,
+"key4":[11,"arr",false],
+"key5":{"key5_1" : 551,
+"key5_2" : "key5_2_value"
+},
+"key6":[{"key6_1_1":6611,"key6_1_2":"key6_1_2_value"},
+{"key6_2_1":6621,"key6_2_2":"key6_2_2_value"}]
 
+};
+```
+### AJAX
+jQuery 中的AJAX
+`$.ajax`
+
+`$.get  $.post`
+
+`$.getJSON`
 
 ## Redis
 
