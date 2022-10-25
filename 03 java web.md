@@ -35,7 +35,7 @@
 		hr 水平线
 	ii. 双标签格式: <标签名> ...封装的数据...</标签名>
 ### 常用标签
-超链接
+#### 超链接
 ```html
 <a href="http://localhost:8080">百度</a><br/>
 
@@ -44,7 +44,7 @@
 <a href="http://localhost:8080" target="_blank">百度_blank</a><br/>
 ```
 
-列表标签
+#### 列表标签
 ```html
 <body>
 
@@ -63,11 +63,211 @@ li 是列表项
 </body>
 ```
 
-表格
+#### 表格
+需求1：做一个 带表头的 ，三行，三列的表格，并显示边框
+需求2：修改表格的宽度，高度，表格的对齐方式，单元格间距。
+- table 标签是表格标签
+	- border 设置表格标签
+	- width 设置表格宽度
+	- height 设置表格高度
+	- align 设置表格相对于页面的对齐方式
+	- cellspacing 设置单元格间距
+tr   是行标签
+th  是表头标签
+td  是单元格标签
+	align 设置单元格文本对齐方式
+b 是加粗标签
+```html
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-跨行跨列表格
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>表格标签</title>
+</head>
+<body>
+<!--
+    
+    -->
+<table align="center" border="1" width="300" height="300" cellspacing="0">
+    <tr>
+        <th>1.1</th>
+        <th>1.2</th>
+        <th>1.3</th>
+    </tr>
+    <tr>
+        <td>2.1</td>
+        <td>2.2</td>
+        <td>2.3</td>
+    </tr>
+    <tr>
+        <td>3.1</td>
+        <td>3.2</td>
+        <td>3.3</td>
+    </tr>
+</table>
+</body>
+</html>
+```
+#### 跨行跨列表格
+需求1：
+新建一个五行，五列的表格，
+第一行，第一列的单元格要跨两列，
+第二行第一列的单元格跨两行，
+第四行第四列的单元格跨两行两列。
 
-表单标签
+- colspan 属性设置跨列
+- rowspan 属性设置跨行
+            
+```html
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>7.表格的跨行跨列</title>
+    </head>
+    <body>
+        <table width="500" height="500" cellspacing="0" border="1">
+            <tr>
+                <td colspan="2">1.1</td>
+                <td>1.3</td>
+                <td>1.4</td>
+                <td>1.5</td>
+            </tr>
+            <tr>
+                <td rowspan="2">2.1</td>
+                <td>2.2</td>
+                <td>2.3</td>
+                <td>2.4</td>
+                <td>2.5</td>
+            </tr>
+            <tr>
+                <td>3.2</td>
+                <td>3.3</td>
+                <td>3.4</td>
+                <td>3.5</td>
+            </tr>
+            <tr>
+                <td>4.1</td>
+                <td>4.2</td>
+                <td>4.3</td>
+                <td colspan="2" rowspan="2">4.4</td>
+            </tr>
+            <tr>
+                <td>5.1</td>
+                <td>5.2</td>
+                <td>5.3</td>
+            </tr>
+        </table>
+    </body>
+</html>
+```
+#### 表单标签
+表单就是 html 页面中,用来收集用户信息的所有元素集合.然后把这些信息发送给服务器。
+form标签就是表单
+- input type=text     是文件输入框  value设置默认显示内容
+- input type=password 是密码输入框  value设置默认显示内容
+- input type=radio    是单选框    name属性可以对其进行分组
+- checked="checked"表示默认选中
+- input type=checkbox 是复选框   checked="checked"表示默认选中
+- input type=reset    是重置按钮      value属性修改按钮上的文本
+- input type=submit   是提交按钮      value属性修改按钮上的文本
+- input type=button   是按钮          value属性修改按钮上的文本
+- input type=file     是文件上传域
+- input type=hidden   是隐藏域    当我们要发送某些信息，而这些信息，不需要用户参与，就可以使用隐藏域（提交的时候同时发送给服务器）
+- select 标签是下拉列表框
+- option 标签是下拉列表框中的选项 selected="selected"设置默认选中
+- textarea 表示多行文本输入框 （起始标签和结束标签中的内容是默认值）
+	- rows 属性设置可以显示几行的高度
+	- cols 属性设置每行可以显示几个字符宽度
+```html
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>表单的显示</title>
+
+</head>
+
+<body>
+
+    <form action="http://localhost:8080" method="post">
+        <input type="hidden" name="action" value="login" />
+        <h1 align="center">用户注册</h1>
+        <table align="center">
+            <tr>
+                <td> 用户名称：</td>
+                <td>
+                    <input type="text" name="username" value="默认值"/>
+                </td>
+            </tr>
+            <tr>
+                <td> 用户密码：</td>
+                <td><input type="password" name="password" value="abc"/></td>
+            </tr>
+             <tr>
+                <td>性别：</td>
+                <td>
+                    <input type="radio" name="sex" value="boy"/>男
+                    <input type="radio" name="sex" checked="checked" value="girl" />女
+                </td>
+            </tr>
+             <tr>
+                <td> 兴趣爱好：</td>
+                <td>
+                    <input name="hobby" type="checkbox" checked="checked" value="java"/>Java
+                    <input name="hobby" type="checkbox" value="js"/>JavaScript
+                    <input name="hobby" type="checkbox" value="cpp"/>C++
+                </td>
+            </tr>
+             <tr>
+                <td>国籍：</td>
+                <td>
+                    <select name="country">
+                        <option value="none">--请选择国籍--</option>
+                        <option value="cn" selected="selected">中国</option>
+                        <option value="usa">美国</option>
+                        <option value="jp">小日本</option>
+                    </select>
+                </td>
+            </tr>
+             <tr>
+                <td>自我评价：</td>
+                <td><textarea name="desc" rows="10" cols="20">我才是默认值</textarea></td>
+            </tr>
+             <tr>
+                <td><input type="reset" /></td>
+                <td align="center"><input type="submit"/></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
+```
+
+form 标签是表单标签
+`action` 属性设置提交的服务器地址
+`method` 属性设置提交的方式 GET(默认值)或 POST
+表单提交的时候，数据没有发送给服务器的三种情况：
+1、表单项没有 `name` 属性值
+2、单选、复选（下拉列表中的 option 标签）都需要添加 `value` 属性，以便发送给服务器
+3、表单项不在提交的 `form`标签中
+
+- `GET` 请求的特点是：
+1、浏览器地址栏中的地址是：`action` 属性[+?+请求参数]
+请求参数的格式是：`name=value&name=value`
+2、不安全
+3、它有数据长度的限制
+
+- `POST` 请求的特点是：
+1、浏览器地址栏中只有 `action` 属性值
+2、相对于 `GET` 请求要安全
+3、理论上没有数据长度的限制
 
 ## CSS层叠样式表
 选择器：浏览器根据“选择器”决定受 CSS 样式影响的 HTML 元素（标签）。
@@ -75,9 +275,9 @@ li 是列表项
 `p {color: blue}`
 
 CSS 和 HTML 的结合方式
-1. 在标签的style属性上设置 key:value value,修改标签样式。
-2. 在 head 标签中，使用 style 标签来定义各种自己需要的 css 样式。
-	xxx {key: value value}
+1. 在标签的`style`属性上设置 `key:value`修改标签样式。
+2. 在 head 标签中，使用 `style` 标签来定义各种自己需要的 css 样式。
+	`xxx {key: value value}`
 3. 把 css 样式写成一个单独的 css 文件，再通过 link 标签引入即可复用。
 	`<link rel="stylesheet" type="text/css" href="./styles.css" /> 标`
 
@@ -92,88 +292,88 @@ CSS 和 HTML 的结合方式
 
 ## JavaScript
 ### 基本语法
-1. 基本语法：
-		1. 与html结合方式
-			1. 内部JS：
-				- 定义`<script>` 标签体内容就是js代码
-			1. 外部JS：
-				* 定义`<script>`，通过src属性引入外部的js文件
-				* 注意：
-				1. `<script>`可以定义在html页面的任何地方。但是定义的位置会影响执行顺序。
-				2. `<script>`可以定义多个。
-		2. 注释
-			1. 单行注释：//注释内容
-			2. 多行注释：/*注释内容*/
-		3. 数据类型：
-			1. 原始数据类型(基本数据类型)：
-				1. number：数字。 整数/小数/NaN(not a number 一个不是数字的数字类型)
-				2. string：字符串。 字符串  "abc" "a" 'abc'
-				3. boolean: true和false
-				4. null：一个对象为空的占位符
-				5. undefined：未定义。如果一个变量没有给初始化值，则会被默认赋值为undefined
-			2. 引用数据类型：对象
-		4. 变量
-			* 变量：一小块存储数据的内存空间
-			* Java语言是强类型语言，而JavaScript是弱类型语言。
-				* 强类型：在开辟变量存储空间时，定义了空间将来存储的数据的数据类型。只能存储固定类型的数据
-				* 弱类型：在开辟变量存储空间时，不定义空间将来的存储数据类型，可以存放任意类型的数据。
-			* 语法：
-				* var 变量名 = 初始化值;	
-			* typeof运算符：获取变量的类型。
-				* 注：null运算后得到的是object
-		5. 运算符
-			1. 一元运算符：只有一个运算数的运算符
-				++，-- ， +(正号)  
-				* ++ --: 自增(自减)
-					* ++(--) 在前，先自增(自减)，再运算
-					* ++(--) 在后，先运算，再自增(自减)
-				* +(-)：正负号
-			    * 注意：在JS中，如果运算数不是运算符所要求的类型，那么js引擎会自动的将运算数进行类型转换
-                    * 其他类型转number：
-                        * string转number：按照字面值转换。如果字面值不是数字，则转为NaN（不是数字的数字）
-                        * boolean转number：true转为1，false转为0
-			2. 算数运算符
-				+ - * / % ...
-			3. 赋值运算符
-				= += -+....
-			4. 比较运算符
-				> < >= <= == ===(全等于)
-				* 比较方式
-                  1. 类型相同：直接比较
-                      * 字符串：按照字典顺序比较。按位逐一比较，直到得出大小为止。
-                  2. 类型不同：先进行类型转换，再比较
-                      * ===：全等于。在比较之前，先判断类型，如果类型不一样，则直接返回false
-			5. 逻辑运算符
-				&&  ||  !
-				* 其他类型转boolean：
-                   1. number：0或NaN为假，其他为真
-                   2. string：除了空字符串("")，其他都是true
-                   3. null&undefined:都是false
-                   4. 对象：所有对象都为true	
-			6. 三元运算符
-			 	? : 表达式
-				var a = 3;
-			    var b = 4;
-			    var c = a > b ? 1:0;
-				* 语法：
-					* 表达式? 值1:值2;
-					* 判断表达式的值，如果是true则取值1，如果是false则取值2；
-		6. 流程控制语句：
-			1. if...else...
-			2. switch:
-				* 在java中，switch语句可以接受的数据类型： byte int shor char,枚举(1.5) ,String(1.7)
-					* switch(变量):
-						case 值:
-				* 在JS中,switch语句可以接受任意的原始数据类型
-			3. while
-			4. do...while
-			5. for
+
+1. 与html结合方式
+	1. 内部JS：
+		- 定义`<script>` 标签体内容就是js代码
+	2. 外部JS：
+		* 定义`<script>`，通过src属性引入外部的js文件
+		* 注意：
+			1. `<script>`可以定义在html页面的任何地方。但是定义的位置会影响执行顺序。
+			2. `<script>`可以定义多个。
+2. 注释
+	1. 单行注释：//注释内容
+	2. 多行注释：/*注释内容*/
+3. 数据类型：
+	1. 原始数据类型(基本数据类型)：
+		1. `number`：数字。 整数/小数/NaN(not a number 一个不是数字的数字类型)
+		2. `string`：字符串。 字符串  "abc" "a" 'abc'
+		3. `boolean`: true和false
+		4. `null`：一个对象为空的占位符
+		5. `undefined`：未定义。如果一个变量没有给初始化值，则会被默认赋值为`undefined`
+	2. 引用数据类型：对象
+4. 变量
+	* 变量：一小块存储数据的内存空间
+	* Java语言是强类型语言，而JavaScript是弱类型语言。
+		* 强类型：在开辟变量存储空间时，定义了空间将来存储的数据的数据类型。只能存储固定类型的数据
+		* 弱类型：在开辟变量存储空间时，不定义空间将来的存储数据类型，可以存放任意类型的数据。
+	* 语法：
+		* var 变量名 = 初始化值;	
+	* typeof运算符：获取变量的类型。
+		* 注：null运算后得到的是object
+5. 运算符
+	1. 一元运算符：只有一个运算数的运算符
+		- ++，-- ， +(正号)  
+		* ++ --: 自增(自减)
+			* ++(--) 在前，先自增(自减)，再运算
+			* ++(--) 在后，先运算，再自增(自减)
+		* +(-)：正负号
+		* 注意：在JS中，如果运算数不是运算符所要求的类型，那么js引擎会自动的将运算数进行类型转换
+            * 其他类型转number：
+                * string转number：按照字面值转换。如果字面值不是数字，则转为NaN（不是数字的数字）
+                * boolean转number：true转为1，false转为0
+	2. 算数运算符
+			+ - * / % ...
+	3. 赋值运算符
+			= += -+....
+	4. 比较运算符
+		- `> < >= <= == ===(全等于)`
+		* 比较方式
+            1. 类型相同：直接比较
+                * 字符串：按照字典顺序比较。按位逐一比较，直到得出大小为止。
+            2. 类型不同：先进行类型转换，再比较
+                * `===`：全等于。在比较之前，先判断类型，如果类型不一样，则直接返回false
+	5. 逻辑运算符
+		- `&&  ||  !`
+		- 其他类型转`boolean`：
+			1. `number`：0或NaN为假，其他为真
+			2. `string`：除了空字符串("")，其他都是true
+			3. `null`&`undefined`:都是false
+			4. 对象：所有对象都为true	
+	1. 三元运算符
+		? : 表达式
+		var a = 3;
+		var b = 4;
+		var c = a > b ? 1:0;
+		* 语法：
+			* 表达式? 值1:值2;
+			* 判断表达式的值，如果是true则取值1，如果是false则取值2；
+6. 流程控制语句：
+	1. if...else...
+	2. switch:
+		* 在java中，switch语句可以接受的数据类型： byte int shor char,枚举(1.5) ,String(1.7)
+		* switch(变量):
+			case 值:
+		* 在JS中,switch语句可以接受任意的原始数据类型
+	3. while
+	4. do...while
+	5. for
 
 ### 基本对象
 
 1. Function 函数（方法）对象
 	1. 创建方式
-		1. `var fun = new Function(形式列表参数，方法体)`
+		1. `var fun = new Function(形式列表参数，方法体)`   不重要
 		2. `function 方法名称(形式参数列表){方法体}`
 		3. `var 方法名 = function(){}`
 	2. 方法
@@ -181,13 +381,62 @@ CSS 和 HTML 的结合方式
 	4. 特点
 	5. 调用
 2. Array数组对象
-3. Boolean
+	```
+	var arr = new Array();
+	arr.push("apple");
+	arr.push("orange");
+
+	var arr1 = ["car","dog","tiger"];
+    ```
+3. Boolean对象
 4. Date 日期对象
 5. Math 数学对象
 6. Number对象
 7. String对象
 8. RegEXP 正则表达式对象
 9. Global对象
+### 自定义对象
+- 对象的定义：
+```
+var 变量名 = new Object();
+
+// 对象实例（空对象）
+
+变量名.属性名 = 值;
+
+// 定义一个属性
+
+变量名.函数名 = function(){} // 定义一个函数
+
+对象的访问：
+
+变量名.属性 / 函数名()
+```
+
+- {}花括号形式的自定义对象
+```
+对象的定义：
+
+var 变量名 = {
+
+// 空对象
+
+属性名：值,
+
+// 定义一个属性
+
+属性名：值,
+
+// 定义一个属性
+
+函数名：function(){} // 定义一个函数
+
+};
+
+对象的访问：
+
+变量名.属性 / 函数名();
+```
 
 ### BOM
 1. 概念：`Browser Object Model `浏览器对象模型
@@ -278,10 +527,10 @@ CSS 和 HTML 的结合方式
 			2. document
 		2. 方法：
 			1. 获取Element对象：
-				1.`getElementById()`	： 根据id属性值获取元素对象。id属性值一般唯一
-				2.`getElementsByTagName()`：根据元素名称获取元素对象们。返回值是一个数组
-				3.`getElementsByClassName()`:根据Class属性值获取元素对象们。返回值是一个数组
-				4.`getElementsByName()`: 根据name属性值获取元素对象们。返回值是一个数组
+				1.`getElementById(elementId)`	： 根据id属性值获取元素对象。id属性值一般唯一
+				2.`getElementsByTagName(tagname)`：根据元素名称获取元素对象们。返回值是一个数组
+				3.`getElementsByClassName(className)`:根据Class属性值获取元素对象们。返回值是一个数组
+				4.`getElementsByName(elementName)`: 根据name属性值获取元素对象们。返回值是一个数组
 			2. 创建其他DOM对象：
 				 - `createAttribute(name)`
 				 - `createComment()`
@@ -350,13 +599,28 @@ CSS 和 HTML 的结合方式
 			1. `onsubmit`	确认按钮被点击。
 			2. `onreset`	重置按钮被点击。
 ## Tomcat
+web服务器
+- 由 Apache 组织提供的一种 Web 服务器，提供对 jsp 和 Servlet 的支持。它是一种轻量级的 javaWeb 容器（服务器），也是当前应用最广的 JavaWeb 服务器（免费）。
+- Jboss：是一个遵从 JavaEE 规范的、开放源代码的、纯 Java 的 EJB 服务器，它支持所有的 JavaEE 规范（免费）。
+## XML
+语法
+1. 文档声明
+2. 元素
+3. xml属性
+4. xml注释
+5. 文本区域（CDATA区）
 
-
+XML解析技术介绍
+DOM 和 sax
+第三方解析：
+- jdom
+- dom4j
+- pull
 ## Servlet1
 1. 什么是Servlet
 	1. Servlet 是 JavaEE 规范之一。规范就是接口
-	2. Servlet 就 JavaWeb 三大组件之一。三大组件分别是：**Servlet 程序、Filter 过滤器、Listener监听器**。 
-	3. Servlet 是运行在服务器上的一个 java 小程序，它可以接收客户端发送过来的请求，并响应数据给客户端
+	2. Servlet 就 JavaWeb 三大组件之一。三大组件分别是：**Servlet程序、Filter 过滤器、Listener监听器**。 
+	3. Servlet 是运行在服务器上的一个 java 小程序，它可以接收客户端发送过来的请求，并响应数据给客户端。
 
 - Servlet的生命周期
 1. 执行Servlet构造器方法
@@ -369,18 +633,45 @@ CSS 和 HTML 的结合方式
 
 - 通过继承HttpServlet实现Servlet程序
 1. 编写一个类去继承 `HttpServlet` 类
-2. 根据业务需要重写 `doGet` 或 `doPost` 方法
+2. 根据业务需要重写 `doGet()` 或 `doPost()` 方法
 3. 到 web.xml 中的配置`Servlet`程序的访问地址
 
 ### ServletConfig类
+`ServletConfig` 类从类名上来看，就知道是 `Servlet` 程序的配置信息类。
+Servlet 程序和 ServletConfig 对象都是由 Tomcat 负责创建，我们负责使用。
 
+Servlet 程序默认是第一次访问的时候创建，ServletConfig 是每个 Servlet 程序创建时，就创建一个对应的 ServletConfig 对象。
+
+ServletConfig 类的三大作用
+1. 可以获取 Servlet 程序的别名 servlet-name 的值
+2. 获取初始化参数 init-param
+3. 获取 ServletContext 对象
+### ServletContext类
+1、ServletContext 是一个接口，它表示 Servlet 上下文对象
+2、一个 web 工程，只有一个 ServletContext 对象实例。
+3、ServletContext 对象是一个域对象。
+4、ServletContext 是在 web 工程部署启动的时候创建。在 web 工程停止的时候销毁。
+
+什么是域对象?
+域对象，是可以像 Map 一样存取数据的对象，叫域对象。
+这里的域指的是存取数据的操作范围，整个 web 工程。
+|  |存数据|取数据|删除数据|
+|---|----|----|-------|
+|Map|put()|get()|remove()|
+|域对象|setAttribute()|getAttribute()|removeAttribute()|
+
+ServeltContext类的四个作用
+1. 获取 web.xml 中配置的上下文参数 context-param
+2. 获取当前的工程路径，格式: /工程路径
+3. 获取工程部署后在服务器硬盘上的绝对路径
+4. 像 Map 一样存取数据
 ## HTTP协议
 
- 客户端给服务器发送数据叫**请求**。
+客户端给服务器发送数据叫**请求**。
 
 服务器给客户端回传数据叫**响应**。
 
-请求HTTP协议
+### HTTP请求协议
 
 GET请求
 
@@ -400,28 +691,42 @@ POST请求
    1. key:value
 3. 空行
 4. 请求体
+- 常用请求头的说明
+Accept: 表示客户端可以接收的数据类型
+Accpet-Languege: 表示客户端可以接收的语言类型
+User-Agent: 表示客户端浏览器的信息
+Host： 表示请求时的服务器 ip 和端口号
 
+- 哪些是GET请求，哪些是POST请求
+	- GET 请求有哪些：
+		1. form 标签 `method=get`
+		2. a 标签
+		3. link 标签引入 css
+		4. Script 标签引入 js 文件
+		5. img 标签引入图片
+		6. iframe 引入 html 页面
+		7. 在浏览器地址栏中输入地址后敲回车
+	- POST 请求有哪些：
+		1. form 标签 `method=post`
+### HTTP响应协议
 - 响应的HTTP协议
-1. 响应行
-   1. 响应协议和版本号
-   2. 响应状态码
-   3. 响应状态描述符
-2. 响应头
-   1. key:value
-3. 空行
-4. 响应体
+	1. 响应行
+	   1. 响应协议和版本号
+	   2. 响应状态码
+	   3. 响应状态描述符
+	2. 响应头
+	   1. key:value
+	3. 空行
+	4. 响应体  
 
-哪些是GET请求，哪些是POST请求
-- GET 请求有哪些：
-	1、form 标签 `method=get`
-	2、a 标签
-	3、link 标签引入 css
-	4、Script 标签引入 js 文件
-	5、img 标签引入图片
-	6、iframe 引入 html 页面
-	7、在浏览器地址栏中输入地址后敲回车
-- POST 请求有哪些：
-	8、form 标签 `method=post`
+- 常用响应码说明
+|响应码|说明|
+|---|-----|
+|200|表示请求成功|
+|302|表示请求重定向|
+|404|表示请求服务器已经收到了，但是你要的数据不存在（请求地址错误）|
+|500|表示服务器已经收到请求，但是服务器内部错误（代码错误）|
+
 
 ## HttpServletRequest & HttpServletResponse
 ### HttpServletRequest

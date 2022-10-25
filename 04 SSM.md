@@ -183,13 +183,13 @@ foreach
 
 ## IOC
 
-IOC概念和原理
+### IOC概念和原理
 
 1. 控制反转，把对象创建和对象之间的调用过程，交给spring进行管理
 
 2. 使用IOC的目的：为了降低耦合度
 
-IOC底层原理
+### IOC底层原理
 
 1. xml解析 工厂模式 反射
 
@@ -233,22 +233,94 @@ FactoryBean
 
 基于XML的自动装配
 
-基于注解管理bean
-
-@Component：将类标识为普通组件 
-
-@Controller：将类标识为控制层组件 
-
-@Service：将类标识为业务层组件 
-
-@Repository：将类标识为持久层组件
+### 基于注解管理bean
+- `@Component`：将类标识为普通组件 
+- `@Controller`：将类标识为控制层组件 
+- `@Service`：将类标识为业务层组件 
+- `@Repository：`将类标识为持久层组件
 
 ## AOP
 
 # SpringMVC
 
-配置文件
+什么是MVC
+
+
+配置web.xml文件
 
 ```xml
+<?xml version="1.0" encoding="UTF-8"?>  
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"  
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"  
+         version="4.0">  
+  
+    <!--  
+        配置SpringMVC的前端控制器DispatcherServlet  
+        SpringMVC的配置文件默认的位置和名称：  
+        位置：WEB-INF下  
+        名称：<servlet-name>-servlet.xml，当前配置下的配置文件名为SpringMVC-servlet.xml  
+        url-pattern中/和/*的区别：  
+        /：匹配浏览器向服务器发送的所有请求（不包括.jsp）  
+        /*：匹配浏览器向服务器发送的所有请求（包括.jsp）  
+        jsp文件由tomcat的JspServlet处理
+    -->  
+    <servlet>  
+        <servlet-name>SpringMVC</servlet-name>  
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>  
+        <!--设置SpringMVC配置文件的位置和名称-->  
+        <init-param>  
+            <param-name>contextConfigLocation</param-name>  
+            <param-value>classpath:springmvc.xml</param-value>  
+        </init-param>        <!--将DispatcherServlet的初始化时间提前到服务器启动时-->  
+        <load-on-startup>1</load-on-startup>  
+    </servlet>    <servlet-mapping>        <servlet-name>SpringMVC</servlet-name>  
+        <url-pattern>/</url-pattern>  
+    </servlet-mapping>  
+</web-app>
 
 ```
+
+创建请求控制器
+
+SpringMVC的配置文件
+
+### @RequestMapping注解
+- 功能
+
+- 位置
+标识一个类:设置映射请求的请求路径的初始信息
+标识一个方法:设置映射请求请求路径的具体信息
+```java
+@Controller
+@RequestMapping("/test")
+public class RequestMappingController {
+//此时请求映射所映射的请求的请求路径为：/test/testRequestMapping
+	@RequestMapping("/testRequestMapping")
+	public String testRequestMapping(){
+	return "success";
+	}
+}
+```
+- value属性
+- method属性
+- params属性
+- header属性
+- SpringMVC支持ant风格的路径
+- SpringMVC支持路径中的占位符
+
+### SpringMVC获取请求参数
+- 通过ServletAPI获取
+- 通过控制器方法的行参获取请求参数
+- @RequestParam
+- @RequsetHeader
+- @CookieValue
+- 通过POJO获取
+- 解决获取请求路径的乱码问题
+
+### 域对象共享数据
+
+### SpringMVC的视图
+
+### RETFUL
+
