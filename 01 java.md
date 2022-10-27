@@ -5,13 +5,10 @@
 常量 变量
 
 数据类型
-
 * 基本数据类型 整数浮点数 字符 布尔
-
 * 引用数据类型 类 数组 接口
 
 基本数据类型
-
 | 数据类型 | 关键字     | 内存占用 | 默认值|取值范围             |
 | ---- | ------- | ---- | ---------------- |---|
 | 字节型  | int     | 1byte    |                  | |
@@ -20,11 +17,11 @@
 | 长整型  | long    | 8byte    |  |-2的63次方~2的63次方-1 |
 | 单精度  | float   | 4byte    |                  |   |
 | 双精度  | double  | 8byte    |                  |   |
-	| 字符型  | char    | 2byte    |                  |   |
+| 字符型  | char    | 2byte    |                  |   |
 | 布尔型  | boolean | 1byte    |                  |   |
 
+
  >long类型：建议数据后加L表示 不加L默认为int
-> 
 > float类型：建议数据后加F表示。
 
 # 数组
@@ -47,7 +44,7 @@ int[] c = {1,3,5};
 
 ## 数组作为方法参数和返回值
 
-java都是值传递，基本类型是传递的是值，引用类型是传递的是对象的地址
+java都是**值传递**，**基本类型**是传递的是值，**引用类型**是传递的是对象的地址。
 
 > 方法的参数为基本类型时,传递的是数据值. 方法的参数为引用类型时,传递的是地址值.
 
@@ -69,7 +66,7 @@ public ConstructorName(){
 
 ### JavaBean
 
-`JavaBean` 是 `Java`语言编写类的一种标准规范。符合 `JavaBean` 的类，要求类必须是具体的和公共的，并且具有无参数的构造方法，提供用来操作成员变量的 set 和 get 方法。
+`JavaBean` 是 `Java`语言编写类的一种标准规范。符合 `JavaBean` 的类，要求类必须是具体的和公共的，并且具有无参数的构造方法，提供用来操作成员变量的 `set` 和 `get` 方法。
 
 # 常用API第一部分
 
@@ -102,13 +99,9 @@ ArrayList<String> list = new ArrayList<>(); // 泛型
 `public ArrayList()`
 
 成员方法
-
 * `public boolean add(E e)`
-
 * `public E remove(int Index)`
-
 * `public E get(int index)`
-
 * `public int size()`
 
 ## 2. String static Arrayas Math类
@@ -123,12 +116,9 @@ day08【String类、static、Arrays类、Math类】.pdf
 
 1. 概述
 * 字符串不变
-
 * 因为String对象是不可变的，所以它们可以被共享。
-
 * `"abc"`等效于`char[] data = {'a','b','c'}`
 2. 使用步骤
-
 ```java
 // 无参构造 
 String str = new String（）； 
@@ -140,51 +130,27 @@ byte bytes[] = { 97, 98, 99 };
 String str3 = new String(bytes);
 ```
 
-1. 常用方法
+3. 常用方法
 * 判断功能的方法
-  
-  * equals
-  
-  * equalsIgnoreCase
-
+  * `public boolean equals()`
+  * `public boolean equalsIgnoreCase()`
 * 获取功能的方法
-  
   * `public int length()`
-  
   * `public String concat(String str)`
-  
   * `public char charAt(int index)`
-  
   * `public int indexOf(String str)`返回指定子字符串第一次出现在该字符串内的索引。
-  
-  * `public String substring(int beginIndex)`返回一个子字符串，从beginIndex开始截取字符串到字符
-    
-    串结尾。
-  
-  * `public String substring(int beginIndex, int endIndex)`返回一个子字符串，从beginIndex到
-    
-    endIndex截取字符串。含beginIndex，不含endIndex。
-
+  * `public String substring(int beginIndex)`返回一个子字符串，从beginIndex开始截取字符串到字符串结尾。
+  * `public String substring(int beginIndex, int endIndex)`返回一个子字符串，从beginIndex到endIndex截取字符串。含beginIndex，不含endIndex。
 * 转换功能的方法
-  
   * `public char[] toCharrArray()`
-  
   * `public byte[] getBytes()`使用平台的默认字符集将该 String编码转换为新的字节数组。
-  
-  * `public String replace(CharSequence target, CharSequence replacement)`将与target匹配的字符串使
-    
-    用replacement字符串替换。
-
+  * `public String replace(CharSequence target, CharSequence replacement)`将与target匹配的字符串使用replacement字符串替换。
 * 分割功能的方法
-  
   * `public String[] split(String regex)`将此字符串按照给定的regex（规则）拆分为字符串数组。
 
 ### static
-
 * 概述
-
-修饰成员变量和成员方法，被修饰的成员是属于类的，而不是单单是属于某个对象的。
-
+	修饰成员变量和成员方法，被修饰的成员是属于类的，而不是单单是属于某个对象的。
 * 定义和使用方法
 1. 类变量
 2. 静态方法
@@ -201,19 +167,12 @@ String str3 = new String(bytes);
 5. [实例代码块与静态代码块](https://blog.csdn.net/weixin_51755941/article/details/123153754)
 
 ### Arrays类
-
 * `public static String toString(int[] a)`
-
 * `public static void sort(int[] a)`
-
 ### Math类
-
 * `public static double abs(double e)`
-
 * `public static double ceil(double e)`
-
 * `public static double floor(double a)`
-
 * `public static long round(double a)`
 
 # 继承与多态
@@ -269,7 +228,6 @@ f.method()
 ### 内部类
 
 * 内部类可以直接访问外部类的成员，包括私有成员。
-
 * 外部类要访问内部类的成员，必须要建立内部类的对象。
 
 ### 匿名内部类
@@ -280,15 +238,12 @@ f.method()
 
 ### Object类
 
-1. `public String toString`
-
+1. `public String toString()`
 2. `public boolean equals(Object obj)`
 
-默认地址比较
-
+- 默认地址比较
 如果没有覆盖重写equals方法，那么Object类中默认进行`==`运算符的对象地址比较，只要不是同一个对象，结果必然为false。
-
-对象内容比较
+- 对象内容比较
 如果希望进行对象的内容比较，即所有或指定的部分成员变量相同就判定两个对象相同，则可以覆盖重写equals方法。例如：
 
 ```java
@@ -317,15 +272,12 @@ public class Person {
 ### System类
 
 - `public static long currentTimeMillis()`：返回以毫秒为单位的当前时间。
-
 - `public static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length)`：将数组中指定的数据拷贝到另一个数组中。
 
 ### StringBuilder类
 
 StringBuilder常用的方法有2个：
-
 - `public StringBuilder append(...)`：添加任意类型数据的字符串形式，并***返回当前对象自身***。
-
 - `public String toString()`：将当前StringBuilder对象转换为**String对象**。
 
 ### 包装类
@@ -385,9 +337,7 @@ StringBuilder常用的方法有2个：
 #### Iterator接口
 
 * `public Iterator iterator()`获取集合对应的迭代器，用来遍历集合中的元素的
-
 * `public E next()`  返回迭代的下一个元素
-
 * `public boolean hasNext()`如果仍有元素可以迭代，则返回 true。
 
 ```java
@@ -413,28 +363,19 @@ for (元素的数据类型 变量 ：Collection集合或数组){
 
 ### 泛型
 
-1 定义和使用含有泛型的类
-
-`修饰符 class 类名<代表泛型的变量> { }`
-
-2 含有泛型的方法
-
-`修饰符 <代表泛型的变量> 返回值类型 方法名(参数){ }`
-
-3 含有泛型的接口
-
-`修饰符 interface接口名<代表泛型的变量> { }`
+1. 定义和使用含有泛型的类
+	`修饰符 class 类名<代表泛型的变量> { }`
+2. 含有泛型的方法
+	`修饰符 <代表泛型的变量> 返回值类型 方法名(参数){ }`
+3. 含有泛型的接口
+	`修饰符 interface接口名<代表泛型的变量> { }`
 
 ## List Set
 
 * List接口中常用方法，List作为Collection集合的子接口，不但继承了Collection接口中的全部方法，而且还增加了一些根据元素索引来操作集合的特有方法
-  
   * `public void add(int index,E element)`
-  
   * `public E get(index)`
-  
   * `public E remove(index)`
-  
   * `public E set(int index ,E element)`
 
 * `List`
@@ -442,23 +383,14 @@ for (元素的数据类型 变量 ：Collection集合或数组){
   * ArrayList
   
   * LinkedList
-    
-    * `public void addFirst(E e)`
-    
+    * `public void addFirst(E e)`    
     * `public void addLast(E e)`
-    
     * `public E getFirst()`
-    
     * `public E getLast()`
-    
     * `public E removeFirst()`
-    
     * `public E removeLast()`
-    
     * `public E pop`
-    
     * `public void push`
-    
     * `public boolean isEmpty()`
 
 * `Set`
@@ -466,15 +398,11 @@ for (元素的数据类型 变量 ：Collection集合或数组){
   同样继承自`Collection`接口
   
   * `HashSet`
-    
     * `HashSet`是根据对象的哈希值来确定元素在集合中存在位置，因此具有良好的存取和查找性能。保证元素唯一性的方式依赖于：`hashCode`与`equals`方法
-    
     * 如果我们往集合中存放自定义的对象，那么保证其唯一，就必须复写`hashCode`和`equals`方法建立属于当前对象的比较方式。
-    
     * hashCode相等，不一定equals
-    
     * equals则hashCode一定相等；
-  
+
   * `LinkedSet`
 
 ### 可变参数
@@ -488,13 +416,9 @@ for (元素的数据类型 变量 ：Collection集合或数组){
 ### Collections
 
 * Collections是集合工具类，用来对集合进行操作。
-
 * `puclic static <T> bollean addAll(Collection<T> c,T...elements)`
-
 * `public static void shuffle(List<?> list) `
-
 * `public static <T> void sort(List<T> list)`
-
 * `public static <T> void sort(List<T> list ,Comparator<? super <T>)`
 
 ## Map
@@ -512,13 +436,9 @@ Map常用子类
 Map中常用的方法
 
 * `public V put(K key, V value)`
-
 * `public V remove(object key)`
-
 * `public V get(object key)`
-
 * `public Set<k> keySet()`
-
 * `public Set<Map.Entry<K,V>> entrySet()`
 
 # 异常与多线程
@@ -537,19 +457,14 @@ Map中常用的方法
 分类`Throwable`中的常用方法
 
 * `public void printStackTrace()`
-
 * `public String getMessage()`
-
 * `public String toString()`
 
 ### 异常的处理
 
 `throw`
-
 `throws`
-
 `try catch`
-
 `finally`
 
 ### 自定义异常
@@ -685,11 +600,8 @@ public static void MultiThreadRunnableTest(){
 获取功能的方法
 
 * `public String getAbsolutePath()`：返回此File的绝对路径名字符串
-
 * `public String getPath() `：将此File转换为路径名字符串。
-
 * `public String getName()` ：返回由此File表示的文件或目录的名称。
-
 * `public long length()`：返回由此File表示的文件的长度。
 
 绝对路径和相对路径
@@ -697,9 +609,7 @@ public static void MultiThreadRunnableTest(){
 判断功能的方法
 
 * `public boolean exists() `：此File表示的文件或目录是否实际存在。
-
 * `public boolean isDirectory() `：此File表示的是否为目录。
-
 * `public boolean isFile()`：此File表示的是否为文件。
 
 创建删除功能的方法
@@ -731,13 +641,9 @@ public static void MultiThreadRunnableTest(){
 java.io.OutputStream 抽象类是表示字节输出流的所有类的超类，将指定的字节信息写出到目的地。它定义了字节输出流的基本共性功能方法。
 
 * `public void close()`
-
 * `public void flush()` 刷新此输出流并强制任何缓冲的输出字节被写出。
-
 * `public void write(byte[] b)` 
-
 * `public void write(byte[] b, int off,int len)` 
-
 
 `FileOutputStream` OutputStream的子类
 构造方法
@@ -757,9 +663,7 @@ java.io.OutputStream 抽象类是表示字节输出流的所有类的超类，�
 `java.io.InputStream` 抽象类是表示字节输入流的所有类的超类，可以读取字节信息到内存中。它定义了字节输入流的基本共性功能方法。
 
 * `public void close()`
-
 * `public abstract int read()`
-
 * `public int read(byte[] b) `：从输入流中读取一些字节数，并将它们存储到字节数组 b中 。
 
 `FileInputStream`  InputStream子类
@@ -767,55 +671,38 @@ java.io.OutputStream 抽象类是表示字节输出流的所有类的超类，�
 `FileInputStream(File file)`
 `FileInputStream(String name)`
 读入字节数据
-read()   读取一个字节数据，提升为int类型，读到文件末尾，返回-1
-read(byte[] b)  每次读取b的长度个字节到数组中，返回**读取到的有效字节个数**，读取到末尾时，返回 -1
+`read()`   读取一个字节数据，提升为int类型，读到文件末尾，返回-1
+`read(byte[] b)`  每次读取b的长度个字节到数组中，返回**读取到的有效字节个数**，读取到末尾时，返回 -1
 
 >tips:使用数组读取，每次读取多个字节，减少了系统间的IO操作次数，从而提高了读写的效率，建议开发中使用。
 
-
-
-
 ### 字符流
 
-1. Reader
-   
-   * `public void close()` ：关闭此流并释放与此流相关联的任何系统资源。
-   
+1. `Reader`
+   * `public void close()` ：关闭此流并释放与此流相关联的任何系统资源。   
    * `public int read()` ：从输入流读取一个字符。
-   
    * `public int read(char[] cbuf)` ：从输入流中读取一些字符，并将它们存储到字符数组 cbuf中 。
-   
-	FileReader
+	`FileReader`
 
 2. Writer
-   
    * `void write(int c)` 写入单个字符。
-   
    * `void write(char[] cbuf)` 写入字符数组。
-   
    * `abstract void write(char[] cbuf, int off, int len)` 写入字符数组的某一部分,offff数组的开始索引,len写的字符个数。
-   
    * `void write(String str)` 写入字符串。
-   
    * `void write(String str, int off, int len)` 写入字符串的某一部分,off字符串的开始索引,len写的字符个数。
-   
    * `void flush()` 刷新该流的缓冲。
-   
    * `void close() `关闭此流，但要先刷新它。
    
-   FileWriter
+   `FileWriter`
 
 ### 属性集
 
 `public Properties()`
 
-`public Object setProperty(String key, String value) `：保存一对属性。
-
-`public String getProperty(String key) `：使用此属性列表中指定的键搜索属性值。
-
-`public Set<String> stringPropertyNames() `：所有键的名称的集合。
-
-`public void load(InputStream inStream) `：从字节输入流中读取键值对
+- `public Object setProperty(String key, String value) `：保存一对属性。
+- `public String getProperty(String key) `：使用此属性列表中指定的键搜索属性值。
+- `public Set<String> stringPropertyNames() `：所有键的名称的集合。
+- `public void load(InputStream inStream) `：从字节输入流中读取键值对
 
 ```java
 public class ProDemo2 { 
@@ -861,7 +748,7 @@ BufferedWriter `public void newLine()`
 Character Encoding
 Charset
 
-`InputStreamReader`   Reader的子类
+`InputStreamReader`  Reader的子类
 
 `InputStreamReader(InputStream in, String charsetName) `: 创建一个指定字符集的字符流
 
@@ -871,13 +758,10 @@ Charset
 
 ### 序列化
 
-`public ObjectOutputStream(OutputStream out) `：创建一个指定OutputStream的ObjectOutputStream。
-
-`public final void writeObject (Object obj) `: 将指定的对象写出。
-
-`public ObjectInputStream(InputStream in) `：创建一个指定InputStream的ObjectInputStream
-
-`public final Object readObject () `: 读取一个对象
+- `public ObjectOutputStream(OutputStream out) `：创建一个指定OutputStream的ObjectOutputStream。
+- `public final void writeObject (Object obj) `: 将指定的对象写出。
+- `public ObjectInputStream(InputStream in) `：创建一个指定InputStream的ObjectInputStream
+- `public final Object readObject () `: 读取一个对象
 
 ### 打印流
 
@@ -895,15 +779,12 @@ c/s b/s
 
 tcp  面向连接的通信协议  
 
-三次握手
-
+- 三次握手
 第一次握手，客户端向服务器端发出连接请求，等待服务器确认。
-
 第二次握手，服务器端向客户端回送一个响应，通知客户端收到了连接请求。
-
 第三次握手，客户端再次向服务器端发送确认信息，确认连接。整个交互过程如下图所示。
 
-udp 无连接
+udp 无连接的通信服务
 
 网络编程三要素
 
@@ -916,13 +797,11 @@ udp 无连接
 
 method
 
-`public InputStream getInputStream()` 返回此套接字的输入流`
+- `public InputStream getInputStream()` 返回此套接字的输入流`
+- `public OutputStream getOutputStream()` ：返回此套接字的输出流。
+- `public void close()` ：关闭此套接字
+- `public void shutdownOutput()` ：禁用此套接字的输出流。
 
-`public OutputStream getOutputStream()` ：返回此套接字的输出流。
-
-`public void close()` ：关闭此套接字
-
-`public void shutdownOutput()` ：禁用此套接字的输出流。
 
 * ServerSocket
 
@@ -952,12 +831,12 @@ TCP通信图解
   
 1. 定义一个测试类(测试用例)
    * 建议：
-	   * 测试类名：被测试的类名Test        CalculatorTest
-	   * 包名：xxx.xxx.xx.test        cn.itcast.test
+	   * 测试类名：被测试的类名Test        `CalculatorTest`
+	   * 包名：`xxx.xxx.xx.test`        `cn.itcast.test`
 
 2. 定义测试方法：可以独立运行
    * 建议：
-	   * 方法名：test测试的方法名        testAdd()  
+	   * 方法名：test测试的方法名      `testAdd()`  
 	   * 返回值：void
 	   * 参数列表：空参
 
@@ -990,72 +869,43 @@ TCP通信图解
   * 获取功能：
     
     1. 获取成员变量们
-       
        * `Field[] getFields()` ：获取所有public修饰的成员变量
-       
        * `Field getField(String name)`   获取指定名称的 public修饰的成员变量
-       
        * `Field[] getDeclaredFields()`  获取所有的成员变量，不考虑修饰符
-       
        * `Field getDeclaredField(String name)  `
-    
     2. 获取构造方法们
-       
        * `Constructor<?>[] getConstructors()  `
-       
        * `Constructor<T> getConstructor(类<?>... parameterTypes)  `
-       
        * `Constructor<T> getDeclaredConstructor(类<?>... parameterTypes)  `
-       
        * `Constructor<?>[] getDeclaredConstructors()  `
-    
     3. 获取成员方法们：
-       
        * `Method[] getMethods()  `
-       
        * `Method getMethod(String name, 类<?>... parameterTypes)  `
-       
        * `Method[] getDeclaredMethods()  `
-       
        * `Method getDeclaredMethod(String name, 类<?>... parameterTypes)  `
-    
     4. 获取全类名    
-       
        * `String getName()`
 
 * Field：成员变量
   
   * 操作：
-    
     1. 设置值
-       
        * `void set(Object obj, Object value)  `
-    
     2. 获取值
-       
        * `get(Object obj)`
-    
     3. 忽略访问权限修饰符的安全检查
-       
        * `setAccessible(true)`:暴力反射
 
 * Constructor:构造方法
-  
   * 创建对象：
-    
-    * T newInstance(Object... initargs)  
-    
+    * `T newInstance(Object... initargs)  `
     * 如果使用空参数构造方法创建对象，操作可以简化：Class对象的newInstance方法
 
 * Method：方法对象
-  
   * 执行方法：
-    
-    * Object invoke(Object obj, Object... args)  
-  
+    * `Object invoke(Object obj, Object... args)`
   * 获取方法名称：
-    
-    * String getName:获取方法名
+    * `String getName()`:获取方法名
 
 ## 注解
 
@@ -1077,11 +927,10 @@ SQL分类
 ### 约束
 - 概念： 对表中的数据进行限定，保证数据的正确性、有效性和完整性。
 - 分类： 
-	1. 主键约束：primary key
-	2. 非空约束：not null
-	3. 唯一约束：unique,值不能重复
-	4. 外键约束：foreign key
-	5. 非空约束：not null，值不能为null
+	1. 主键约束：`primary key`
+	2. 非空约束：`not null`
+	3. 唯一约束：`unique`,值不能重复
+	4. 外键约束：`foreign key`
 
 - 非空约束：not null，值不能为null
 1.  创建表时添加约束 
@@ -1117,7 +966,7 @@ ALTER TABLE stu DROP INDEX phone_number;
 ALTER TABLE stu MODIFY phone_number VARCHAR(20) UNIQUE;
 ```
 
-- 主键约束：primary key 
+- 主键约束：`primary key `
 1. 注意
 	1. 含义：非空且唯一 
 	2. 一张表只能有一个字段为主键 
@@ -1171,11 +1020,14 @@ ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) 
 - 级联操作
 1. 添加级联操作  
 	语法：
+	```sql
 	ALTER TABLE 表名 ADD CONSTRAINT 外键名称  
 	FOREIGN KEY (外键字段名称) REFERENCES 主表名称(主表列名称) ON UPDATE CASCADE ON DELETE CASCADE ;
+	```
+	
 2. 分类：  
-	1. 级联更新：ON UPDATE CASCADE  
-	2. 级联删除：ON DELETE CASCADE
+	1. 级联更新：`ON UPDATE CASCADE`  
+	2. 级联删除：`ON DELETE CASCADE`
 ### 数据库设计
 多表之间的关系
 	1. 分类
@@ -1199,7 +1051,7 @@ ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) 
   -   概念：设计数据库时，需要遵循的一些规范。要遵循后边的范式要求，必须先遵循前边的所有范式要求   
 	设计关系数据库时，遵从不同的规范要求，设计出合理的关系型数据库，这些不同的规范要求被称为不同的范式，各种范式呈递次规范，越高的范式数据库冗余越小。  
 	目前关系数据库有六种范式：第一范式（1NF）、第二范式（2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式(4NF）和第五范式（5NF，又称完美范式）。
-    * 分类： 
+* 分类： 
     1. 第一范式（1NF）：每一列都是不可分割的原子数据项  
     2. 第二范式（2NF）：在1NF的基础上，非码属性必须完全依赖于码（在1NF基础上消除非主属性对主码的部分函数依赖）  
 	    - 几个概念：  
@@ -1212,16 +1064,15 @@ ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) 
 	    4. 传递函数依赖：A-->B, B -- >C . 如果通过A属性(属性组)的值，可以确定唯一B属性的值，在通过B属性（属性组）的值可以确定唯一C属性的值，则称 C 传递函数依赖于A  
 			    例如：学号-->系名，系名-->系主任  
 	    5. 码：如果在一张表中，一个属性或属性组，被其他所有属性所完全依赖，则称这个属性(属性组)为该表的码  
-				    例如：该表中码为：（学号，课程名称）  
-				    * 主属性：码属性组中的所有属性  
-				    * 非主属性：除过码属性组的属性   
-    3. 第三范式（3NF）：在2NF基础上，任何非主属性不依赖于其它非主属性（在2NF基础上消除传递依赖）
+			例如：该表中码为：（学号，课程名称）  
+			* 主属性：码属性组中的所有属性  
+			* 非主属性：除过码属性组的属性   
+    1. 第三范式（3NF）：在2NF基础上，任何非主属性不依赖于其它非主属性（在2NF基础上消除传递依赖）
 
 ## 多表 事务
 
 ### 多表查询
 笛卡尔积：
-
 1. 内连接查询
 	1. 隐式内连接
 	2. 显式内连接
@@ -1252,11 +1103,9 @@ ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) 
         UPDATE account SET balance = 1000;
         
         -- 张三给李四转账 500 元
-        
         -- 0. 开启事务
         START TRANSACTION;
         -- 1. 张三账户 -500
-
         UPDATE account SET balance = balance - 500 WHERE NAME = 'zhangsan';
         -- 2. 李四账户 +500
         -- 出错了...
@@ -1268,7 +1117,6 @@ ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) 
         -- 发现出问题了，回滚事务
         ROLLBACK;
 		```
-
 	4. MySQL数据库中事务默认自动提交
         * 事务提交的两种方式：
             * 自动提交：

@@ -27,13 +27,13 @@
 2. 标签名大小写不敏感。
 
 3. 标签拥有自己的属性。
-	i. 分为基本属性：bgcolor="red"             可以修改简单的样式效果
-	ii. 事件属性： onclick="alert('你好！');"  可以直接设置事件响应后的代码。
+	i. 分为基本属性：bgcolor="red"             可以修改简单的样式效果  
+	ii. 事件属性： onclick="alert('你好！');"  可以直接设置事件响应后的代码。  
 4. 标签又分为，单标签和双标签。
-	i. 单标签格式： <标签名 />
-		br 换行
-		hr 水平线
-	ii. 双标签格式: <标签名> ...封装的数据...</标签名>
+	i. 单标签格式： <标签名 />  
+		br 换行  
+		hr 水平线  
+	ii. 双标签格式: <标签名> ...封装的数据...</标签名>  
 ### 常用标签
 #### 超链接
 ```html
@@ -47,7 +47,6 @@
 #### 列表标签
 ```html
 <body>
-
 <!--需求 1：使用无序，列表方式，把东北 F4，赵四，刘能，小沈阳，宋小宝，展示出来
 ul 是无序列表
 type 属性可以修改列表项前面的符号
@@ -64,19 +63,24 @@ li 是列表项
 ```
 
 #### 表格
-需求1：做一个 带表头的 ，三行，三列的表格，并显示边框
-需求2：修改表格的宽度，高度，表格的对齐方式，单元格间距。
+需求1：做一个 带表头的 ，三行，三列的表格，并显示边框  
+需求2：修改表格的宽度，高度，表格的对齐方式，单元格间距。  
 - table 标签是表格标签
 	- border 设置表格标签
 	- width 设置表格宽度
 	- height 设置表格高度
 	- align 设置表格相对于页面的对齐方式
 	- cellspacing 设置单元格间距
-tr   是行标签
-th  是表头标签
-td  是单元格标签
-	align 设置单元格文本对齐方式
-b 是加粗标签
+| 标签  | 意义        | 
+|----|--------|
+|tr  |  是行标签|
+|th|  是表头标签|
+|td|  是单元格标签|
+|	|align 设置单元格文本对齐方式|
+|   |b 是加粗标签|
+
+----- 
+
 ```html
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -111,11 +115,10 @@ b 是加粗标签
 ```
 #### 跨行跨列表格
 需求1：
-新建一个五行，五列的表格，
-第一行，第一列的单元格要跨两列，
-第二行第一列的单元格跨两行，
-第四行第四列的单元格跨两行两列。
-
+新建一个五行，五列的表格，  
+第一行，第一列的单元格要跨两列，  
+第二行第一列的单元格跨两行，  
+第四行第四列的单元格跨两行两列。  
 - colspan 属性设置跨列
 - rowspan 属性设置跨行
             
@@ -164,30 +167,29 @@ b 是加粗标签
 </html>
 ```
 #### 表单标签
-表单就是 html 页面中,用来收集用户信息的所有元素集合.然后把这些信息发送给服务器。
+表单就是 html 页面中,用来收集用户信息的所有元素集合.然后把这些信息发送给服务器。  
 form标签就是表单
-- input type=text     是文件输入框  value设置默认显示内容
-- input type=password 是密码输入框  value设置默认显示内容
-- input type=radio    是单选框    name属性可以对其进行分组
-- checked="checked"表示默认选中
-- input type=checkbox 是复选框   checked="checked"表示默认选中
-- input type=reset    是重置按钮      value属性修改按钮上的文本
-- input type=submit   是提交按钮      value属性修改按钮上的文本
-- input type=button   是按钮          value属性修改按钮上的文本
-- input type=file     是文件上传域
-- input type=hidden   是隐藏域    当我们要发送某些信息，而这些信息，不需要用户参与，就可以使用隐藏域（提交的时候同时发送给服务器）
-- select 标签是下拉列表框
-- option 标签是下拉列表框中的选项 selected="selected"设置默认选中
-- textarea 表示多行文本输入框 （起始标签和结束标签中的内容是默认值）
-	- rows 属性设置可以显示几行的高度
-	- cols 属性设置每行可以显示几个字符宽度
+- `input type=text`     是文件输入框  value设置默认显示内容
+- `input type=password` 是密码输入框  value设置默认显示内容
+- `input type=radio`    是单选框    name属性可以对其进行分组
+- `checked="checked"`表示默认选中
+- `input type=checkbox` 是复选框   checked="checked"表示默认选中
+- `input type=reset`    是重置按钮      value属性修改按钮上的文本
+- `input type=submit `  是提交按钮      value属性修改按钮上的文本
+- `input type=button`   是按钮          value属性修改按钮上的文本
+- `input type=file `    是文件上传域
+- `input type=hidden`   是隐藏域    当我们要发送某些信息，而这些信息，不需要用户参与，就可以使用隐藏域（提交的时候同时发送给服务器）
+- `select` 标签是下拉列表框
+- `option` 标签是下拉列表框中的选项 selected="selected"设置默认选中
+- `textarea` 表示多行文本输入框 （起始标签和结束标签中的内容是默认值）
+	- `rows` 属性设置可以显示几行的高度
+	- `cols` 属性设置每行可以显示几个字符宽度
 ```html
 <!DOCTYPE html>
 
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <title>表单的显示</title>
@@ -253,25 +255,26 @@ form标签就是表单
 form 标签是表单标签
 `action` 属性设置提交的服务器地址
 `method` 属性设置提交的方式 GET(默认值)或 POST
-表单提交的时候，数据没有发送给服务器的三种情况：
-1、表单项没有 `name` 属性值
-2、单选、复选（下拉列表中的 option 标签）都需要添加 `value` 属性，以便发送给服务器
-3、表单项不在提交的 `form`标签中
+表单提交的时候，数据没有发送给服务器的三种情况：  
+1. 表单项没有 `name` 属性值
+2. 单选、复选（下拉列表中的 option 标签）都需要添加 `value` 属性，以便发送给服务器
+3. 表单项不在提交的 `form`标签中
 
 - `GET` 请求的特点是：
-1、浏览器地址栏中的地址是：`action` 属性[+?+请求参数]
+1. 浏览器地址栏中的地址是：`action` 属性[+?+请求参数]
 请求参数的格式是：`name=value&name=value`
-2、不安全
-3、它有数据长度的限制
+2. 不安全
+3. 它有数据长度的限制
 
 - `POST` 请求的特点是：
-1、浏览器地址栏中只有 `action` 属性值
-2、相对于 `GET` 请求要安全
-3、理论上没有数据长度的限制
+1. 浏览器地址栏中只有 `action` 属性值
+2. 相对于 `GET` 请求要安全
+3. 理论上没有数据长度的限制
 
 ## CSS层叠样式表
-选择器：浏览器根据“选择器”决定受 CSS 样式影响的 HTML 元素（标签）。
-属性 (property) 是你要改变的样式名，并且每个属性都有一个值。属性和值被冒号分开，并由花括号包围，这样就组成了一个完整的样式声明（declaration），例如：
+选择器：浏览器根据“选择器”决定受 CSS 样式影响的 HTML 元素（标签）。  
+属性 (property) 是你要改变的样式名，并且每个属性都有一个值。  
+属性和值被冒号分开，并由花括号包围，这样就组成了一个完整的样式声明（declaration），例如：
 `p {color: blue}`
 
 CSS 和 HTML 的结合方式
@@ -285,7 +288,7 @@ CSS 和 HTML 的结合方式
 1. id选择器  `#id{ key：value;}`
 2. class选择器  `.class{key value;}`
 3. 组合选择器  `选择器1，选择器2，选择器3{key:value;}`
-常用样式
+常用样式  
 `color:red`
 `width:19px`
 `height:20px`
@@ -399,42 +402,27 @@ CSS 和 HTML 的结合方式
 - 对象的定义：
 ```
 var 变量名 = new Object();
-
 // 对象实例（空对象）
-
 变量名.属性名 = 值;
-
 // 定义一个属性
-
 变量名.函数名 = function(){} // 定义一个函数
-
 对象的访问：
-
 变量名.属性 / 函数名()
 ```
 
 - {}花括号形式的自定义对象
 ```
 对象的定义：
-
 var 变量名 = {
-
 // 空对象
-
 属性名：值,
-
 // 定义一个属性
-
 属性名：值,
-
 // 定义一个属性
-
 函数名：function(){} // 定义一个函数
-
 };
 
 对象的访问：
-
 变量名.属性 / 函数名();
 ```
 
@@ -449,8 +437,8 @@ var 变量名 = {
 	* Location： 地址栏对象
 3. `Window`：窗口对象
     1. 创建  
-	    * Window对象不需要创建可以直接使用 window.方法名();
-	    * window引用可以省略。  方法名();
+	    * `Window`对象不需要创建可以直接使用 `window.方法名()`;
+	    * `window`引用可以省略。  `方法名()`;
     2. 方法
          1. 与弹出框有关的方法：
             - `alert()`	显示带有一段消息和一个确认按钮的警告框。
@@ -523,8 +511,8 @@ var 变量名 = {
 * 核心DOM模型：
 	* `Document`：文档对象
 		1. 创建(获取)：在HTML dom 模型中可以使用window对象来获取
-			1. window.document
-			2. document
+			1. `window.document`
+			2. `document`
 		2. 方法：
 			1. 获取Element对象：
 				1.`getElementById(elementId)`	： 根据id属性值获取元素对象。id属性值一般唯一
@@ -556,13 +544,16 @@ var 变量名 = {
 	1. 标签体的设置和获取：`innerHTML`
 	2. 使用html元素对象的属性
 	3. 控制元素样式
-		1. 使用元素的style属性来设置
+		1. 使用元素的style属性来设置  
 			如：
-				 //修改样式方式1
+			```javascript
+			//修改样式方式1
 		        div1.style.border = "1px solid red";
 		        div1.style.width = "200px";
 		        //font-size--> fontSize
 		        div1.style.fontSize = "20px";
+			```
+				 
 		2. 提前定义好类选择器的样式，通过元素的className属性来设置其class属性值。
 
 ### 事件监听机制
@@ -621,7 +612,29 @@ DOM 和 sax
 	1. Servlet 是 JavaEE 规范之一。规范就是接口
 	2. Servlet 就 JavaWeb 三大组件之一。三大组件分别是：**Servlet程序、Filter 过滤器、Listener监听器**。 
 	3. Servlet 是运行在服务器上的一个 java 小程序，它可以接收客户端发送过来的请求，并响应数据给客户端。
+- web.xml
+```xml
+<!-- servlet 标签给 Tomcat 配置 Servlet 程序 -->
+<servlet>
+<!--servlet-name 标签 Servlet 程序起一个别名（一般是类名） -->
+	<servlet-name>HelloServlet</servlet-name>
+<!--servlet-class 是 Servlet 程序的全类名-->
+	<servlet-class>com.atguigu.servlet.HelloServlet</servlet-class>
+</servlet>
+<!--servlet-mapping 标签给 servlet 程序配置访问地址-->
+<servlet-mapping>
+<!--servlet-name 标签的作用是告诉服务器，我当前配置的地址给哪个 Servlet 程序使用-->
+	<servlet-name>HelloServlet</servlet-name>
+<!--url-pattern 标签配置访问地址 <br/>
+/ 斜杠在服务器解析的时候，表示地址为：http://ip:port/工程路径
+<br/>
+/hello 表示地址为：http://ip:port/工程路径/hello
+<br/>
+-->
+	<url-pattern>/hello</url-pattern>
 
+</servlet-mapping>
+```
 - Servlet的生命周期
 1. 执行Servlet构造器方法
 2. 执行init初始化方法
