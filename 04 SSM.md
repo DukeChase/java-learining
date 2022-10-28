@@ -3,11 +3,9 @@
 ### Mybatis introduction
 
 ### 搭建MyBatis的核心配置文件
-src/main/resource/mybatis_comfig.xml    核心配置文件
+文件位置：`src/main/resource/mybatis_comfig.xml`    核心配置文件
 
 ```xml
-<?xml version="1.0" encoding="UTF-8" ?> 
-<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd"> 
 <configuration> <!--设置连接数据库的环境--> 
     <environments default="development"> 
         <environment id="development"> 
@@ -39,13 +37,22 @@ src/main/resource/mybatis_comfig.xml    核心配置文件
 	}
 	```
 3. MyBatis映射文件
-   
+   相关概念：ORM（Object Relation Mapping）对象关系映射
+   - 对象：java的实体类对象
+   - 关系：关系型数据库
+   - 映射：二者之间的关系
+|Java概念|数据库概念|
+|--------|---------|
+|类|表|
+|属性|字段/列|
+|对象|记录/行|
+
 > 1、映射文件的命名规则：
 	表所对应的实体类的类名+Mapper.xml
-	例如：表t_user，映射的实体类为User，所对应的映射文件为UserMapper.xml
+	例如：表`t_user`，映射的实体类为`User`，所对应的映射文件为`UserMapper.xml`
 	因此一个映射文件对应一个实体类，对应一张表的操作
-	MyBatis映射文件用于编写SQL，访问以及操作表中的数据
-	MyBatis映射文件存放的位置是src/main/resources/mappers目录下
+	`MyBatis`映射文件用于编写SQL，访问以及操作表中的数据
+	`MyBatis`映射文件存放的位置是`src/main/resources/mappers`目录下
   2、 MyBatis中可以面向接口操作数据，要保证两个一致：
 	a> mapper接口的全类名和映射文件的命名空间（namespace）保持一致
 	b> mapper接口中方法的方法名和映射文件中编写SQL的标签的id属性保持一致
@@ -73,6 +80,7 @@ InputStream is = Resources.getResourceAsStream("mybatis-config.xml");
 SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder(); 
 //通过核心配置文件所对应的字节输入流创建工厂类SqlSessionFactory，生产SqlSession对象 
 SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(is); 
+
 //创建SqlSession对象，此时通过SqlSession对象所操作的sql都必须手动提交或回滚事务 
 //SqlSession sqlSession = sqlSessionFactory.openSession(); 
 //创建SqlSession对象，此时通过SqlSession对象所操作的sql都会自动提交 
@@ -89,7 +97,6 @@ System.out.println("结果："+result);
 
 * SqlSession：代表Java程序和数据库之间的会话。（HttpSession是Java程序和浏览器之间的会话）
 * SqlSessionFactory： 是“生产”SqlSession的“工厂”
-
 * 工厂模式：如果创建某一个对象，使用的过程基本固定，那么我们就可以把创建这个对象的相关代码封装到一个“工厂类”中，以后都使用这个工厂类来“生产”我们需要的对象。
 
 ### 增删改查
@@ -493,41 +500,358 @@ ApplicationContext的主要实现类
 |FileSystemXmlApplicationContext|通过文件系统路径读取 XML 格式的配置文件创建 IOC 容器对象|
 |ConfigurableApplicationContext|ApplicationContext 的子接口，包含一些扩展方法refresh() 和 close() ，让 ApplicationContext 具有启动、关闭和刷新上下文的能力。|
 |WebApplicationContext|专门为 Web 应用准备，基于 Web 环境创建 IOC 容器对象，并将对象引入存入 ServletContext 域中。|
+
 ### 基于XML管理bean
 `G:\01 尚硅谷\SSM资料`
-入门案例
-
+#### 入门案例
+引入依赖
+创建类
+```java
+public class HelloWorld {
+public void sayHello(){
+	System.out.println("helloworld");
+	}
+}
+```
+创建Spring的配置文件
+在Spring的配置文件中配置bean
+```xml
+<!--
+配置HelloWorld所对应的bean，即将HelloWorld的对象交给Spring的IOC容器管理
+通过bean标签配置IOC容器所管理的bean
+属性：
+id：设置bean的唯一标识
+class：设置bean所对应类型的全类名
+-->
+<bean id="helloworld" class="com.atguigu.spring.bean.HelloWorld"></bean>
+```
+创建测试类
+```java
+@Test
+public void testHelloWorld(){
+ApplicationContext ac = new
+ClassPathXmlApplicationContext("applicationContext.xml");
+HelloWorld helloworld = (HelloWorld) ac.getBean("helloworld");
+helloworld.sayHello();
+}
+```
 获取bean
+1. 根据id获取
+2. 根据类型获取
+3. 根据类型和id获取
 
-依赖注入之setter注入
+#### 依赖注入之setter注入
+```xml
+<bean id="studentOne" class="com.atguigu.spring.bean.Student">
+	<!-- property标签：通过组件类的setXxx()方法给组件对象设置属性 -->
+	<!-- name属性：指定属性名（这个属性名是getXxx()、setXxx()方法定义的，和成员变量无关）
+	-->
+	<!-- value属性：指定属性值 -->
+	<property name="id" value="1001"></property>
+	<property name="name" value="张三"></property>
+	<property name="age" value="23"></property>
+	<property name="sex" value="男"></property>
+</bean>
+```
+#### 依赖注入之构造器注入
+```xml
+<bean id="studentTwo" class="com.atguigu.spring.bean.Student">
+	<constructor-arg value="1002"></constructor-arg>
+	<constructor-arg value="李四"></constructor-arg>
+	<constructor-arg value="33"></constructor-arg>
+	<constructor-arg value="女"></constructor-arg>
+</bean>
+```
 
-依赖注入之构造器注入
+#### 特殊值处理
+```xml
+<property name="name">
+	<null />
+</property>
+```
 
-特殊值处理
+```xml
+<!-- 小于号在XML文档中用来定义标签的开始，不能随便使用 -->
+<!-- 解决方案一：使用XML实体来代替 -->
+<property name="expression" value="a < b"/>
+```
 
-为类类型属性赋值
+```xml
+<property name="expression">
+	<!-- 解决方案二：使用CDATA节 -->
+	<!-- CDATA中的C代表Character，是文本、字符的含义，CDATA就表示纯文本数据 -->
+	<!-- XML解析器看到CDATA节就知道这里是纯文本，就不会当作XML标签或属性来解析 -->
+	<!-- 所以CDATA节中写什么符号都随意 -->
+	<value><![CDATA[a < b]]></value>
+</property>
+```
+#### 为类类型属性赋值
 
-为数组类型属性赋值
+1. 引用外部已声明的bean  
+```xml
+<bean id="studentFour" class="com.atguigu.spring.bean.Student">
+	<property name="id" value="1004"></property>
+	<property name="name" value="赵六"></property>
+	<property name="age" value="26"></property>
+	<property name="sex" value="女"></property>
+	<!-- ref属性：引用IOC容器中某个bean的id，将所对应的bean为属性赋值 -->
+	<property name="clazz" ref="clazzOne"></property>
+</bean>
+```
+2. 内部bean
+```xml
+<bean id="studentFour" class="com.atguigu.spring.bean.Student">
+	<property name="id" value="1004"></property>
+	<property name="name" value="赵六"></property>
+	<property name="age" value="26"></property>
+	<property name="sex" value="女"></property>
+	<property name="clazz">
+		<!-- 在一个bean中再声明一个bean就是内部bean -->
+		<!-- 内部bean只能用于给属性赋值，不能在外部通过IOC容器获取，因此可以省略id属性 -->
+		<bean id="clazzInner" class="com.atguigu.spring.bean.Clazz">
+		<property name="clazzId" value="2222"></property>
+		<property name="clazzName" value="远大前程班"></property>
+		</bean>
+	</property>
+</bean>
+```
+3. 级联属性赋值  
+```xml
+<bean id="studentFour" class="com.atguigu.spring.bean.Student">
+	<property name="id" value="1004"></property>
+	<property name="name" value="赵六"></property>
+	<property name="age" value="26"></property>
+	<property name="sex" value="女"></property>
+	<!-- 一定先引用某个bean为属性赋值，才可以使用级联方式更新属性 -->
+	<property name="clazz" ref="clazzOne"></property>
+	<property name="clazz.clazzId" value="3333"></property>
+	<property name="clazz.clazzName" value="最强王者班"></property>
+</bean>
+```
 
-为集合类型属性赋值
+#### 为数组类型属性赋值
+```xml
+<bean id="studentFour" class="com.atguigu.spring.bean.Student">
+	<property name="id" value="1004"></property>
+	<property name="name" value="赵六"></property>
+	<property name="age" value="26"></property>
+	<property name="sex" value="女"></property>
+	<!-- ref属性：引用IOC容器中某个bean的id，将所对应的bean为属性赋值 -->
+	<property name="clazz" ref="clazzOne"></property>
+	<property name="hobbies">
+		<array>
+		<value>抽烟</value>
+		<value>喝酒</value>		
+		<value>烫头</value>
+		</array>
+	</property>
+</bean>
+```
+#### 为集合类型属性赋值
+1. 为List集合类型属性赋值
+```xml
+<bean id="clazzTwo" class="com.atguigu.spring.bean.Clazz">
+	<property name="clazzId" value="4444"></property>
+	<property name="clazzName" value="Javaee0222"></property>
+	<property name="students">
+		<list>
+			<ref bean="studentOne"></ref>
+			<ref bean="studentTwo"></ref>
+			<ref bean="studentThree"></ref>
+		</list>
+	</property>
+</bean>
+```
 
-p命名空间
+2. 为Map集合类型属性赋值
+```xml
+<bean id="teacherOne" class="com.atguigu.spring.bean.Teacher">
+	<property name="teacherId" value="10010"></property>
+	<property name="teacherName" value="大宝"></property>
+</bean>
+<bean id="teacherTwo" class="com.atguigu.spring.bean.Teacher">
+	<property name="teacherId" value="10086"></property>
+	<property name="teacherName" value="二宝"></property>
+</bean>
+<bean id="studentFour" class="com.atguigu.spring.bean.Student">
+	<property name="id" value="1004"></property>
+	<property name="name" value="赵六"></property>
+	<property name="age" value="26"></property>
+	<property name="sex" value="女"></property>
+	<!-- ref属性：引用IOC容器中某个bean的id，将所对应的bean为属性赋值 -->
+	<property name="clazz" ref="clazzOne"></property>
+	<property name="hobbies">
+	<array>
+		<value>抽烟</value>
+		<value>喝酒</value>
+		<value>烫头</value>
+	</array>
+	</property>
+	<property name="teacherMap">
+		<map>
+			<entry>
+				<key>
+					<value>10010</value>
+				</key>
+				<ref bean="teacherOne"></ref>
+				</entry>
+				<entry>
+				<key>
+					<value>10086</value>
+				</key>
+			<ref bean="teacherTwo"></ref>
+			</entry>
+		</map>
+	</property>
+</bean>
+```
 
-引入外部属性文件
+3. 引用集合类型的bean
+```xml
+<!--list集合类型的bean-->
+<util:list id="students">
+	<ref bean="studentOne"></ref>
+	<ref bean="studentTwo"></ref>
+	<ref bean="studentThree"></ref>
+</util:list>
+<!--map集合类型的bean-->
+<util:map id="teacherMap">
+	<entry>
+		<key>
+		<value>10010</value>
+		</key>
+		<ref bean="teacherOne"></ref>
+	</entry>
+	<entry>
+		<key>
+		<value>10086</value>
+		</key>
+		<ref bean="teacherTwo"></ref>
+	</entry>
+</util:map>
+<bean id="clazzTwo" class="com.atguigu.spring.bean.Clazz">
+	<property name="clazzId" value="4444"></property>
+	<property name="clazzName" value="Javaee0222"></property>
+	<property name="students" ref="students"></property>
+</bean>
+<bean id="studentFour" class="com.atguigu.spring.bean.Student">
+	<property name="id" value="1004"></property>
+	<property name="name" value="赵六"></property>
+	<property name="age" value="26"></property>
+	<property name="sex" value="女"></property>
+	<!-- ref属性：引用IOC容器中某个bean的id，将所对应的bean为属性赋值 -->
+	<property name="clazz" ref="clazzOne"></property>
+	<property name="hobbies">
+		<array>
+			<value>抽烟</value>
+			<value>喝酒</value>
+			<value>烫头</value>
+		</array>
+	</property>
+	<property name="teacherMap" ref="teacherMap"></property>
+</bean>
+```
+#### p命名空间
 
-bean的作用域
+#### 引入外部属性文件
 
-bean的生命周期
+#### bean的作用域
+概念：在Spring中可以通过配置bean标签的scope属性来指定bean的作用域范围，各取值含义参加下表：
+|取值|含义|创建对象时机|
+|----|---|--------|
+|singleton|在IOC容器中，这个bean的对象始终为单实例|IOC容器初始化时|
+|prototype|这个bean在IOC容器中有多个实例|获取bean时|
 
-FactoryBean
+#### bean的生命周期
+具体的生命周期过程
+- bean对象创建
+- 给bean对象设置属性
+- bean对象初始化之前操作（由bean的后置处理器负责）
+- bean对象初始化（需在配置bean是指定初始化方法）
+- bean初始化之后操作（由bean的后置处理器负责）
+- bean对象就绪可以使用
+- bean对象销毁（需在配置bean时指定销毁方法）
+- IOC容器关闭
+#### FactoryBean
 
-基于XML的自动装配
-
+#### 基于XML的自动装配
+自动装配方式：`byType`
+根据类型匹配IOC容器中的某个兼容类型的bean，为属性自动赋值  
+若在IOC中，没有任何一个兼容类型的bean能够为属性赋值，则该属性不装配，即值为默认值
+`null`  
+若在IOC中，有多个兼容类型的bean能够为属性赋值，则抛出异常`NoUniqueBeanDefinitionException`
+```xml
+<bean id="userController"
+class="com.atguigu.autowire.xml.controller.UserController" autowire="byType">
+</bean>
+<bean id="userService"
+class="com.atguigu.autowire.xml.service.impl.UserServiceImpl" autowire="byType">
+</bean>
+<bean id="userDao" class="com.atguigu.autowire.xml.dao.impl.UserDaoImpl"></bean>
+````
+自动装配方式：`byName`
+将自动装配的属性的属性名，作为bean的id在IOC容器中匹配相对应的bean进行赋值  
+```xml
+<bean id="userController"
+class="com.atguigu.autowire.xml.controller.UserController" autowire="byName">
+</bean>
+<bean id="userService"
+class="com.atguigu.autowire.xml.service.impl.UserServiceImpl" autowire="byName">
+</bean>
+<bean id="userServiceImpl"
+class="com.atguigu.autowire.xml.service.impl.UserServiceImpl" autowire="byName">
+</bean>
+<bean id="userDao" class="com.atguigu.autowire.xml.dao.impl.UserDaoImpl"></bean>
+<bean id="userDaoImpl" class="com.atguigu.autowire.xml.dao.impl.UserDaoImpl">
+</bean>
+```
 ### 基于注解管理bean
+#### 标记与扫描
+标识组件的常用注解:  
 - `@Component`：将类标识为普通组件 
 - `@Controller`：将类标识为控制层组件 
 - `@Service`：将类标识为业务层组件 
 - `@Repository：`将类标识为持久层组件
+扫描组件
+```xml
+<context:component-scan base-package="com.atguigu">
+</context:component-scan>
+```
+
+指定要排除的组件
+```xml
+<context:component-scan base-package="com.atguigu">
+<!-- context:exclude-filter标签：指定排除规则 -->
+<!--
+type：设置排除或包含的依据
+type="annotation"，根据注解排除，expression中设置要排除的注解的全类名
+type="assignable"，根据类型排除，expression中设置要排除的类型的全类名
+-->
+	<context:exclude-filter type="annotation"
+expression="org.springframework.stereotype.Controller"/>
+	<!--<context:exclude-filter type="assignable"
+expression="com.atguigu.controller.UserController"/>-->
+</context:component-scan>
+```
+
+仅扫描指定组件
+```xml
+<context:component-scan base-package="com.atguigu" use-default-filters="false">
+<!-- context:include-filter标签：指定在原有扫描规则的基础上追加的规则 -->
+<!-- use-default-filters属性：取值false表示关闭默认扫描规则 -->
+<!-- 此时必须设置use-default-filters="false"，因为默认规则即扫描指定包下所有类 -->
+<!--
+	type：设置排除或包含的依据
+	type="annotation"，根据注解排除，expression中设置要排除的注解的全类名
+	type="assignable"，根据类型排除，expression中设置要排除的类型的全类名
+-->
+	<context:include-filter type="annotation"
+expression="org.springframework.stereotype.Controller"/>
+	<!--<context:include-filter type="assignable"
+expression="com.atguigu.controller.UserController"/>-->
+</context:component-scan>
+```
+#### 基于注解的自动装配
 
 ## AOP
 
