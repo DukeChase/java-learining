@@ -2,7 +2,7 @@
 springboot特点
 依赖管理
 语雀地址
-https://www.yuque.com/atguigu/springboot/rg2p8g
+https://www.yuque.com/atguigu/springboot
 # [自动配置原理](https://www.yuque.com/atguigu/springboot/qb7hy2)
 
 1. `@Configuration`  //告诉SpringBoot这是一个配置类 == 配置文件
