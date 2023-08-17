@@ -1,9 +1,10 @@
 http://heavy_code_industry.gitee.io/code_heavy_industry/pro002-maven/
 
 
--Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true
+`-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true`
 
 # 继承
+
 父工程  打包方式  pom
 
 

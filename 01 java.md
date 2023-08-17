@@ -287,6 +287,8 @@ OuterClass.InnerClass var = new OutClass().new InnerClass();
 ### 匿名内部类
 
 
+
+若需要每个枚举值在调用实现的接口方法呈现出不同的行为方式,则可以让每个枚举值分别来实现该方法
 # 常用API第二部分
 
 ## Object类 常用API
@@ -311,7 +313,7 @@ public class Person {
         if (this == o)
             return true;
         // 如果参数为空，或者类型信息不一样，则认为不同
-        if (o == null || getClass() != o.getClass())
+        if (o == null || this.getClass() != o.getClass())
             return false;
         // 转换为当前类型
         Person person = (Person) o;
@@ -897,6 +899,81 @@ TCP通信图解
 
 # 基础加强
 
+## 枚举类
+枚举本质是一种类，只不过这种类的对象个数有限，固定的几个，不能让用户随意创建。
+
+```java
+// jdk5.0之前的枚举类定义方法。
+
+class Season{
+
+	private final String SEASONNAME;//季节的名称
+	
+	private final String SEASONDESC;//季节的描述
+
+	// 私有构造器，只能内部调用
+	private Season(String seasonName,String seasonDesc){
+	
+	this.SEASONNAME = seasonName;
+	
+	this.SEASONDESC = seasonDesc;
+	
+	}
+
+// 调用私有构造器 构造对象
+// 注意 修饰符  public static final
+public static final Season SPRING = new Season("春天", "春暖花开");
+
+public static final Season SUMMER = new Season("夏天", "夏日炎炎");
+
+public static final Season AUTUMN = new Season("秋天", "秋高气爽");
+
+public static final Season WINTER = new Season("冬天", "白雪皑皑");
+
+}
+```
+
+```java
+// jdk5.0以后得写法
+
+public enum SeasonEnum {
+
+	SPRING("春天","春风又绿江南岸"),
+	SUMMER("夏天","映日荷花别样红"),
+	AUTUMN("秋天","秋水共长天一色"),
+	WINTER("冬天","窗含西岭千秋雪");
+	// 实例变量
+	private final String seasonName;
+	private final String seasonDesc;
+
+    // 构造方法
+	private SeasonEnum(String seasonName, String seasonDesc) {
+	this.seasonName = seasonName;	
+	this.seasonDesc = seasonDesc;
+	}
+
+public String getSeasonName() {
+
+return seasonName;
+
+}
+
+public String getSeasonDesc() {
+
+return seasonDesc;
+
+}
+
+}
+```
+
+enum定义的类都继承Enum类
+有共通的方法
+- `toString`
+- `name`
+- `values`
+- `valueOf`
+- `ordinal()`
 ## Junit单元测试
 
 步骤：
