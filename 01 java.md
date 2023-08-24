@@ -1114,6 +1114,13 @@ enum定义的类都继承Enum类
             * `@Documented`：描述注解是否被抽取到api文档中
             * `@Inherited`：描述注解是否被子类继承
 
+## 包装类
+
+```java
+Interger.valueOf()
+```
+自动装箱
+自动拆箱
 # MySQL
 
 ## 基础

@@ -1201,9 +1201,14 @@ public class RequestMappingController {
 - `@RequestParam`
 - `@RequsetHeader`
 - `@CookieValue`
-- 通过POJO获取
-- 解决获取请求路径的乱码问题
 
+
+- 通过POJO获取
+请求参数的名字与实体类属性名 一致
+
+- 解决获取请求路径的乱码问题
+配置spring的编码过滤器
+`org.springframework.web.filter.CharacterEncondingFilter`
 ### 域对象共享数据
 - 使用ServletAPI向request域对象共享数据
 - 使用ModelAndView向request域对象共享数据### SpringMVC的视图
@@ -1211,44 +1216,49 @@ public class RequestMappingController {
 - 使用map向request域对象共享数据
 - 使用ModelMap向request域对象共享数据
 
-向session域共享数据
+- 向`session`域共享数据
 
 ```java
 @RequestMapping("/testSession")
 
 public String testSession(HttpSession session){
 
-session.setAttribute("testSessionScope", "hello,session");
-
-return "success";
+	session.setAttribute("testSessionScope", "hello,session");
+	
+	return "success";
 
 }
 ```
-向application域共享数据
+- 向`application`域共享数据
 ```java
 @RequestMapping("/testApplication")
 
 public String testApplication(HttpSession session){
 
-ServletContext application = session.getServletContext();
-
-application.setAttribute("testApplicationScope", "hello,application");
-
-return "success";
+	ServletContext application = session.getServletContext();
+	
+	application.setAttribute("testApplicationScope", "hello,application");
+	
+	return "success";
 
 }
 ```
 
+
+
 ### springMVC的视图
+thymeleafView
 
+`InternalResourceViewResolver`   视图解析器
 
+RedirectView
 ### RETFUL
 
 ### RESTFul案例
 
 ### 9. SpringMVC处理ajax请求
-``@RequestBody``
-
+`@RequestBody`
+`ResponseBody`
 
 9.5、@RestController注解
 
@@ -1257,6 +1267,9 @@ return "success";
 @Controller注解，并且为其中的每个方法添加了@ResponseBody注解
 
 ### 文件下载
+ResponseEntity
+### 文件上传
+MultipartFile
 
 ### 拦截器
 

@@ -1021,10 +1021,10 @@ jsp中有三种注释：
 九大内置对象，都是我们可以在【代码脚本】中或【表达式脚本】中直接使用的对象。
 
 ### jsp四大域对象
-pageContex(PageContextImpl类)     当前jsp页面范围内有效
-request(HttpServletRequest类)     一次请求内有效
-session(HttpSession类)            一次会话范围内有效（打开浏览器访问服务器，知道关闭浏览器）
-application(ServletContext类)     整个web工程范围内都有效（只要web工程不停止，数据都在）
+`pageContex(PageContextImpl类)`     当前jsp页面范围内有效
+`request(HttpServletRequest类)`     一次请求内有效
+`session(HttpSession类)`            一次会话范围内有效（打开浏览器访问服务器，知道关闭浏览器）
+`application(ServletContext类)`     整个web工程范围内都有效（只要web工程不停止，数据都在）
 
 ### JSP常用标签
 jsp 静态包含
@@ -1078,14 +1078,30 @@ page 属性设置请求转发的路径
 
 ## EL表达式JSTL表达式
 ### EL表达式
+
+EL 表达式主要是代替 jsp 页面中的表达式脚本在 jsp 页面中进行数据的输出。
+
+因为 EL 表达式在输出数据的时候，要比 jsp 的表达式脚本要简洁很多。
 格式：`${expression}`
 
 ### JSTL表达式
 
 ## Cookie and Session
+`resp.addCookie()`
 
+`request.getCookie()`
+
+`cookie.setMacage()`    秒
+
+
+```java
+
+req.getSession().setAttribute("key1", "value1");
+
+resp.getWriter().write("已经往 Session 中保存了数据");
+```
 ## Filter
-Filter 的生命周期包含几个方法
+`Filter` 的生命周期包含几个方法
 
 1. 构造器方法
 2. init 初始化方法
@@ -1121,9 +1137,10 @@ var jsonObj = {
 	"key3":true,
 	"key4":[11,"arr",false],
 	"key5":{"key5_1" : 551,"key5_2" : "key5_2_value"},
-	"key6":[{"key6_1_1":6611,"key6_1_2":"key6_1_2_value"},{"key6_2_1":6621,"key6_2_2":"key6_2_2_value"}]
+	"key6":[{"key6_1_1":6611,"key6_1_2":"key6_1_2_value"},
+		    {"key6_2_1":6621,"key6_2_2":"key6_2_2_value"}]
 
-};
+			  };
 ```
 json的访问
 ```javascript
