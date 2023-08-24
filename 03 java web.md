@@ -1122,7 +1122,10 @@ Filter的拦截路径
 ### JSON
 JSON(JavaScripr Object Notation)
 
-json的定义
+- json的定义
+
+
+```javascript
 var varname = {
 	"key1":value,
 	"key2":"value",
@@ -1130,7 +1133,7 @@ var varname = {
 	"key4",{},
 	"key5",[{},{}]
 }
-```javascript
+
 var jsonObj = {
 	"key1":12,
 	"key2":"abc",
@@ -1142,7 +1145,8 @@ var jsonObj = {
 
 			  };
 ```
-json的访问
+
+- json的访问
 ```javascript
 alert(typeof(jsonObj));// object json 就是一个对象
 alert(jsonObj.key1); //12
@@ -1174,7 +1178,7 @@ json 的存在有两种形式。
 `JSON.parse()`      把 json 字符串转换成为 json 对象
 
 - json在java中的使用
-gson.jar
+`gson.jar`
 json在java中的操作。常见的有三种情况
 1、java 对象和 json 的转换
 2、java 对象 list 集合和 json 的转换
@@ -1194,6 +1198,7 @@ Ajax 请求的局部更新，浏览器地址栏不会发生变化
 
 jQuery 中的AJAX
 - `$.ajax(url,type,data,success,dataType)`
+
 |参数|意义|备注|
 |----|----|---|
 |url|表示请求的地址||
@@ -1201,7 +1206,8 @@ jQuery 中的AJAX
 |data|表示发送给服务器的数据|格式有两种：一 name=value&name=value  二 {key:value}|
 |success|请求成功，响应的回调函数||
 |dataType|响应的数据类型|常用的数据类型有：text 表示纯文本xml 表示 xml 数据json 表示 json 对象|
-- `$.get(url,data,callback,type)  $.post(url,data,callback,type)`
+- `$.get(url,data,callback,type)`
+- `$.post(url,data,callback,type)`
 url    请求的 url 地址
 data   发送的数据
 callback   成功的回调函数

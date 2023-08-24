@@ -1,6 +1,6 @@
 # MyBatis
 
-### Mybatis introduction
+### MyBatis introduction
 
 ### 搭建MyBatis的核心配置文件
 文件位置：`src/main/resource/mybatis_comfig.xml`    mybatis核心配置文件
@@ -443,23 +443,14 @@ select <include refid="empColumns"></include> from t_emp
 内容介绍
 
 1. 框架概述
-
 2. IOC容器
-   
    1. IOC底层原理
-   
    2. IOC接口（BeanFactory）
-   
    3. IOC操作Bean管理（基于XML）
-   
    4. IOC操作Bean管理（基于注解）
-
 3. AOP
-
 4. JdbcTemplate
-
 5. 事务管理
-
 6. Spring5新特性
 
 ## 1. Spring简介
@@ -508,8 +499,8 @@ ApplicationContext的主要实现类
 ### 基于XML管理bean
 `G:\01 尚硅谷\SSM资料`
 #### 1、入门案例
-引入依赖
-创建类
+1. 引入依赖
+2. 创建类
 ```java
 public class HelloWorld {
 public void sayHello(){
@@ -517,8 +508,8 @@ public void sayHello(){
 	}
 }
 ```
-创建Spring的配置文件
-在Spring的配置文件中配置bean
+3. 创建Spring的配置文件
+4. 在Spring的配置文件中配置bean
 ```xml
 <!--
 	配置HelloWorld所对应的bean，即将HelloWorld的对象交给Spring的IOC容器管理
@@ -529,13 +520,13 @@ public void sayHello(){
 -->
 <bean id="helloworld" class="com.atguigu.spring.bean.HelloWorld"></bean>
 ```
-创建测试类
+4. 创建测试类
 ```java
 @Test
 public void testHelloWorld(){
-ApplicationContext ac = new
-	ClassPathXmlApplicationContext("applicationContext.xml");
-	// 获取bean
+	ApplicationContext ac = new
+		ClassPathXmlApplicationContext("applicationContext.xml");
+		// 获取bean
 	HelloWorld helloworld = (HelloWorld) ac.getBean("helloworld");
 	helloworld.sayHello();
 }
@@ -763,9 +754,57 @@ CDATA节
 #### 9、p命名空间
 
 #### 10、引入外部属性文件
+1. 引入依赖
+```xml
+<!-- MySQL驱动 -->
+<dependency>
+<groupId>mysql</groupId>
+<artifactId>mysql-connector-java</artifactId>
+<version>8.0.16</version>
+</dependency>
+<!-- 数据源 -->
+<dependency>
+<groupId>com.alibaba</groupId>
+<artifactId>druid</artifactId>
+<version>1.0.31</version>
+</dependency>
+```
+2. 创建外部属性文件
+```properties
+jdbc.user=root
 
+jdbc.password=atguigu
+
+jdbc.url=jdbc:mysql://localhost:3306/ssm?serverTimezone=UTC
+
+jdbc.driver=com.mysql.cj.jdbc.Driver
+```
+3. 引入属性文件
+`<context:property-placeholder location="classpath:jdbc.properties"/>`
+
+4. 配置bean
+```xml
+<bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource">
+	<property name="url" value="${jdbc.url}"/>
+	<property name="driverClassName" value="${jdbc.driver}"/>
+	<property name="username" value="${jdbc.user}"/>
+	<property name="password" value="${jdbc.password}"/>
+</bean>
+```
+测试
+```java
+@Test
+public void testDataSource() throws SQLException {
+	ApplicationContext ac = new ClassPathXmlApplicationContext("spring
+	datasource.xml");
+	DataSource dataSource = ac.getBean(DataSource.class);
+	Connection connection = dataSource.getConnection();
+	System.out.println(connection);
+}
+```
 #### 11、bean的作用域
 概念：在Spring中可以通过配置bean标签的scope属性来指定bean的作用域范围，各取值含义参加下表：
+
 |取值|含义|创建对象时机|
 |----|---|--------|
 |singleton|在IOC容器中，这个bean的对象始终为单实例|IOC容器初始化时|
@@ -783,10 +822,41 @@ CDATA节
 - IOC容器关闭
 #### 13、FactoryBean
 
+FactoryBean是Spring提供的一种整合第三方框架的常用机制。和普通的bean不同，配置一个FactoryBean类型的bean，在获取bean的时候得到的并不是class属性中配置的这个类的对象，而是
+getObject()方法的返回值。通过这种机制，Spring可以帮我们把复杂组件创建的详细过程和繁琐细节都屏蔽起来，只把最简洁的使用界面展示给我们。
+将来我们整合Mybatis时，Spring就是通过FactoryBean机制来帮我们创建SqlSessionFactory对象的。
+```java
+
+public class UserFactoryBean implements FactoryBean<User> {
+	`@Override
+	public User getObject() throws Exception {
+	return new User();
+}
+	@Override	
+	public Class<?> getObjectType() {
+	return User.class;
+}
+
+}
+```
+
+`<bean id="user" class="com.atguigu.bean.UserFactoryBean"></bean>`
+
+```java
+@Test
+public void testUserFactoryBean(){
+	//获取IOC容器
+	ApplicationContext ac = new ClassPathXmlApplicationContext("spring
+	factorybean.xml");
+	User user = (User) ac.getBean("user");
+	System.out.println(user);
+}
+```
+`
 #### 14、基于XML的自动装配
 
 配置bean
-使用bean标签的autowire属性设置自动装配效果
+使用***bean标签的autowire属性***设置自动装配效果
 自动装配：
 根据指定的策略，在IOC容器中匹配某一个bean，自动为指定的bean中所依赖的类类型或接口类
 型属性赋值
@@ -873,9 +943,49 @@ expression="com.atguigu.controller.UserController"/>-->
 ```
 #### 基于注解的自动装配
 
+导入依赖
+```
+<dependencies>  
+    <!-- 基于Maven依赖传递性，导入spring-context依赖即可导入当前所需所有jar包 -->  
+    <dependency>  
+        <groupId>org.springframework</groupId>  
+        <artifactId>spring-context</artifactId>  
+        <version>5.3.1</version>  
+    </dependency>    <!-- junit测试 -->  
+    <dependency>  
+        <groupId>junit</groupId>  
+        <artifactId>junit</artifactId>  
+        <version>4.12</version>  
+        <scope>test</scope>  
+    </dependency></dependencies>
+```
+
+
+- `@Component`
+- `@Controller`
+- `@Service`
+- `Repository`
+
 
 ②`@Autowired注解`
 
+* 通过注解+扫描所配置的bean的id，默认值为类的小驼峰，即类名的首字母为小写的结果  
+* 可以通过标识组件的注解的value属性值设置bean的自定义的id  
+*  
+* @Autowired:实现自动装配功能的注解  
+1. @Autowired注解能够标识的位置  
+	* a>标识在成员变量上，此时不需要设置成员变量的set方法  
+	* b>标识在set方法上  
+	* c>标识在为当前成员变量赋值的有参构造上  
+2. @Autowired注解的原理  
+	* a>默认通过`byType`的方式，在IOC容器中通过类型匹配某个`bean`为属性赋值  
+	* b>若有多个类型匹配的`bean`，此时会自动转换为`byName`的方式实现自动装配的效果，即将要赋值的属性的属性名作为`bean`的id匹配某个`bean`为属性赋值  
+	* c>若`byType`和`byName`的方式都无妨实现自动装配，即IOC容器中有多个类型匹配的bean 且这些bean的id和要赋值的属性的属性名都不一致，此时抛异常：`NoUniqueBeanDefinitionException`  
+	* d>此时可以在要赋值的属性上，添加一个注解`@Qualifier`通过该注解的`value`属性值，指定某个`bean`的`id`，将这个`bean`为属性赋值  
+
+* 注意：若IOC容器中没有任何一个类型匹配的bean，此时抛出异常：`NoSuchBeanDefinitionException ` 
+* 在`@Autowired`注解中有个属性`required`，默认值为true，要求必须完成自动装配  
+* 可以将required设置为false，此时能装配则装配，无法装配则使用属性的默认值
 ## AOP
 
 ### 代理模式
@@ -955,8 +1065,8 @@ public class CalculatorPureImpl implements Calculator {
 3. 创建切面类并配置
 ```java
 // @Aspect表示这个类是一个切面类
-@Aspect
 // @Component注解保证这个切面类能够放入IOC容器
+@Aspect
 @Component
 public class LogAspect {
 @Before("execution(public int com.atguigu.aop.annotation.CalculatorImpl.*
@@ -1172,7 +1282,7 @@ class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
 前端控制器会读取SpringMVC的核心配置文件，通过扫描组件找到控制器，将请求地址和控制器中@RequestMapping注解的value属性值进行匹配，若匹配成功，该注解所标识的控制器方法就是处理请求的方法。
 处理请求的方法需要返回一个字符串类型的视图名称，该视图名称会被***视图解析器***解析，加上前缀和后缀组成视图的路径，通过Thymeleaf对视图进行渲染，最终转发到视图所对应页面
 
-### @RequestMapping注解
+## @RequestMapping注解
 - 功能
 - 位置
 	标识一个类:设置映射请求的请求路径的初始信息
@@ -1209,7 +1319,7 @@ public class RequestMappingController {
 - 解决获取请求路径的乱码问题
 配置spring的编码过滤器
 `org.springframework.web.filter.CharacterEncondingFilter`
-### 域对象共享数据
+## 域对象共享数据
 - 使用ServletAPI向request域对象共享数据
 - 使用ModelAndView向request域对象共享数据### SpringMVC的视图
 - 使用Model向request域对象共享数据
@@ -1246,33 +1356,222 @@ public String testApplication(HttpSession session){
 
 
 
-### springMVC的视图
-thymeleafView
+## springMVC的视图
+
+`thymeleafView`
 
 `InternalResourceViewResolver`   视图解析器
 
-RedirectView
-### RETFUL
+`RedirectView`
+## RETFUL
 
-### RESTFul案例
+REST：Representational State Transfer，表现层资源状态转移。
 
-### 9. SpringMVC处理ajax请求
-`@RequestBody`
-`ResponseBody`
+SpringMVC 提供了 `HiddenHttpMethodFilter` 帮助我们将 POST 请求转换为 DELETE 或 PUT 请求
 
-9.5、@RestController注解
+HiddenHttpMethodFilter 处理put和delete请求的条件：
 
-@RestController注解是springMVC提供的一个复合注解，标识在控制器的类上，就相当于为类添加了
+1. 当前请求的请求方式必须为post
+2. 当前请求必须传输请求参数_method
 
-@Controller注解，并且为其中的每个方法添加了@ResponseBody注解
+满足以上条件，`HiddenHttpMethodFilter` 过滤器就会将当前请求的请求方式转换为
+请求参数`_method`的值，因此请求参数`_method`的值才是最终的请求方式
 
-### 文件下载
-ResponseEntity
-### 文件上传
-MultipartFile
 
-### 拦截器
+在web.xml中注册`HiddenHttpMethodFilter`
 
-### 异常处理器
+```xml
+<filter>  
+    <filter-name>CharacterEncodingFilter</filter-name>  
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>  
+    <init-param>        
+	    <param-name>encoding</param-name>  
+        <param-value>UTF-8</param-value>  
+    </init-param>    
+    <init-param>        
+	    <param-name>forceEncoding</param-name>  
+        <param-value>true</param-value>  
+    </init-param>
+</filter>  
+<filter-mapping>  
+    <filter-name>CharacterEncodingFilter</filter-name>  
+    <url-pattern>/*</url-pattern>  
+</filter-mapping>
+```
 
-### 注解配置springMVC
+在web.xml中注册时，必须先注册`CharacterEncodingFilter`，再注册`HiddenHttpMethodFilter`
+原因：
+在 CharacterEncodingFilter 中通过 `request.setCharacterEncoding(encoding) `方法设置字
+符集的`request.setCharacterEncoding(encoding)` 方法要求前面不能有任何获取请求参数的操作
+而 HiddenHttpMethodFilter 恰恰有一个获取请求方式的操作：
+`String paramValue = request.getParameter(this.methodParam);`
+
+一个典型的ssm web应用配置的web.xml文件如下
+包括***编码过滤器，请求方式过滤器，前端控制器***
+
+```xml
+<!--设置Spring的编码过滤器-->  
+<filter>  
+    <filter-name>CharacterEncodingFilter</filter-name>  
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>  
+    <init-param>        <param-name>encoding</param-name>  
+        <param-value>UTF-8</param-value>  
+    </init-param>    <init-param>        <param-name>forceEncoding</param-name>  
+        <param-value>true</param-value>  
+    </init-param></filter>  
+<filter-mapping>  
+    <filter-name>CharacterEncodingFilter</filter-name>  
+    <url-pattern>/*</url-pattern>  
+</filter-mapping>  
+  
+<!--设置处理请求方式的过滤器-->  
+<filter>  
+    <filter-name>HiddenHttpMethodFilter</filter-name>  
+    <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>  
+</filter>  
+<filter-mapping>  
+    <filter-name>HiddenHttpMethodFilter</filter-name>  
+    <url-pattern>/*</url-pattern>  
+</filter-mapping>  
+  
+<!--设置SpringMVC的前端控制器-->  
+<servlet>  
+    <servlet-name>SpringMVC</servlet-name>  
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>  
+    <init-param>        <param-name>contextConfigLocation</param-name>  
+        <param-value>classpath:springmvc.xml</param-value>  
+    </init-param>    <load-on-startup>1</load-on-startup>  
+</servlet>  
+<servlet-mapping>  
+    <servlet-name>SpringMVC</servlet-name>  
+    <url-pattern>/</url-pattern>  
+</servlet-mapping>
+```
+## RESTFul案例
+
+## 9. SpringMVC处理ajax请求
+- `@RequestBody`
+
+
+
+- `ResponseBody`
+
+`@ResponseBody`用于标识一个控制器方法，可以将该方法的返回值直接作为响应报文的响应体响应到浏览器
+
+- 9.5、`@RestController`注解
+
+`@RestController`注解是springMVC提供的一个复合注解，标识在控制器的类上，就相当于为类添加了`@Controller`注解，并且为其中的每个方法添加了`@ResponseBody`注解
+
+## 文件下载和下载
+
+- `ResponseEntity`用于控制器方法的返回值类型，该控制器方法的返回值就是响应到浏览器的响应报文使用ResponseEntity实现下载文件的功能
+
+- `MultipartFile`  文件上传要求`form`表单的请求方式必须为`post`，并且添加属性`enctype="multipart/form-data"`
+SpringMVC中将上传的文件封装到MultipartFile对象中，通过此对象可以获取文件相关信息
+
+1. 添加依赖
+```xml
+<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->	
+<dependency>
+<groupId>commons-fileupload</groupId>
+<artifactId>commons-fileupload</artifactId>
+<version>1.3.1</version>
+</dependency>
+```
+2. 在SpringMVC配置文件中添加配置
+```xml
+<!--必须通过文件解析器的解析才能将文件转换为MultipartFile对象-->
+<bean id="multipartResolver"
+class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+</bean>
+```
+3. 编写控制器方法
+
+```java
+
+/**  
+ * Date:2022/7/9 
+ * Author:ybc 
+ * Description: 
+ * ResponseEntity:可以作为控制器方法的返回值，表示响应到浏览器的完整的响应报文  
+ *  
+ * 文件上传的要求：  
+ * 1、form表单的请求方式必须为post  
+ * 2、form表单必须设置属性enctype="multipart/form-data"  
+ */
+ @Controller  
+public class FileUpAndDownController {  
+  
+    @RequestMapping("/test/up")  //上传
+    public String testUp(MultipartFile photo, HttpSession session) throws IOException {  
+        //获取上传的文件的文件名  
+        String fileName = photo.getOriginalFilename();  
+        //获取上传的文件的后缀名  
+        String hzName = fileName.substring(fileName.lastIndexOf("."));  
+        //获取uuid  
+        String uuid = UUID.randomUUID().toString();  
+        //拼接一个新的文件名  
+        fileName = uuid + hzName;  
+        //获取ServletContext对象  
+        ServletContext servletContext = session.getServletContext();  
+        //获取当前工程下photo目录的真实路径  
+        String photoPath = servletContext.getRealPath("photo");  
+        //创建photoPath所对应的File对象  
+        File file = new File(photoPath);  
+        //判断file所对应目录是否存在  
+        if(!file.exists()){  
+            file.mkdir();  
+        }  
+        String finalPath = photoPath + File.separator + fileName;  
+        //上传文件  
+        photo.transferTo(new File(finalPath));  
+        return "success";  
+    }  
+  
+    @RequestMapping("/test/down")  
+    public ResponseEntity<byte[]> testResponseEntity(HttpSession session) throws IOException {  
+        //获取ServletContext对象  
+        ServletContext servletContext = session.getServletContext();  
+        //获取服务器中文件的真实路径  
+        String realPath = servletContext.getRealPath("img");  
+        realPath = realPath + File.separator + "1.jpg";  
+        //创建输入流  
+        InputStream is = new FileInputStream(realPath);  
+        //创建字节数组，is.available()获取输入流所对应文件的字节数  
+        byte[] bytes = new byte[is.available()];  
+        //将流读到字节数组中  
+        is.read(bytes);  
+        //创建HttpHeaders对象设置响应头信息  
+        MultiValueMap<String, String> headers = new HttpHeaders();  
+        //设置要下载方式以及下载文件的名字  
+        headers.add("Content-Disposition", "attachment;filename=1.jpg");  
+        //设置响应状态码  
+        HttpStatus statusCode = HttpStatus.OK;  
+        //创建ResponseEntity对象  
+        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(bytes, headers, statusCode);  
+        //关闭输入流  
+        is.close();  
+        return responseEntity;  
+    }  
+  
+}
+```
+
+
+## 拦截器
+
+## 异常处理器
+
+SpringMVC提供了一个处理控制器方法执行过程中所出现的异常的接口：`HandlerExceptionResolver`
+
+`HandlerExceptionResolver`接口的实现类有：`DefaultHandlerExceptionResolver`和
+
+`SimpleMappingExceptionResolver`
+
+SpringMVC提供了自定义的异常处理器SimpleMappingExceptionResolver，使用方式：
+
+## 注解配置springMVC
+
+
+
+# SSM整合
