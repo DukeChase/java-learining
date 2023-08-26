@@ -3,7 +3,7 @@
 ### MyBatis introduction
 
 ### 搭建MyBatis的核心配置文件
-文件位置：`src/main/resource/mybatis_comfig.xml`    mybatis核心配置文件
+文件位置：`src/main/resource/mybatis_comfig.xml`    MyBatis核心配置文件
 
 ```xml
 <configuration> <!--设置连接数据库的环境--> 
@@ -1283,30 +1283,47 @@ class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
 处理请求的方法需要返回一个字符串类型的视图名称，该视图名称会被***视图解析器***解析，加上前缀和后缀组成视图的路径，通过Thymeleaf对视图进行渲染，最终转发到视图所对应页面
 
 ## @RequestMapping注解
-- 功能
-- 位置
-	标识一个类:设置映射请求的请求路径的初始信息
-	标识一个方法:设置映射请求请求路径的具体信息
-```java
-@Controller
-@RequestMapping("/test")
-public class RequestMappingController {
-//此时请求映射所映射的请求的请求路径为：/test/testRequestMapping
-	@RequestMapping("/testRequestMapping")
-	public String testRequestMapping(){
-	return "success";
-	}
-}
-```
-- `value`属性
-- `method`属性
-- `params`属性
-- `header`属性
-- SpringMVC支持ant风格的路径
-- SpringMVC支持路径中的占位符
+1. `@RequestMapping`注解标识的位置  
+	* `@RequestMapping`标识一个类：设置映射请求的请求路径的初始信息  
+	* `@RequestMapping`标识一个方法：设置映射请求请求路径的具体信息  
+2. `@RequestMapping`注解value属性  
+	* 作用：通过请求的请求路径匹配请求  
+	* `value`属性是数组类型，即当前浏览器所发送请求的请求路径匹配`value`属性中的任何一个值  
+	* 则当前请求就会被注解所标识的方法进行处理  
+3. `@RequestMapping`注解的`method`属性  
+	* 作用：通过请求的请求方式匹配请求  
+	* `method`属性是`RequestMethod`类型的数组，即当前浏览器所发送请求的请求方式匹配`method`属性中的任何一中请求方式  
+	* 则当前请求就会被注解所标识的方法进行处理  
+	* 若浏览器所发送的请求的请求路径和`@RequestMapping`注解`value`属性匹配，但是请求方式不匹配  
+	* 此时页面报错：`405 - Request method 'xxx' not supported`
+	* 在@RequestMapping的基础上，结合请求方式的一些派生注解：  
+	* `@GetMapping,@PostMapping,@DeleteMapping,@PutMapping ` 
+4. `@RequestMapping`注解的`params`属性  
+	* 作用：通过请求的请求参数匹配请求，即浏览器发送的请求的请求参数必须满足params属性的设置  
+	* params可以使用四种表达式：  
+	* "param"：表示当前所匹配请求的请求参数中必须携带param参数  
+	* "!param"：表示当前所匹配请求的请求参数中一定不能携带param参数  
+	* "param=value"：表示当前所匹配请求的请求参数中必须携带param参数且值必须为value  
+	* "param!=value"：表示当前所匹配请求的请求参数中可以不携带param，若携带值一定不能是value  
+	* 若浏览器所发送的请求的请求路径和@RequestMapping注解value属性匹配，但是请求参数不匹配  
+	* 此时页面报错：`400 - Parameter conditions "username" not met for actual request parameters:  `
+5. `@RequestMapping`注解的`headers`属性  
+	* 作用：通过请求的请求头信息匹配请求，即浏览器发送的请求的请求头信息必须满足headers属性的设置  
+	* 若浏览器所发送的请求的请求路径和@RequestMapping注解value属性匹配，但是请求头信息不匹配  
+	* 此时页面报错：404  
+6. SpringMVC支持ant风格的路径  
+	* 在`@RequestMapping`注解的value属性值中设置一些特殊字符  
+	* ?:任意的单个字符（不包括?）  
+	* *:任意个数的任意字符（不包括?和/）  
+	* **:任意层数的任意目录，注意使用方式只能**写在双斜线中，前后不能有任何的其他字符  
+7. @RequestMapping注解使用路径中的占位符  
+	* 传统：`/deleteUser?id=1`  
+	* rest：`/user/delete/1 ` 
+	* 需要在`@RequestMapping`注解的value属性中所设置的路径中，使用{xxx}的方式表示路径中的数据  
+	* 在通过`@PathVariable`注解，将占位符所标识的值和控制器方法的形参进行绑定
 
 ### SpringMVC获取请求参数
-- 通过ServletAPI获取
+
 - 通过控制器方法的行参获取请求参数
 - `@RequestParam`
 - `@RequsetHeader`
@@ -1318,43 +1335,61 @@ public class RequestMappingController {
 
 - 解决获取请求路径的乱码问题
 配置spring的编码过滤器
-`org.springframework.web.filter.CharacterEncondingFilter`
+``
+
+1. 通过servletAPI获取  
+	* 只需要在控制器方法的形参位置设置`HttpServletRequest`类型的形参  
+	* 就可以在控制器方法中使用request对象获取请求参数  
+2. 通过控制器方法的形参获取  
+	* 只需要在控制器方法的形参位置，设置一个形参，形参的名字和请求参数的名字一致即可  
+3. `@RequestParam`：将请求参数和控制器方法的形参绑定  
+	* @RequestParam注解的三个属性：value、required、defaultValue  
+	* `value`:设置和形参绑定的请求参数的名字  
+	* `required`:设置是否必须传输value所对应的请求参数  
+	* 默认值为true，表示value所对应的请求参数必须传输，否则页面报错：  
+	* 400 - Required String parameter 'xxx' is not present  
+	* 若设置为false，则表示value所对应的请求参数不是必须传输，若为传输，则形参值为null  
+	* `defaultValue`:设置当没有传输value所对应的请求参数时，为形参设置的默认值，此时和required属性值无关  
+4. `@RequestHeader`：将请求头信息和控制器方法的形参绑定  
+5. `@CookieValue`：将cookie数据和控制器方法的形参绑定  
+6. 通过控制器方法的实体类类型的形参获取请求参数  
+	* 需要在控制器方法的形参位置设置实体类类型的形参，要保证实体类中的属性的属性名和请求参数的名字一致  
+	* 可以通过实体类类型的形参获取请求参数  
+7. 解决获取请求此参数的乱码问题      
+	* 在web.xml中配置Spring的编码过滤器`org.springframework.web.filter.CharacterEncondingFilter`
+
 ## 域对象共享数据
-- 使用ServletAPI向request域对象共享数据
-- 使用ModelAndView向request域对象共享数据### SpringMVC的视图
-- 使用Model向request域对象共享数据
-- 使用map向request域对象共享数据
-- 使用ModelMap向request域对象共享数据
+* 向域对象共享数据：  
+1. 通过ModelAndView向请求域共享数据  
+	* 使用ModelAndView时，可以使用其Model功能向请求域共享数据  
+	* 使用View功能设置逻辑视图，但是控制器方法一定要将`ModelAndView`作为方法的返回值  
+2. 使用Model向请求域共享数据  
+3. 使用ModelMap向请求域共享数据  
+4. 使用map向请求域共享数据  
+5. Model和ModelMap和map的关系  
+	* 其实在底层中，这些类型的形参最终都是通过`BindingAwareModelMap`创建  
+	* `public class BindingAwareModelMap extends ExtendedModelMap {} ` 
+	* `public class ExtendedModelMap extends ModelMap implements Model {}`  
+	* `public class ModelMap extends LinkedHashMap<String, Object> {}`
 
 - 向`session`域共享数据
 
 ```java
 @RequestMapping("/testSession")
-
 public String testSession(HttpSession session){
-
 	session.setAttribute("testSessionScope", "hello,session");
-	
 	return "success";
-
 }
 ```
 - 向`application`域共享数据
 ```java
 @RequestMapping("/testApplication")
-
 public String testApplication(HttpSession session){
-
 	ServletContext application = session.getServletContext();
-	
 	application.setAttribute("testApplicationScope", "hello,application");
-	
 	return "success";
-
 }
 ```
-
-
 
 ## springMVC的视图
 

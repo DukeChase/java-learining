@@ -665,12 +665,11 @@ java web 概念
 JavaWeb 是指，所有通过 Java 语言编写可以通过浏览器访问的程序的总称，叫 JavaWeb。
 
 JavaWeb 是基于请求和响应来开发的。
-请求Request
-响应Response
+请求`Request`
+响应`Response`
 web服务器
 - 由 Apache 组织提供的一种 Web 服务器，提供对 jsp 和 Servlet 的支持。它是一种轻量级的 javaWeb 容器（服务器），也是当前应用最广的 JavaWeb 服务器（免费）。
 - Jboss：是一个遵从 JavaEE 规范的、开放源代码的、纯 Java 的 EJB 服务器，它支持所有的 JavaEE 规范（免费）。
-
 
 ## XML
 语法
@@ -690,7 +689,7 @@ DOM 和 sax
 ## Servlet1
 1. 什么是Servlet
 	1. Servlet 是 JavaEE 规范之一。规范就是接口
-	2. Servlet 就 JavaWeb 三大组件之一。Javaweb三大组件分别是：**Servlet程序、Filter 过滤器、Listener监听器**。 
+	2. Servlet 就 JavaWeb 三大组件之一。JavaWeb***三大组件***分别是：**Servlet程序、Filter 过滤器、Listener监听器**。 
 	3. Servlet 是运行在服务器上的一个java小程序，它可以接收客户端发送过来的请求，并响应数据给客户端。
 
 手动实现Servlet程序
@@ -743,7 +742,6 @@ DOM 和 sax
            /hello 表示地址为：http://ip:port/工程路径/hello 
         -->
         <url-pattern>/hello</url-pattern>
-
     </servlet-mapping>
 ```
 
@@ -1009,25 +1007,30 @@ jsp中有三种注释：
 		jsp注释可以注掉jsp中所有内容，在jsp翻译的时候会被完全忽略掉
 
 ### jsp九大内置对象
-`request`      请求对象，可以获取请求信息
-`response`     响应对象。可以设置响应信息
-`pageContext`  当前页面上下文对象。可以在当前上下文保存属性信息
-`session`      会话对象。可以获取会话信息。
-`exception`    异常对象只有在 jsp 页面的 page 指令中设置 `isErrorPage="true"` 的时候才会存在
-`application`  `ServletContext` 对象实例，可以获取整个工程的一些信息。
-`config`   `ServletConfig` 对象实例，可以获取 `Servlet` 的配置信息
-`out`  输出流
-`page`  表示当前 `Servlet` 对象实例（无用，用它不如使用 this 对象）。
-九大内置对象，都是我们可以在【代码脚本】中或【表达式脚本】中直接使用的对象。
 
+| 对象|作用|
+| --------|--------|
+|`request`|请求对象，可以获取请求信息|
+|`response` |    响应对象。可以设置响应信息|
+|`pageContext` | 当前页面上下文对象。可以在当前上下文保存属性信息|
+|`session`      |会话对象。可以获取会话信息。|
+|`exception` |   异常对象只有在 jsp 页面的 page 指令中设置 `isErrorPage="true"` 的时候才会存在|
+|`application`  |`ServletContext` 对象实例，可以获取整个工程的一些信息。|
+|`config` |  `ServletConfig` 对象实例，可以获取 `Servlet` 的配置信息|
+|`out`  |输出流|
+|`page`|  表示当前 `Servlet` 对象实例（无用，用它不如使用 this 对象）。|
+
+九大内置对象，都是我们可以在【代码脚本】中或【表达式脚本】中直接使用的对象。
 ### jsp四大域对象
-`pageContex(PageContextImpl类)`     当前jsp页面范围内有效
-`request(HttpServletRequest类)`     一次请求内有效
-`session(HttpSession类)`            一次会话范围内有效（打开浏览器访问服务器，知道关闭浏览器）
-`application(ServletContext类)`     整个web工程范围内都有效（只要web工程不停止，数据都在）
+| 对象|作用|
+|-----| ----|
+|`pageContex(PageContextImpl类)` |    当前jsp页面范围内有效|
+|`request(HttpServletRequest类)`   |  一次请求内有效|
+|`session(HttpSession类)` |           一次会话范围内有效（打开浏览器访问服务器，知道关闭浏览器）|
+|`application(ServletContext类)` |    整个web工程范围内都有效（只要web工程不停止，数据都在）|
 
 ### JSP常用标签
-jsp 静态包含
+- jsp 静态包含
 ```jsp
 <%--
 <%@ include file=""%> 就是静态包含
@@ -1040,7 +1043,7 @@ file 属性指定你要包含的 jsp 页面的路径
 <%@ include file="/include/footer.jsp"%>
 ```
 
-jsp动态包含
+- jsp动态包含
 ```jsp
 <%--
 <jsp:include page=""></jsp:include>

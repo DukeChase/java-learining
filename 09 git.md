@@ -10,4 +10,6 @@ git status
 
 git log
 
-git 
+git  rebase
+
+git merge
