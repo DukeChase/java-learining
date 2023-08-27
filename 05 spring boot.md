@@ -30,14 +30,17 @@ https://www.yuque.com/atguigu/springboot
 
 
 配置文件导入
-1. @ImportResource("classpath:beans.xml")
+1. `@ImportResource("classpath:beans.xml")`
 
 2. 配置绑定
+```java
 @ConfigurationProperties
 @Component
-@ConfigurationProperties(prefix="")
+@ConfigurationProperties(prefix="xxx.yml")
 public class Car{
 
+
+```
 }
 
 在配置类上
@@ -46,7 +49,7 @@ public class Car{
 
 ## 3.1、引导加载自动配置类
 
-```
+```java
 @SpringBootConfiguration
 @EnableAutoConfiguration
 @ComponentScan(excludeFilters = { @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),
