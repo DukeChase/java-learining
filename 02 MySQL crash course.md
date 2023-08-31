@@ -80,7 +80,8 @@ select * from table_name where columns  like '% love china';
 select * from table_name where regexp 'regexp_string';
 ```
 
-LIKE 和 regexp 的重要区别  LIKE 匹配整个列，regexp在列值内进行匹配  regexp可以使用^和$ 匹配整个列值
+LIKE 和 `regexp` 的重要区别  LIKE 匹配整个列，
+regexp在列值内进行匹配  regexp可以使用^和$ 匹配整个列值
 
 regexp 默认不区分大小写 ，为区分大小写，可以使用BINARY关键字   
 
@@ -90,7 +91,7 @@ select * from table_name where regexp BINARY 'regexp_string';
 
 ### 进行or匹配
 
-|为正则表达式的OR操作符，表示匹配其中之一。   'string_A|string_B|string|C'
+`|`为正则表达式的OR操作符，表示匹配其中之一。 `  'string_A|string_B|string|C'`
 
 ### 匹配几个字符之一
 
@@ -224,6 +225,7 @@ MySQL  使用yyyy-mm-dd
 
 ## chapter14 子查询
 
+
 ## chapter15 联结表
 
 ```sql
@@ -243,9 +245,10 @@ ON orders.`cust_id` = customers.`cust_id`;
 
 ## chapter17 组合查询
 
-union
+`union`
 
 ## chapter18 全文本搜索
+
 
 ## chapter19 插入数据
 
@@ -309,10 +312,10 @@ DROP TABLE IF EXISTS test;
 ```
 - 分类：
   
-  1. 主键约束：primary key
-  2. 非空约束：not null
-  3. 唯一约束：unique
-  4. 外键约束：foreign key
+  1. 主键约束：`primary key`
+  2. 非空约束：`not null`
+  3. 唯一约束：`unique`
+  4. 外键约束：`foreign key`
 
 - 非空约束：not null，值不能为null
 1. 创建表时添加约束
@@ -335,7 +338,7 @@ DROP TABLE IF EXISTS test;
    ```sql
    ALTER TABLE stu MODIFY NAME VARCHAR(20)
    ```
-- 唯一约束：`UNIQUE`，值不能重复
+- 唯一约束：`UNIQUE`，值不能重复，自增长
 
 ```sql
 CREATE TABLE customers
