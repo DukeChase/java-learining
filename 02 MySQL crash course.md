@@ -359,6 +359,13 @@ CREATE TABLE customers
 * MEMORY在功能上等同与MyISAM，但由于数据存储在内存（不是磁盘）中，速度很快（特别适合临时表）
 * MyISAM是一个性能极高的引擎，它支持全文本搜索（参见18章），但不支持事务。
 
+```mysql
+show create table tablename;  -- 显示建表语句
+
+show engines；
+
+select database ();  -- 显示当前使用的数据库
+```
 ### 更新表
 
 ```sql

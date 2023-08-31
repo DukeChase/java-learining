@@ -49,7 +49,7 @@
 |对象|记录/行|
 
  1. 映射文件的命名规则：
-	表所对应的实体类的类名+Mapper.xml
+	表所对应的`实体类的类名+Mapper.xml`
 	例如：表`t_user`，映射的实体类为`User`，所对应的映射文件为`UserMapper.xml`
 	因此一个映射文件对应一个实体类，对应一张表的操作
 	`MyBatis`映射文件用于编写SQL，访问以及操作表中的数据
@@ -57,7 +57,6 @@
 2. MyBatis中可以面向接口操作数据，要保证两个一致：
 	- mapper接口的全类名和映射文件的命名空间（namespace）保持一致
 	- mapper接口中方法的方法名和映射文件中编写SQL的标签的id属性保持一致
-
 `UserMapper.xml`
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?> 
@@ -71,9 +70,7 @@
     </insert> 
 </mapper>
 ```
-
 4. Test
-
 ```java
 //读取MyBatis的核心配置文件 
 InputStream is = Resources.getResourceAsStream("mybatis-config.xml"); 
@@ -96,8 +93,8 @@ int result = userMapper.insertUser();
 System.out.println("结果："+result);
 ```
 
-* SqlSession：代表Java程序和数据库之间的会话。（HttpSession是Java程序和浏览器之间的会话）
-* SqlSessionFactory： 是“生产”SqlSession的“工厂”
+* `SqlSession`：代表Java程序和数据库之间的会话。（HttpSession是Java程序和浏览器之间的会话）
+* `SqlSessionFactory`： 是“生产”SqlSession的“工厂”
 * 工厂模式：如果创建某一个对象，使用的过程基本固定，那么我们就可以把创建这个对象的相关代码封装到一个“工厂类”中，以后都使用这个工厂类来“生产”我们需要的对象。
 
 ### 增删改查
@@ -307,9 +304,11 @@ select * from ${tableName}
 
 ### 自定义映射resultMap
 
+
+
 ### 动态SQL
 
-- if  
+- `if`
 if标签可通过test属性的表达式进行判断，若表达式的结果为true，则标签中的内容会执行；反之标签中的内容不会执行
 ```xml
 <!--List<Emp> getEmpListByCondition(Emp emp);-->
@@ -327,7 +326,7 @@ if标签可通过test属性的表达式进行判断，若表达式的结果为tr
 	</if>
 </select>
 ```
-- where  
+- `where`  
 where和if一般结合使用：  
 a>若where标签中的if条件都不满足，则where标签没有任何功能，即不会添加where关键字  
 b>若where标签中的if条件满足，则where标签会自动添加where关键字，并将条件最前方多余的and去掉
@@ -349,7 +348,7 @@ b>若where标签中的if条件满足，则where标签会自动添加where关键�
 	</where>
 </select>
 ```
-- trim  
+- `trim`  
 trim用于去掉或添加标签中的内容 
 常用属性：
 prefix：在trim标签中的内容的前面添加某些内容
@@ -372,7 +371,7 @@ suffixOverrides：在trim标签中的内容的后面去掉某些内容
 	</trim>
 </select>
 ```
-- choose when otherwise
+- `choose when otherwise`
 choose、when、 otherwise相当于if...else if..else
 ```xml
 <!--List<Emp> getEmpListByChoose(Emp emp);-->
@@ -396,7 +395,7 @@ choose、when、 otherwise相当于if...else if..else
 	</where>
 </select>
 ```
-- foreach
+- `foreach`
 ```xml
 <!--int insertMoreEmp(List<Emp> emps);-->
 <insert id="insertMoreEmp">
@@ -420,7 +419,7 @@ choose、when、 otherwise相当于if...else if..else
 	</foreach>
 </delete>
 ```
-SQL片段
+- `SQL片段`
 sql片段，可以记录一段公共sql片段，在使用的地方通过include标签进行引入
 ```xml
 <sql id="empColumns">
@@ -430,6 +429,9 @@ select <include refid="empColumns"></include> from t_emp
 ```
 ### 缓存
 
+
+
+
 ### 逆向工程
 正向工程：先创建Java实体类，由框架负责根据实体类生成数据库表。 Hibernate是支持正向工程的。
 逆向工程：先创建数据库表，由框架负责根据数据库表，反向生成如下资源：
@@ -437,6 +439,9 @@ select <include refid="empColumns"></include> from t_emp
 - Mapper接口
 - Mapper映射文件
 ### 分页插件
+
+
+
 
 # Spring
 
