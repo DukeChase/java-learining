@@ -9,13 +9,13 @@ installation
 
 ## SQL分类
 
-1. DDL(Data Definition Language)数据定义语言
+1. `DDL(Data Definition Language)`数据定义语言
    * 用来定义数据库对象：数据库，表，列等。关键字：`CREATE`, `DROP`,`ALTER` 等
-2. DML(Data Manipulation Language)数据操作语言
+2. `DML(Data Manipulation Language)`数据操作语言
    * 用来对数据库中表的数据进行增删改。关键字：`INSERT`, `DELETE`, `UPDATE` 等
-3. DQL(Data Query Language)数据查询语言
+3. `DQL(Data Query Language)`数据查询语言
    * 用来查询数据库中表的记录(数据)。关键字：`SELECT`, `WHERE` 等
-4. DCL(Data Control Language)数据控制语言(了解)
+4. `DCL(Data Control Language)`数据控制语言(了解)
    * 用来定义数据库的访问权限和安全级别，及创建用户。关键字：`GRANT`， `REVOKE` 等
 
 
@@ -80,10 +80,10 @@ select * from table_name where columns  like '% love china';
 select * from table_name where regexp 'regexp_string';
 ```
 
-LIKE 和 `regexp` 的重要区别  LIKE 匹配整个列，
-regexp在列值内进行匹配  regexp可以使用^和$ 匹配整个列值
+`LIKE `和 `regexp` 的重要区别  `LIKE` 匹配整个列，
+`regexp`在列值内进行匹配  `regexp`可以使用`^`和`$` 匹配整个列值
 
-regexp 默认不区分大小写 ，为区分大小写，可以使用BINARY关键字   
+regexp 默认不区分大小写 ，为区分大小写，可以使用`BINARY`关键字   
 
 ```sql
 select * from table_name where regexp BINARY 'regexp_string';
@@ -180,7 +180,7 @@ ORDER BY vend_name;
 |Time()||
 |Year()||
 
-MySQL  使用yyyy-mm-dd
+MySQL  使用`yyyy-mm-dd`
 
 ### 数值处理函数
 |函数|说明 |
@@ -340,6 +340,8 @@ DROP TABLE IF EXISTS test;
    ```
 - 唯一约束：`UNIQUE`，值不能重复，自增长
 
+select last_insert_id()
+### 创建表
 ```sql
 CREATE TABLE customers
 (
@@ -358,9 +360,9 @@ CREATE TABLE customers
 
 ### 引擎类型
 
-* InnoDB是一个可靠的事务处理引擎，它不支持全文本搜索
-* MEMORY在功能上等同与MyISAM，但由于数据存储在内存（不是磁盘）中，速度很快（特别适合临时表）
-* MyISAM是一个性能极高的引擎，它支持全文本搜索（参见18章），但不支持事务。
+* `InnoDB`是一个可靠的事务处理引擎，它不支持全文本搜索
+* `MEMORY`在功能上等同与MyISAM，但由于数据存储在内存（不是磁盘）中，速度很快（特别适合临时表）
+* `MyISAM`是一个性能极高的引擎，它支持全文本搜索（参见18章），但不支持事务。
 
 ```mysql
 show create table tablename;  -- 显示建表语句
@@ -370,11 +372,11 @@ show engines；
 select database ();  -- 显示当前使用的数据库
 ```
 ### 更新表
-
+- 更新表定义使用ALTER TABLE
 ```sql
 -- 增加列
 ALTER TABLE vendors
-ADD vend_phone CHAR(50);
+ADD vend_phone CHAR(20);
 
 -- 删除列
 ALTER TABLE vendors
@@ -383,7 +385,7 @@ DROP COLUMNS vend_phone;
 
 ### 删除表
 
-删除整个表
+- 删除整个表
 
 ```sql
 DROP TABLE customers2;
@@ -397,6 +399,106 @@ DROP TABLE IF EXISTS customes2;
 RENAME TABLE customers2 TO customers;
 ```
 
+## chapter22 使用视图
+### 视图
+
+为什么使用视图
+- 重用SQL语句
+- 简化复杂的SQL操作
+- 使用表的组成部分而不是整个表
+- 保护数据
+- 更改数据格式和表示
+
+### 使用视图
+```sql
+CREATE VIEW viewname;
+
+SHOW CREATE VIEW viewname;
+
+DROP VIEW viewname;
+
+-- forehead
+
+SELECT cust_name, cust_contact
+  FROM customers, orders, orderitems
+  WHERE customers.cust_id = orders.cust_id
+    AND orders.order_num = orderitems.order_num
+    AND prod_id = 'TNT2';
+
+-- create view
+
+CREATE VIEW prodcust AS
+  SELECT cust_name, cust_contact, prod_id
+  FROM customers, orders, orderitems
+  WHERE customers.cust_id = orders.cust_id
+    AND orders.order_num = orderitems.order_num;
+
+SELECT cust_name, cust_contact
+  FROM prodcust
+  WHERE prod_id = 'TNT2';
+
+-- formatting field using views
+
+CREATE VIEW vendorlocations AS
+  SELECT Concat(RTrim(vend_name), ' (', Trim(vend_country) ,')') AS vend_title
+    FROM vendors
+    ORDER BY vend_name;
+SELECT * FROM vendorlocations;
+
+-- filtering data
+CREATE VIEW custemaillist AS
+  SELECT cust_id, cust_email
+    FROM customers
+    WHERE cust_email IS NOT NULL;
+
+-- calculate field
+CREATE VIEW orderitemsexpanded AS
+  SELECT order_num
+         prod_id,
+         quantity,
+         item_price,
+         quantity*item_price AS expanded_price
+
+    FROM orderitems;
+```
+
+一般来说，视图应用于检索(SELECT)，而不用于更新(INSERT,UPDATE,DELETE)
+
+## chapter23存储过程
+
+## chapter24 游标
+
+## chapter25 触发器
+
+触发器是MySQL响应以下任意语句而自动执行的一条MySQL语句
+- `DELETE`
+- `INSTERT`
+- `UPDATE`
+
+### 创建触发器
+- 唯一的触发器名
+- 触发器关联的表
+- 触发器应该响应的活动
+- 触发器何时执行
+```sql
+-- NOTES: trigger only for table, not views
+
+CREATE TRIGGER neworder AFTER INSERT ON orders
+  FOR EACH ROW SET @msg = (SELECT NEW.order_num);
+
+
+INSERT INTO orders(order_date, cust_id)
+  VALUES(Now(), 10001);
+SELECT @msg;
+
+CREATE TRIGGER updatevendor BEFORE UPDATE ON vendors
+  FOR EACH ROW SET NEW.vend_state = Upper(NEW.vend_state);
+```
+
+### 删除触发器
+```sql
+DROP TRIGGER triggername;
+```
 ## chaper26 管理事务处理
 
 * 事务的四大特征：
